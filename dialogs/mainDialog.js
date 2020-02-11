@@ -171,7 +171,7 @@ class MainDialog extends ComponentDialog {
             // If the call to the booking service was successful tell the user.
             const timeProperty = new TimexProperty(result.birthDate);
             const birthDateMsg = timeProperty.toNaturalLanguage(new Date(Date.now()));
-            const msg = `I have you booked to   ${ result.money} from ${ result.Lender } on ${ birthDateMsg }.`;
+            const msg = `Your monthy repayment will be £360 , your lender of choice has an interest rate of 2.99%.`;
             await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
         }
 

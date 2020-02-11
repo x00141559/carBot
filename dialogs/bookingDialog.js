@@ -3,24 +3,27 @@
 
 const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
 const { InputHints, MessageFactory } = require('botbuilder');
-const { ConfirmPrompt, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
+const { ConfirmPrompt, TextPrompt, WaterfallDialog,ChoiceFactory,ChoicePrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { DateResolverDialog } = require('./dateResolverDialog');
-
+const CHOICE_PROMPT = 'choicePrompt';
 const CONFIRM_PROMPT = 'confirmPrompt';
 const DATE_RESOLVER_DIALOG = 'dateResolverDialog';
 const TEXT_PROMPT = 'textPrompt';
 const WATERFALL_DIALOG = 'waterfallDialog';
 
+//const CHOICE_PROMPT = 'CHOICE_PROMPT';
 class BookingDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || 'bookingDialog');
-
+        
         this.addDialog(new TextPrompt(TEXT_PROMPT))
             .addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
             .addDialog(new DateResolverDialog(DATE_RESOLVER_DIALOG))
+            .addDialog(new ChoicePrompt(CHOICE_PROMPT))
             .addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
                 this.amountStep.bind(this),
+                this.termStep.bind(this),
                 this.lenderTypeStep.bind(this),
                 this.birthDateStep.bind(this),
                 this.confirmStep.bind(this),
@@ -43,6 +46,19 @@ class BookingDialog extends CancelAndHelpDialog {
         }
         return await stepContext.next(bookingDetails.amount);
     }
+    async termStep(stepContext) {
+        const bookingDetails = stepContext.options;
+        bookingDetails.amount = stepContext.result;
+        if (!bookingDetails.term) {
+        // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
+        // Running a prompt here means the next WaterfallStep will be run when the user's response is received.
+        return await stepContext.prompt(CHOICE_PROMPT, {
+            prompt: 'Please enter your loan term in years.',
+            choices: ChoiceFactory.toChoices(['1', '2', '3','4','5','6'])
+        });
+    }
+    return await stepContext.next(bookingDetails.term);
+    }
 
     /**
      * If an origin city has not been provided, prompt for one.
@@ -51,7 +67,7 @@ class BookingDialog extends CancelAndHelpDialog {
         const bookingDetails = stepContext.options;
 
         // Capture the response to the previous step's prompt
-        bookingDetails.amount = stepContext.result;
+        bookingDetails.term = stepContext.result;
         if (!bookingDetails.lenderType) {
             const messageText = 'From what type of lender would you like a loan?';
             const msg = MessageFactory.text(messageText, 'From what type of lender would you like a loan?', InputHints.ExpectingInput);
@@ -85,9 +101,9 @@ class BookingDialog extends CancelAndHelpDialog {
         bookingDetails.birthDate = stepContext.result;
         const messageText = `Please confirm, I have you a loan for ${ bookingDetails.amount} from: ${ bookingDetails.lenderType } your birth date is: ${ bookingDetails.birthDate }. Is this correct?`;
         const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-
         // Offer a YES/NO prompt.
         return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
+        
     }
 
     /**
@@ -96,6 +112,8 @@ class BookingDialog extends CancelAndHelpDialog {
     async finalStep(stepContext) {
         if (stepContext.result === true) {
             const bookingDetails = stepContext.options;
+           
+      
             return await stepContext.endDialog(bookingDetails);
         }
         return await stepContext.endDialog();
@@ -105,6 +123,19 @@ class BookingDialog extends CancelAndHelpDialog {
         const timexPropery = new TimexProperty(timex);
         return !timexPropery.types.has('definite');
     }
+}
+function calcLoanAmount(term,amount)
+{
+    let divisor = term*12;
+    let APR = 2.74;
+    let APRi= APR/divisor;
+    const discount1 = ( [(1 + APRi) ^(term*12)] - 1);
+    const discount2 = (APRi * [ (APRi + 1)^(term*12)]);
+    const discount3 = discount1 / discount2;
+    const monthlyRepayment = amount/discount3;
+
+  return `${monthlyRepayment.toFixed(2)}`
+    
 }
 
 module.exports.BookingDialog = BookingDialog;
