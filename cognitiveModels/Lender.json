@@ -1,0 +1,239 @@
+{
+    "luis_schema_version": "3.2.0",
+    "versionId": "0.1",
+    "name": "GetLoan",
+    "desc": "Luis Model for CoreBot",
+    "culture": "en-us",
+    "tokenizerVersion": "1.0.0",
+    "intents": [
+      {
+        "name": "GetLoan"
+      },
+      {
+        "name": "Cancel"
+      },
+      {
+        "name": "None"
+      }
+    ],
+    "entities": [],
+    "composites": [
+      {
+        "name": "From",
+        "children": [
+          "Lender"
+        ],
+        "roles": []
+      },
+      {
+        "name": "For",
+        "children": [
+          "Money"
+        ],
+        "roles": []
+      }
+    ],
+    "closedLists": [
+      {
+        "name": "Lender",
+        "subLists": [
+           [{
+                "canonicalForm": "Credit Union",
+                "list": [
+                    "CU",
+                    "Credit Union"
+                ]
+            }],
+            [{
+                "canonicalForm": "Bank",
+                "list": [
+                    "Bank of America",
+                    "AIB",
+                    "Bank of Ireland"
+                ]
+            }],
+           [{
+                "canonicalForm": "Building Socciety",
+                "list": [
+                    "Permanent TSB",
+                    "PTSB"
+                  
+                ]
+            }],
+            [{
+                "canonicalForm": "Post Office",
+                "list": [
+                    "An Post",
+                    "Post Office"
+                  
+                ]
+            }]
+        ],
+        "roles": []
+      }
+    ],
+    "patternAnyEntities": [],
+    "regex_entities": [],
+    "prebuiltEntities": [
+      {
+        "name": "datetimeV2",
+        "roles": []
+      }
+    ],
+    "model_features": [],
+    "regex_features": [],
+    "patterns": [],
+    "utterances": [
+      {
+        "text": "apply for loan",
+        "intent": "GetLoan",
+        "entities": []
+      },
+      {
+        "text": "apply for a loan from AIB",
+        "intent": "GetLoan",
+        "entities": [
+          {
+            "entity": "From",
+            "startPos": 23,
+            "endPos": 25
+          }
+        ]
+      },
+      {
+        "text": "Get loan from the Credit Union",
+        "intent": "GetLoan",
+        "entities": [
+          {
+            "entity": "From",
+            "startPos": 19,
+            "endPos": 30
+          }
+        ]
+      },
+      {
+        "text": "book a hotel in new york",
+        "intent": "None",
+        "entities": []
+      },
+      {
+        "text": "book a restaurant",
+        "intent": "None",
+        "entities": []
+      },
+      {
+        "text": "apply for a loan from PTSB for $1000, my dob is 20/01/92",
+        "intent": "GetLoan",
+        "entities": [
+          {
+            "entity": "From",
+            "startPos": 23,
+            "endPos": 26
+          },
+          {
+            "entity": "For",
+            "startPos": 32,
+            "endPos": 36
+          }
+        ]
+      },
+      {
+        "text": "apply for $10000",
+        "intent": "GetLoan",
+        "entities": [
+          {
+            "entity": "For",
+            "startPos": 11,
+            "endPos": 16
+          }
+        ]
+      },
+      {
+        "text": "apply for $700 from Bank Of America",
+        "intent": "GetLoan",
+        "entities": [
+          {
+            "entity": "From",
+            "startPos": 21,
+            "endPos": 35
+          },
+          {
+            "entity": "For",
+            "startPos": 11,
+            "endPos": 14
+          }
+        ]
+      },
+      {
+        "text": "bye",
+        "intent": "Cancel",
+        "entities": []
+      },
+      {
+        "text": "cancel booking",
+        "intent": "Cancel",
+        "entities": []
+      },
+      {
+        "text": "exit",
+        "intent": "Cancel",
+        "entities": []
+      },
+      {
+        "text": "find an airport near me",
+        "intent": "None",
+        "entities": []
+      },
+      {
+        "text": "loan for $2000",
+        "intent": "GetLoan",
+        "entities": [
+          {
+            "entity": "For",
+            "startPos": 10,
+            "endPos": 14
+          }
+        ]
+      }
+      {
+        "text": "i'd like to rent a car",
+        "intent": "None",
+        "entities": []
+      },
+      {
+        "text": "ignore",
+        "intent": "Cancel",
+        "entities": []
+      },
+      {
+        "text": "loan from bank for $2000",
+        "intent": "GetLoan",
+        "entities": [
+          {
+            "entity": "From",
+            "startPos": 11,
+            "endPos": 14
+          },
+          {
+            "entity": "For",
+            "startPos": 21,
+            "endPos": 24
+          }
+        ]
+      },
+      
+      {
+        "text": "apply for £200",
+        "intent": "GetLoan",
+        "entities": [
+          {
+            "entity": "For",
+            "startPos": 11,
+            "endPos": 14
+          }
+        ]
+      }
+        
+    ],
+    "settings": []
+  }

@@ -1,0 +1,174 @@
+{
+  "luis_schema_version": "4.0.0",
+  "versionId": "0.1",
+  "name": "GetLoan",
+  "desc": "Loan Calculator",
+  "culture": "en-us",
+  "tokenizerVersion": "1.0.0",
+  "intents": [
+    {
+      "name": "Cancel"
+    },
+    {
+      "name": "GetLoan"
+    },
+    {
+      "name": "None"
+    }
+  ],
+  "entities": [],
+  "composites": [
+    {
+      "name": "For",
+      "children": [
+        "money"
+      ],
+      "roles": []
+    },
+    {
+      "name": "From",
+      "children": [
+        "Lender"
+      ],
+      "roles": []
+    }
+  ],
+  "closedLists": [
+    {
+      "name": "Lender",
+      "subLists": [
+        {
+          "canonicalForm": "Credit Union",
+          "list": [
+            "CU"
+          ]
+        },
+        {
+          "canonicalForm": "Bank",
+          "list": [
+            "Bank of America",
+            "AIB",
+            "Bank of Ireland"
+          ]
+        },
+        {
+          "canonicalForm": "Building Socciety",
+          "list": [
+            "Permanent TSB",
+            "PTSB"
+          ]
+        },
+        {
+          "canonicalForm": "Post Office",
+          "list": [
+            "An Post"
+          ]
+        }
+      ],
+      "roles": []
+    }
+  ],
+  "patternAnyEntities": [],
+  "regex_entities": [],
+  "prebuiltEntities": [
+    {
+      "name": "datetimeV2",
+      "roles": []
+    },
+    {
+      "name": "money",
+      "roles": []
+    }
+  ],
+  "model_features": [],
+  "regex_features": [],
+  "patterns": [],
+  "utterances": [
+    {
+      "text": "a loan from bank of ireland for $2000 06/06/98",
+      "intent": "GetLoan",
+      "entities": []
+    },
+    {
+      "text": "apply for $29292",
+      "intent": "GetLoan",
+      "entities": []
+    },
+    {
+      "text": "apply for bank loan",
+      "intent": "GetLoan",
+      "entities": []
+    },
+    {
+      "text": "apply for loan from a bank for £9000",
+      "intent": "GetLoan",
+      "entities": []
+    },
+    {
+      "text": "apply for loan from bank",
+      "intent": "GetLoan",
+      "entities": []
+    },
+    {
+      "text": "apply for loan from permanent tsb for £4000, my date of birth is 02/02/95",
+      "intent": "GetLoan",
+      "entities": []
+    },
+    {
+      "text": "bye",
+      "intent": "Cancel",
+      "entities": []
+    },
+    {
+      "text": "can i get a loan",
+      "intent": "GetLoan",
+      "entities": []
+    },
+    {
+      "text": "cancel application",
+      "intent": "Cancel",
+      "entities": []
+    },
+    {
+      "text": "exit",
+      "intent": "Cancel",
+      "entities": []
+    },
+    {
+      "text": "get a loan from aib for £1000",
+      "intent": "GetLoan",
+      "entities": []
+    },
+    {
+      "text": "get a loan from credit union",
+      "intent": "GetLoan",
+      "entities": []
+    },
+    {
+      "text": "get loan from aib for $3000, 03/01/97",
+      "intent": "GetLoan",
+      "entities": []
+    },
+    {
+      "text": "get me a loan for £500 from the bank",
+      "intent": "GetLoan",
+      "entities": []
+    },
+    {
+      "text": "ignore",
+      "intent": "Cancel",
+      "entities": []
+    },
+    {
+      "text": "loan for $2000, 04/04/97",
+      "intent": "GetLoan",
+      "entities": []
+    },
+    {
+      "text": "loan from bank of america for $333",
+      "intent": "GetLoan",
+      "entities": []
+    }
+  ],
+  "settings": []
+}

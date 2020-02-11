@@ -1,0 +1,51 @@
+Label	Weight	Text
+l_GetLoan	1	a loan from bank of ireland for $2000 06/06/98
+l_GetLoan	1	get a loan from aib for £1000
+l_GetLoan	1	get a loan from credit union
+l_GetLoan	1	apply for bank loan
+l_GetLoan	1	can i get a loan
+l_GetLoan	1	apply for loan from a bank for £9000
+l_GetLoan	1	apply for loan from permanent tsb for £4000, my date of birth is 02/02/95
+l_GetLoan	1	get loan from aib for $3000, 03/01/97
+l_GetLoan	1	apply for $29292
+l_GetLoan	1	bye
+l_GetLoan	1	exit
+l_GetLoan	1	ignore
+l_GetLoan	1	loan from bank of america for $333
+l_GetLoan	1	loan for $2000, 04/04/97
+q_sample-qna	1	Can I refinance my auto loan if the payoff balance on my current loan is more than my vehicle's current value? , closed
+q_sample-qna	1	Purchasing from an approved independent dealer , closed
+q_sample-qna	1	When can you buy out your lease? , closed
+q_sample-qna	1	Purchasing from a franchise dealer , closed
+q_sample-qna	1	If I can get special rate financing at the dealership, why would I finance my car with Bank of America? , closed
+q_sample-qna	1	Purchasing through a private party , closed
+q_sample-qna	1	Can I get approved for an auto loan before I pick out my car? , closed
+q_sample-qna	1	How do I sign up for Bank of America's Online Banking? , closed
+q_sample-qna	1	I closed on my loan with Bank of America; what happens next? , closed
+q_sample-qna	1	Who is eligible to apply for an auto loan? , closed
+q_sample-qna	1	Where can I get the payoff amount for my auto loan in Online Banking? , closed
+q_sample-qna	1	How soon will I know if my auto loan application has been approved? , closed
+q_sample-qna	1	How can I pay off my loan? , closed
+q_sample-qna	1	What are the benefits of buying out your lease? , closed
+q_sample-qna	1	How is simple interest calculated? , closed
+q_sample-qna	1	Do you offer car loans in all 50 states? , closed
+q_sample-qna	1	What type of information do you collect when I apply for an auto loan? , closed
+q_sample-qna	1	How can I get a letter showing the interest I paid last year? , closed
+q_sample-qna	1	What options do I have for making payments to my auto loan? , closed
+q_sample-qna	1	How do I check the status of my auto loan application? , closed
+q_sample-qna	1	If I'm approved, how long is my loan offer good for? , closed
+q_sample-qna	1	Is my loan assumable by another party? , closed
+q_sample-qna	1	How can I sign up for automatic payments to my auto loan? , closed
+q_sample-qna	1	Can I see current and past auto loan statements online? , closed
+q_sample-qna	1	How do I access a saved loan application? , closed
+q_sample-qna	1	Purchasing through the online car shopping process , closed
+q_sample-qna	1	Does Bank of America charge a fee to apply for an auto loan? , closed
+q_sample-qna	1	What qualifies a vehicle for a new vs. used auto loan rate? , closed
+q_sample-qna	1	What types of car loans do you offer? , closed
+q_sample-qna	1	Can I refinance my existing auto loan through Bank of America? , closed
+q_sample-qna	1	Are there any types of vehicles Bank of America does not finance? , closed
+q_sample-qna	1	If I get an auto loan from Bank of America, can I use it to buy a car from anyone? , closed
+q_sample-qna	1	What are the benefits of refinancing? , closed
+q_sample-qna	1	How do I apply for an auto loan? , closed
+q_sample-qna	1	How do I email Bank of America with a question about my auto loan? , closed
+q_sample-qna	1	What should I do if I've frozen my credit? , closed

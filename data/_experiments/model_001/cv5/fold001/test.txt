@@ -1,0 +1,13 @@
+Label	Weight	Text
+l_GetLoan	1	apply for bank loan
+l_GetLoan	1	can i get a loan
+l_GetLoan	1	apply for loan from a bank for £9000
+q_sample-qna	1	Who is eligible to apply for an auto loan? , closed
+q_sample-qna	1	Where can I get the payoff amount for my auto loan in Online Banking? , closed
+q_sample-qna	1	How soon will I know if my auto loan application has been approved? , closed
+q_sample-qna	1	How can I pay off my loan? , closed
+q_sample-qna	1	What are the benefits of buying out your lease? , closed
+q_sample-qna	1	How is simple interest calculated? , closed
+q_sample-qna	1	Do you offer car loans in all 50 states? , closed
+q_sample-qna	1	What type of information do you collect when I apply for an auto loan? , closed
+q_sample-qna	1	How can I get a letter showing the interest I paid last year? , closed

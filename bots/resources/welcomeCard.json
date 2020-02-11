@@ -1,0 +1,39 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "Image",
+      "url": "https://ia800702.us.archive.org/21/items/nurjaisanjaya_gmail_Car/1.jpg",
+      "size": "stretch",
+      "height": "400px",
+      "width": "650px"
+    },
+    {
+      "type": "TextBlock",
+      "spacing": "medium",
+      "size": "default",
+      "weight": "bolder",
+      "text": "Welcome to Auto Loans!",
+      "wrap": true,
+      "maxLines": 0
+    },
+    {
+      "type": "TextBlock",
+      "size": "default",
+      "isSubtle": true,
+      "text": "Here you can ask us questions about auto loans, or start the application process with a quote.",
+      "wrap": true,
+      "maxLines": 0
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Shop for Cars",
+      "url": "https://www.carzone.ie/"
+    }
+
+  ]
+}

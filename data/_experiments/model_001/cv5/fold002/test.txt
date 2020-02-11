@@ -1,0 +1,13 @@
+Label	Weight	Text
+l_GetLoan	1	cancel application
+l_GetLoan	1	apply for loan from bank
+l_GetLoan	1	get me a loan for £500 from the bank
+q_sample-qna	1	Buying out your lease , closed
+q_sample-qna	1	What is a lease buyout? , closed
+q_sample-qna	1	Are there any specific terms and conditions I should be aware of before applying for an auto loan? , closed
+q_sample-qna	1	Once I pay off my loan in full, how long will it take for me to receive proof that the loan is closed and get my title? , closed
+q_sample-qna	1	What is the online car shopping process? , closed
+q_sample-qna	1	If I decide to pay my auto loan off early, is there a prepayment penalty? , closed
+q_sample-qna	1	Refinancing an existing car loan , closed
+q_sample-qna	1	When will I receive the first monthly statement for my auto loan? , closed
+q_sample-qna	1	What is the auto loan benefit for Preferred Rewards members? , closed

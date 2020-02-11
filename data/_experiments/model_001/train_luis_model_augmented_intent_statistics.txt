@@ -1,0 +1,4 @@
+No	Intent	Utterance Count	Utterance Average Length	Utterance Maximum Length	Utterance Minimum Length	Utterance Length StdDev
+0	l_GetLoan	17	26.41176	73	3	17.2085
+1	q_sample-qna	45	63.86667	128	30	22.0934
+ 	__ALL__	62	53.59677	128	3	26.71186

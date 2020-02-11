@@ -1,0 +1,13 @@
+Label	Weight	Text
+l_GetLoan	1	a loan from bank of ireland for $2000 06/06/98
+l_GetLoan	1	get a loan from aib for £1000
+l_GetLoan	1	get a loan from credit union
+q_sample-qna	1	Can I refinance my auto loan if the payoff balance on my current loan is more than my vehicle's current value? , closed
+q_sample-qna	1	Purchasing from an approved independent dealer , closed
+q_sample-qna	1	When can you buy out your lease? , closed
+q_sample-qna	1	Purchasing from a franchise dealer , closed
+q_sample-qna	1	If I can get special rate financing at the dealership, why would I finance my car with Bank of America? , closed
+q_sample-qna	1	Purchasing through a private party , closed
+q_sample-qna	1	Can I get approved for an auto loan before I pick out my car? , closed
+q_sample-qna	1	How do I sign up for Bank of America's Online Banking? , closed
+q_sample-qna	1	I closed on my loan with Bank of America; what happens next? , closed

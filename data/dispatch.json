@@ -1,0 +1,32 @@
+{
+  "luis_schema_version": "4.0.0",
+  "intents": [
+    {
+      "name": "q_sample-qna"
+    },
+    {
+      "name": "l_GetLoan"
+    }
+  ],
+  "entities": [],
+  "composites": [],
+  "closedLists": [],
+  "prebuiltEntities": [],
+  "utterances": [],
+  "versionId": "Dispatch",
+  "name": "dispatch",
+  "desc": "Dispatch model for dispatch",
+  "culture": "en-us",
+  "tokenizerVersion": "1.0.0",
+  "patternAnyEntities": [],
+  "regex_entities": [],
+  "model_features": [],
+  "regex_features": [],
+  "patterns": [],
+  "settings": [
+    {
+      "name": "NormalizeDiacritics",
+      "value": "true"
+    }
+  ]
+}
