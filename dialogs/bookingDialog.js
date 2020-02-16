@@ -28,6 +28,7 @@ class BookingDialog extends CancelAndHelpDialog {
                 this.birthDateStep.bind(this),
                 this.confirmStep.bind(this),
                 this.finalStep.bind(this)
+                
             ]));
 
         this.initialDialogId = WATERFALL_DIALOG;
@@ -52,11 +53,15 @@ class BookingDialog extends CancelAndHelpDialog {
         if (!bookingDetails.term) {
         // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
         // Running a prompt here means the next WaterfallStep will be run when the user's response is received.
-        return await stepContext.prompt(CHOICE_PROMPT, {
-            prompt: 'Please enter your loan term in years.',
-            choices: ChoiceFactory.toChoices(['1', '2', '3','4','5','6'])
-        });
+        // return await stepContext.prompt(CHOICE_PROMPT, {
+        //     prompt: 'Please enter your loan term in years.',
+        //     choices: ChoiceFactory.toChoices(['1', '2', '3','4','5','6'])
+        const messageText = 'How long would you like the term (1-6)';
+        const msg = MessageFactory.text(messageText, 'How long would you like the term (1-6)', InputHints.ExpectingInput);
+        return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+    
     }
+
     return await stepContext.next(bookingDetails.term);
     }
 
@@ -105,15 +110,22 @@ class BookingDialog extends CancelAndHelpDialog {
         return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
         
     }
+   
 
     /**
      * Complete the interaction and end the dialog.
      */
     async finalStep(stepContext) {
+ 
         if (stepContext.result === true) {
             const bookingDetails = stepContext.options;
+            
+            console.log(calcLoanAmount(`${bookingDetails.term}`,`${bookingDetails.amount}`));
            
-      
+            const messageText = `Your Monthly payment would be: ${calcLoanAmount(`${bookingDetails.term}`,`${bookingDetails.amount}`)} , do you wish to have an advisor contact you in relation to this quote? `;
+            const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
+            // Offer a YES/NO prompt.
+            return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
             return await stepContext.endDialog(bookingDetails);
         }
         return await stepContext.endDialog();
@@ -123,16 +135,17 @@ class BookingDialog extends CancelAndHelpDialog {
         const timexPropery = new TimexProperty(timex);
         return !timexPropery.types.has('definite');
     }
+   
 }
-function calcLoanAmount(term,amount)
+function calcLoanAmount(loanTerm,loanAmount)
 {
-    let divisor = term*12;
+    let divisor = loanTerm*12;
     let APR = 2.74;
     let APRi= APR/divisor;
-    const discount1 = ( [(1 + APRi) ^(term*12)] - 1);
-    const discount2 = (APRi * [ (APRi + 1)^(term*12)]);
+    const discount1 = ( [(1 + APRi) ^(loanTerm*12)] - 1);
+    const discount2 = (APRi * [ (APRi + 1)^(loanTerm*12)]);
     const discount3 = discount1 / discount2;
-    const monthlyRepayment = amount/discount3;
+    const monthlyRepayment = loanAmount/discount3;
 
   return `${monthlyRepayment.toFixed(2)}`
     

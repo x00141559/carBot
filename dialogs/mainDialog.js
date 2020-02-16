@@ -170,8 +170,8 @@ class MainDialog extends ComponentDialog {
 
             // If the call to the booking service was successful tell the user.
             const timeProperty = new TimexProperty(result.birthDate);
-            const birthDateMsg = timeProperty.toNaturalLanguage(new Date(Date.now()));
-            const msg = `Your monthy repayment will be £360 , your lender of choice has an interest rate of 2.99%.`;
+           const birthDateMsg = timeProperty.toNaturalLanguage(new Date(Date.now()));
+           const msg = ``;
             await stepContext.context.sendActivity(msg, msg, InputHints.IgnoringInput);
         }
 
@@ -180,5 +180,6 @@ class MainDialog extends ComponentDialog {
     }
     
 }
+
 
 module.exports.MainDialog = MainDialog;
