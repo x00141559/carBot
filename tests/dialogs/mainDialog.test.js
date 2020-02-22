@@ -15,7 +15,7 @@ const assert = require('assert');
  * A mock FlightBookingRecognizer for our main dialog tests that takes
  * a mock luis result and can set as isConfigured === false.
  */
-class MockFlightBookingRecognizer extends FlightBookingRecognizer {
+class MockLoanRecognizer extends LoanRecognizer {
     constructor(isConfigured, mockResult) {
         super(isConfigured);
         this.isLuisConfigured = isConfigured;
@@ -41,9 +41,9 @@ class MockBookingDialog extends BookingDialog {
 
     async beginDialog(dc, options) {
         const bookingDetails = {
-            origin: 'New York',
-            destination: 'Seattle',
-            travelDate: '2025-07-08'
+            lender: 'New York',
+            amount: 'Seattle',
+            bithDate: '2025-07-08'
         };
         await dc.context.sendActivity(`${ this.id } mock invoked`);
         return await dc.endDialog(bookingDetails);

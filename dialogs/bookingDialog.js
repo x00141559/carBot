@@ -139,15 +139,16 @@ class BookingDialog extends CancelAndHelpDialog {
 }
 function calcLoanAmount(loanTerm,loanAmount)
 {
-    let divisor = loanTerm*12;
-    let APR = 2.74;
-    let APRi= APR/divisor;
-    const discount1 = ( [(1 + APRi) ^(loanTerm*12)] - 1);
-    const discount2 = (APRi * [ (APRi + 1)^(loanTerm*12)]);
-    const discount3 = discount1 / discount2;
-    const monthlyRepayment = loanAmount/discount3;
-
-  return `${monthlyRepayment.toFixed(2)}`
+   // https://www.ifsautoloans.com/blog/car-loan-interest/
+    const divisor = 12;
+    const APR = 10;
+    const interestRate = APR/divisor;
+    let top = interestRate* loanAmount;
+   let bottom = (1-(1+ interestRate)**(-(loanTerm/divisor)))
+   let monthlyRepayment = top/bottom;
+console.log(APR);
+  return `${monthlyRepayment}`
+  //return `${monthlyRepayment.toFixed(2)}`
     
 }
 
