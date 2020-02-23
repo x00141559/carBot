@@ -94,7 +94,7 @@ class MainDialog extends ComponentDialog {
             const fromEntities = this.luisRecognizer.getFromEntities(luisResult);
             const forEntities = this.luisRecognizer.getForEntities(luisResult);
 
-            // Show a warning for Origin and Destination if we can't resolve them.
+            // Show a warning for lender and amount if we can't resolve them.
            await this.showWarningForUnsupportedCities(stepContext.context, fromEntities, forEntities);
 
             // Initialize BookingDetails with any entities we may have found in the response.

@@ -19,6 +19,7 @@
         "@microsoft/recognizers-text-data-types-timex-expression": "^1.2.7",
         "botbuilder": "^4.7.1",
         "botbuilder-ai": "^4.7.1",
+        "botbuilder-azure": "^4.7.2",
         "botbuilder-dialogs": "~4.6.0",
         "botbuilder-testing": "^4.6.2",
         "dotenv": "^8.2.0",

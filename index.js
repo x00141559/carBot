@@ -6,7 +6,7 @@
 // Import required packages
 const path = require('path');
 const restify = require('restify');
-
+const { CosmosDbPartitionedStorage } = require("botbuilder-azure");
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, ConversationState, InputHints, MemoryStorage, UserState } = require('botbuilder');
@@ -65,9 +65,22 @@ adapter.onTurnError = async (context, error) => {
 // For local development, in-memory storage is used.
 // CAUTION: The Memory Storage used here is for local bot debugging only. When the bot
 // is restarted, anything stored in memory will be gone.
-const memoryStorage = new MemoryStorage();
-const conversationState = new ConversationState(memoryStorage);
-const userState = new UserState(memoryStorage);
+//const memoryStorage = new MemoryStorage();
+// initialized to access values in .env file.
+
+
+// Create local Memory Storage - commented out.
+// var storage = new MemoryStorage();
+
+// Create access to CosmosDb Storage - this replaces local Memory Storage.
+var storage = new CosmosDbPartitionedStorage({
+    cosmosDbEndpoint: process.env.DB_SERVICE_ENDPOINT, 
+    authKey: process.env.AUTH_KEY, 
+    databaseId: process.env.DATABASE_ID,
+    containerId: process.env.CONTAINER
+})
+const conversationState = new ConversationState(storage);
+const userState = new UserState(storage);
 
 // If configured, pass in the LoanRecognizer.  (Defining it externally allows it to be mocked for tests)
 const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;

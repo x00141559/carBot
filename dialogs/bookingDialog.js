@@ -35,7 +35,7 @@ class BookingDialog extends CancelAndHelpDialog {
     }
 
     /**
-     * If a destination city has not been provided, prompt for one.
+     * If an amount has not been provided, prompt for one.
      */
     async amountStep(stepContext) {
         const bookingDetails = stepContext.options;
@@ -140,15 +140,17 @@ class BookingDialog extends CancelAndHelpDialog {
 function calcLoanAmount(loanTerm,loanAmount)
 {
    // https://www.ifsautoloans.com/blog/car-loan-interest/
-    const divisor = 12;
-    const APR = 10;
+    const divisor = 12.00;
+    const APR = .10;
     const interestRate = APR/divisor;
+    let middle = 1 + (interestRate);
+    let term =loanTerm*divisor;
     let top = interestRate* loanAmount;
-   let bottom = (1-(1+ interestRate)**(-(loanTerm/divisor)))
-   let monthlyRepayment = top/bottom;
-console.log(APR);
-  return `${monthlyRepayment}`
-  //return `${monthlyRepayment.toFixed(2)}`
+    let bottom = (1-(middle)**(-term));
+    let monthlyRepayment = top/bottom;
+        console.log(middle);
+        console.log(bottom);
+  return `${monthlyRepayment.toFixed(2)}`
     
 }
 
