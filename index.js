@@ -12,10 +12,10 @@ const { CosmosDbPartitionedStorage } = require("botbuilder-azure");
 const { BotFrameworkAdapter, ConversationState, InputHints, MemoryStorage, UserState } = require('botbuilder');
 
 const { LoanRecognizer } = require('./dialogs/loanRecognizer');
-//const { DispatchBot } = require('./bots/dispatchBot');
+
 
 const { DispatchBot } = require('./bots/dispatchBot');
-//const { Dispatch } = require('./dialogs/dispatchBot');
+
 // This bot's main dialog.
 const { DialogAndWelcomeBot } = require('./bots/dialogAndWelcomeBot');
 const { MainDialog } = require('./dialogs/mainDialog');
