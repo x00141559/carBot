@@ -9,7 +9,7 @@ const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, WaterfallDialo
 const MAIN_WATERFALL_DIALOG = 'mainWaterfallDialog';
 
 class MainDialog extends ComponentDialog {
-    constructor(luisRecognizer, bookingDialog) {
+    constructor(luisRecognizer, loanDialog) {
         super('MainDialog');
 
         try {
@@ -25,12 +25,11 @@ class MainDialog extends ComponentDialog {
         if (!luisRecognizer) throw new Error('[MainDialog]: Missing parameter \'luisRecognizer\' is required');
         this.luisRecognizer = luisRecognizer;
 
-        if (!bookingDialog) throw new Error('[MainDialog]: Missing parameter \'bookingDialog\' is required');
+        if (!loanDialog) throw new Error('[MainDialog]: Missing parameter \'loanDialog\' is required');
 
         // Define the main dialog and its related components.
-        // This is a sample "book a flight" dialog.
         this.addDialog(new TextPrompt('TextPrompt'))
-            .addDialog(bookingDialog)
+            .addDialog(loanDialog)
             .addDialog(new WaterfallDialog(MAIN_WATERFALL_DIALOG, [
                 this.introStep.bind(this),
                 this.actStep.bind(this),
@@ -59,7 +58,7 @@ class MainDialog extends ComponentDialog {
 
     /**
      * First step in the waterfall dialog. Prompts the user for a command.
-     * Currently, this expects a booking request, like "book me a flight from Paris to Berlin on march 22"
+     * Currently, this expects a loan request, like "book me a flight from Paris to Berlin on march 22"
      * Note that the sample LUIS model will only recognize Paris, Berlin, New York and London as airport cities.
      */
     async introStep(stepContext) {
@@ -76,17 +75,17 @@ class MainDialog extends ComponentDialog {
 
     /**
      * Second step in the waterfall.  This will use LUIS to attempt to extract the origin, destination and travel dates.
-     * Then, it hands off to the bookingDialog child dialog to collect any remaining details.
+     * Then, it hands off to the loanDialog child dialog to collect any remaining details.
      */
     async actStep(stepContext) {
-        const bookingDetails = {};
+        const loanDetails = {};
 
         if (!this.luisRecognizer.isConfigured) {
-            // LUIS is not configured, we just run the BookingDialog path.
-            return await stepContext.beginDialog('bookingDialog', bookingDetails);
+            // LUIS is not configured, we just run the loanDialog path.
+            return await stepContext.beginDialog('loanDialog', loanDetails);
         }
 
-        // Call LUIS and gather any potential booking details. (Note the TurnContext has the response to the prompt)
+        // Call LUIS and gather any potential loan details. (Note the TurnContext has the response to the prompt)
         const luisResult = await this.luisRecognizer.executeLuisQuery(stepContext.context);
         switch (LuisRecognizer.topIntent(luisResult)) {
         case 'l_GetLoan': {
@@ -97,15 +96,15 @@ class MainDialog extends ComponentDialog {
             // Show a warning for lender and amount if we can't resolve them.
            await this.showWarningForUnsupportedCities(stepContext.context, fromEntities, forEntities);
 
-            // Initialize BookingDetails with any entities we may have found in the response.
-            bookingDetails.amount = forEntities.money;
-            bookingDetails.lenderType = fromEntities.lender;
-            bookingDetails.birthDate = this.luisRecognizer.getBirthDate(luisResult);
+            // Initialize loanDetails with any entities we may have found in the response.
+            loanDetails.amount = forEntities.money;
+            loanDetails.lenderType = fromEntities.lender;
+            loanDetails.birthDate = this.luisRecognizer.getBirthDate(luisResult);
             console.log(`${forEntities.money}`);
-            console.log('LUIS extracted these booking details:' , JSON.stringify(bookingDetails));
+            console.log('LUIS extracted these loan details:' , JSON.stringify(loanDetails));
 
-            // Run the BookingDialog passing in whatever details we have from the LUIS call, it will fill out the remainder.
-            return await stepContext.beginDialog('bookingDialog', bookingDetails);
+            // Run the loanDialog passing in whatever details we have from the LUIS call, it will fill out the remainder.
+            return await stepContext.beginDialog('loanDialog', loanDetails);
         }
 
         case 'q_sample-qna': {
@@ -161,14 +160,14 @@ class MainDialog extends ComponentDialog {
      * It wraps up the sample "book a flight" interaction with a simple confirmation.
      */
     async finalStep(stepContext) {
-        // If the child dialog ("bookingDialog") was cancelled or the user failed to confirm, the Result here will be null.
+        // If the child dialog ("loanDialog") was cancelled or the user failed to confirm, the Result here will be null.
         if (stepContext.result) {
             const result = stepContext.result;
-            // Now we have all the booking details.
+            // Now we have all the loan details.
 
-            // This is where calls to the booking AOU service or database would go.
+            // This is where calls to the loan AOU service or database would go.
 
-            // If the call to the booking service was successful tell the user.
+            // If the call to the loan service was successful tell the user.
             const timeProperty = new TimexProperty(result.birthDate);
            const birthDateMsg = timeProperty.toNaturalLanguage(new Date(Date.now()));
            const msg = ``;

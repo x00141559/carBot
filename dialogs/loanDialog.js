@@ -13,9 +13,9 @@ const TEXT_PROMPT = 'textPrompt';
 const WATERFALL_DIALOG = 'waterfallDialog';
 
 //const CHOICE_PROMPT = 'CHOICE_PROMPT';
-class BookingDialog extends CancelAndHelpDialog {
+class LoanDialog extends CancelAndHelpDialog {
     constructor(id) {
-        super(id || 'bookingDialog');
+        super(id || 'loanDialog');
         
         this.addDialog(new TextPrompt(TEXT_PROMPT))
             .addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
@@ -38,19 +38,19 @@ class BookingDialog extends CancelAndHelpDialog {
      * If an amount has not been provided, prompt for one.
      */
     async amountStep(stepContext) {
-        const bookingDetails = stepContext.options;
+        const loanDetails = stepContext.options;
 
-        if (!bookingDetails.amount) {
+        if (!loanDetails.amount) {
             const messageText = 'How much would you like to borrow?';
             const msg = MessageFactory.text(messageText, 'How much would you like to borrow?', InputHints.ExpectingInput);
             return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
         }
-        return await stepContext.next(bookingDetails.amount);
+        return await stepContext.next(loanDetails.amount);
     }
     async termStep(stepContext) {
-        const bookingDetails = stepContext.options;
-        bookingDetails.amount = stepContext.result;
-        if (!bookingDetails.term) {
+        const loanDetails = stepContext.options;
+        loanDetails.amount = stepContext.result;
+        if (!loanDetails.term) {
         // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
         // Running a prompt here means the next WaterfallStep will be run when the user's response is received.
         // return await stepContext.prompt(CHOICE_PROMPT, {
@@ -62,23 +62,23 @@ class BookingDialog extends CancelAndHelpDialog {
     
     }
 
-    return await stepContext.next(bookingDetails.term);
+    return await stepContext.next(loanDetails.term);
     }
 
     /**
      * If an origin city has not been provided, prompt for one.
      */
     async lenderTypeStep(stepContext) {
-        const bookingDetails = stepContext.options;
+        const loanDetails = stepContext.options;
 
         // Capture the response to the previous step's prompt
-        bookingDetails.term = stepContext.result;
-        if (!bookingDetails.lenderType) {
+        loanDetails.term = stepContext.result;
+        if (!loanDetails.lenderType) {
             const messageText = 'From what type of lender would you like a loan?';
             const msg = MessageFactory.text(messageText, 'From what type of lender would you like a loan?', InputHints.ExpectingInput);
             return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
         }
-        return await stepContext.next(bookingDetails.lenderType);
+        return await stepContext.next(loanDetails.lenderType);
     }
 
     /**
@@ -86,25 +86,25 @@ class BookingDialog extends CancelAndHelpDialog {
      * This will use the DATE_RESOLVER_DIALOG.
      */
     async birthDateStep(stepContext) {
-        const bookingDetails = stepContext.options;
+        const loanDetails = stepContext.options;
 
         // Capture the results of the previous step
-        bookingDetails.lenderType = stepContext.result;
-        if (!bookingDetails.birthDate || this.isAmbiguous(bookingDetails.birthDate)) {
-            return await stepContext.beginDialog(DATE_RESOLVER_DIALOG, { date: bookingDetails.birthDate });
+        loanDetails.lenderType = stepContext.result;
+        if (!loanDetails.birthDate || this.isAmbiguous(loanDetails.birthDate)) {
+            return await stepContext.beginDialog(DATE_RESOLVER_DIALOG, { date: loanDetails.birthDate });
         }
-        return await stepContext.next(bookingDetails.birthDate);
+        return await stepContext.next(loanDetails.birthDate);
     }
 
     /**
      * Confirm the information the user has provided.
      */
     async confirmStep(stepContext) {
-        const bookingDetails = stepContext.options;
+        const loanDetails = stepContext.options;
 
         // Capture the results of the previous step
-        bookingDetails.birthDate = stepContext.result;
-        const messageText = `Please confirm, I have you a loan for ${ bookingDetails.amount} from: ${ bookingDetails.lenderType } your birth date is: ${ bookingDetails.birthDate }. Is this correct?`;
+        loanDetails.birthDate = stepContext.result;
+        const messageText = `Please confirm, I have you a loan for ${ loanDetails.amount} from: ${ loanDetails.lenderType } your birth date is: ${ loaDetails.birthDate }. Is this correct?`;
         const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         // Offer a YES/NO prompt.
         return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
@@ -118,15 +118,15 @@ class BookingDialog extends CancelAndHelpDialog {
     async finalStep(stepContext) {
  
         if (stepContext.result === true) {
-            const bookingDetails = stepContext.options;
+            const loanDetails = stepContext.options;
             
-            console.log(calcLoanAmount(`${bookingDetails.term}`,`${bookingDetails.amount}`));
+            console.log(calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`));
            
-            const messageText = `Your Monthly payment would be: ${calcLoanAmount(`${bookingDetails.term}`,`${bookingDetails.amount}`)} , do you wish to have an advisor contact you in relation to this quote? `;
+            const messageText = `Your Monthly payment would be: ${calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`)} , do you wish to have an advisor contact you in relation to this quote? `;
             const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
             // Offer a YES/NO prompt.
             return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
-            return await stepContext.endDialog(bookingDetails);
+            return await stepContext.endDialog(loanDetails);
         }
         return await stepContext.endDialog();
     }
@@ -154,4 +154,4 @@ function calcLoanAmount(loanTerm,loanAmount)
     
 }
 
-module.exports.BookingDialog = BookingDialog;
+module.exports.LoanDialog = LoanDialog;
