@@ -1,21 +1,26 @@
-# core-bot
+# car-bot
 
-Bot Framework v4 core bot sample.
+Using Bot Framework v4 core bot.
 
-This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to:
+This bot has been created for a final year project and uses:
 
-- Use [LUIS](https://www.luis.ai) to implement core AI capabilities
-- Implement a multi-turn conversation using Dialogs
-- Handle user interruptions for such things as `Help` or `Cancel`
+- [LUIS](https://www.luis.ai) to implement core AI capabilities
+- A multi-turn conversation using Dialogs
+- Handling user interruptions for such things as `Help` or `Cancel`
 - Prompt for and validate requests for information from the user
+- QnA Maker for user questions
+
 
 ## Prerequisites
 
-This sample **requires** prerequisites in order to run.
+This project **requires** prerequisites in order to run.
+- GitHub Account
+- Azure Account
+- npm v12.16.0
 
 ### Overview
 
-This bot uses [LUIS](https://www.luis.ai), an AI based cognitive service, to implement language understanding.
+This bot uses [LUIS](https://www.luis.ai), an AI based cognitive service, to implement language understanding. It uses QnA Maker for user queries. It stores the data in cosmos db. The app will let a user ask questions about a loan and calculate a loan amount based on information they provide and the current API rates.
 
 - [Node.js](https://nodejs.org) version 10.14 or higher
 
@@ -25,8 +30,7 @@ This bot uses [LUIS](https://www.luis.ai), an AI based cognitive service, to imp
     ```
 
 ### Create a LUIS Application to enable language understanding
-
-The LUIS model for this example can be found under `cognitiveModels/FlightBooking.json` and the LUIS language model setup, training, and application configuration steps can be found [here](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-v4-luis?view=azure-bot-service-4.0&tabs=javascript).
+The LUIS language model setup, training, and application configuration steps can be found [here](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-v4-luis?view=azure-bot-service-4.0&tabs=javascript).
 
 Once you created the LUIS model, update `.env` with your `LuisAppId`, `LuisAPIKey` and `LuisAPIHostName`.
 
@@ -36,12 +40,12 @@ LuisAPIKey = "Your LUIS Subscription key here"
 LuisAPIHostName = "Your LUIS App region here (i.e: westus.api.cognitive.microsoft.com)"
 ```
 
-## To try this sample
+## To try this project
 
 - Clone the repository
 
     ```bash
-    git clone https://github.com/microsoft/botbuilder-samples.git
+    git clone https://github.com/x00141559/carBot.git
     ```
 
 - In a terminal, navigate to `samples/javascript_nodejs/13.core-bot`
