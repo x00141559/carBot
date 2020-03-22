@@ -1,8 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
-
+const FORM_PROMPT ='TextPrompt';
+const InputCard = require('./resources/inputCard.json');
 const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
-const { MessageFactory, InputHints } = require('botbuilder');
+const { MessageFactory, InputHints, CardFactory } = require('botbuilder');
 const { LuisRecognizer, QnAMaker  } = require('botbuilder-ai');
 const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
 
@@ -29,9 +30,11 @@ class MainDialog extends ComponentDialog {
 
         // Define the main dialog and its related components.
         this.addDialog(new TextPrompt('TextPrompt'))
+            .addDialog(new TextPrompt('AdaptiveCardPrompt'))
             .addDialog(loanDialog)
             .addDialog(new WaterfallDialog(MAIN_WATERFALL_DIALOG, [
                 this.introStep.bind(this),
+               // this.promptCardStep.bind(this),
                 this.actStep.bind(this),
                 this.finalStep.bind(this)
             ]));
@@ -45,14 +48,24 @@ class MainDialog extends ComponentDialog {
      * @param {*} turnContext
      * @param {*} accessor
      */
+     
     async run(turnContext, accessor) {
         const dialogSet = new DialogSet(accessor);
         dialogSet.add(this);
-
+            // The following check looks for a non-existant text input
+        // plus Adaptive Card input in _activity.value.text
+        // If both conditions exist, the Activity Card text
+        // is copied into the text input field.
+        // if(turnContext._activity.text == null
+        //     && turnContext._activity.value.text != null) {
+        //     this.logger.log('replacing null text with Activity Card text input');
+        //     turnContext._activity.text = turnContext._activity.value.text;
+        // }
         const dialogContext = await dialogSet.createContext(turnContext);
         const results = await dialogContext.continueDialog();
         if (results.status === DialogTurnStatus.empty) {
             await dialogContext.beginDialog(this.id);
+           
         }
     }
 
@@ -61,18 +74,52 @@ class MainDialog extends ComponentDialog {
      * Currently, this expects a loan request, like "book me a flight from Paris to Berlin on march 22"
      * Note that the sample LUIS model will only recognize Paris, Berlin, New York and London as airport cities.
      */
+    
     async introStep(stepContext) {
         if (!this.luisRecognizer.isConfigured) {
+           
             const messageText = 'NOTE: LUIS is not configured. To enable all capabilities, add `LuisAppId`, `LuisAPIKey` and `LuisAPIHostName` to the .env file.';
             await stepContext.context.sendActivity(messageText, null, InputHints.IgnoringInput);
-            return await stepContext.next();
+            return await next();
         }
-
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg : 'What can I help you with today?\nSay something like "Apply for a loan from the bank"';
+      
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg :   ' hi there';
         const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
+       
     }
-
+    //         /* One step in a Waterfall Dialog. */
+    //     async promptCardStep(stepContext) {
+    //         // A form with a few Input.text fields.
+    //         const card = CardFactory.adaptiveCard(InputCard);
+    //         // Step 1: Send the form to the user.
+    //        await stepContext.context.sendActivity({
+    //        attachments: [card]
+    //         });
+    //        console.log(stepContext.activity.text);
+    //         // Step 2: (Text) Prompt user to complete the form.
+    //       //  return stepContext.prompt(FORM_PROMPT);
+    //       return await stepContext.beginDialog('loanDialog', loanDetails);
+    //   }
+  
+    // async cardStep (stepContext) {
+    //     if (stepContext.activity.type == ActivityTypes.Message) {
+    //         console.log("ActivityTypes.Message");
+    //       // Ensure that message is a postBack (like a submission from Adaptive Cards)
+    //       if (stepContext.activity.channelData != null) {
+    //         if (stepContext.activity.channelData.postBack === true) {
+    //           const postbackActivity = stepContext.activity;
+    //           // Convert the user's Adaptive Card input into the input of a Text Prompt
+    //           // Must be sent as a string
+    //           postbackActivity.text = JSON.stringify(postbackActivity.value);
+    //           // context.activity.text = postbackActivity.value
+    //           await context.sendActivity(postbackActivity);
+    //           console.log(postbackActivity);
+    //         }
+    //       }
+    //     }
+    //     await next();
+    //   }
     /**
      * Second step in the waterfall.  This will use LUIS to attempt to extract the origin, destination and travel dates.
      * Then, it hands off to the loanDialog child dialog to collect any remaining details.
@@ -140,19 +187,20 @@ class MainDialog extends ComponentDialog {
      * will be empty if those entity values can't be mapped to a canonical item in the Airport.
      */
     async showWarningForUnsupportedCities(context, fromEntities, forEntities) {
-        const unsupportedCities = [];
+        const unsupportedFrom = [];
         if (fromEntities.from && !fromEntities.lender) {
-            unsupportedCities.push(fromEntities.from);
+            unsupportedFrom.push(fromEntities.from);
         }
-
+        const unsupportedFor= [];
         if (forEntities.for && !forEntities.lender) {
-            unsupportedCities.push(toEntities.for);
+            unsupportedFor.push(toEntities.for);
         }
 
-        if (unsupportedCities.length) {
-            const messageText = `Sorry but the following fields are not supported: ${ unsupportedCities.join(', ') }`;
+        if (unsupportedFrom.length) {
+            const messageText = `Sorry but the following fields are not supported: ${ unsupportedFrom.join(', ') }`;
             await context.sendActivity(messageText, messageText, InputHints.IgnoringInput);
         }
+       
     }
 
     /**
@@ -179,6 +227,12 @@ class MainDialog extends ComponentDialog {
     }
     
 }
-
+function wait(ms)
+{
+var d = new Date();
+var d2 = null;
+do { d2 = new Date(); }
+while(d2-d < ms);
+}
 
 module.exports.MainDialog = MainDialog;

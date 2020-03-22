@@ -2,15 +2,17 @@
 // Licensed under the MIT License.
 
 const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
-const { InputHints, MessageFactory } = require('botbuilder');
+const { InputHints, MessageFactory,ActivityTypes} = require('botbuilder');
 const { ConfirmPrompt, TextPrompt, WaterfallDialog,ChoiceFactory,ChoicePrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { DateResolverDialog } = require('./dateResolverDialog');
+
 const CHOICE_PROMPT = 'choicePrompt';
 const CONFIRM_PROMPT = 'confirmPrompt';
 const DATE_RESOLVER_DIALOG = 'dateResolverDialog';
 const TEXT_PROMPT = 'textPrompt';
 const WATERFALL_DIALOG = 'waterfallDialog';
+
 
 //const CHOICE_PROMPT = 'CHOICE_PROMPT';
 class LoanDialog extends CancelAndHelpDialog {
@@ -33,13 +35,14 @@ class LoanDialog extends CancelAndHelpDialog {
 
         this.initialDialogId = WATERFALL_DIALOG;
     }
+   
 
-    /**
+       /**
      * If an amount has not been provided, prompt for one.
      */
     async amountStep(stepContext) {
         const loanDetails = stepContext.options;
-
+        loanDetails.card = stepContext.result;
         if (!loanDetails.amount) {
             const messageText = 'How much would you like to borrow?';
             const msg = MessageFactory.text(messageText, 'How much would you like to borrow?', InputHints.ExpectingInput);

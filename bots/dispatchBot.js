@@ -58,14 +58,14 @@ const qnaMaker = new QnAMaker({
 
     async dispatchToTopIntentAsync(context, intent, recognizerResult) {
         switch (intent) {
-        case 'l_UserProfile':
-            await this.processUserProfile(context, recognizerResult.luisResult);
+        case 'l_GetLoan':
+            await this.processGetLoan(context, recognizerResult.luisResult);
             break;
-        case 'l_CalculateLoan':
-            await this.processCalculateLoan(context, recognizerResult.luisResult);
+        case 'None':
+            await this.None(context, recognizerResult.luisResult);
             break;
-        case 'q_auto-qna':
-            await this.processAutoQnA(context);
+        case 'q_sample-qna':
+            await this.processQnA(context);
             break;
         default:
             console.log(`Dispatch unrecognized intent: ${ intent }.`);
@@ -74,38 +74,38 @@ const qnaMaker = new QnAMaker({
         }
     }
 
-    async processUserProfile(context, luisResult) {
-        console.log('processUserProfile');
+    async processGetLoan(context, luisResult) {
+        console.log('processGetLoan');
 
         // Retrieve LUIS result for Process Automation.
         const result = luisResult.connectedServiceResult;
         const intent = result.topScoringIntent.intent;
 
-        await context.sendActivity(`UserProfile top intent ${ intent }.`);
-        await context.sendActivity(`UserProfile intents detected:  ${ luisResult.intents.map((intentObj) => intentObj.intent).join('\n\n') }.`);
+        await context.sendActivity(`GetLoan top intent ${ intent }.`);
+        await context.sendActivity(`GetLoan intents detected:  ${ luisResult.intents.map((intentObj) => intentObj.intent).join('\n\n') }.`);
 
         if (luisResult.entities.length > 0) {
-            await context.sendActivity(`UserProfile entities were found in the message: ${ luisResult.entities.map((entityObj) => entityObj.entity).join('\n\n') }.`);
+            await context.sendActivity(`GetLoan entities were found in the message: ${ luisResult.entities.map((entityObj) => entityObj.entity).join('\n\n') }.`);
         }
     }
-    async processCalculateLoan(context, luisResult) {
-        console.log('processCalculateLoan');
+    async processNone(context, luisResult) {
+        console.log('none');
 
         // Retrieve LUIS result for Process Automation.
         const result = luisResult.connectedServiceResult;
         const intent = result.topScoringIntent.intent;
 
-        await context.sendActivity(`CalculateLoan top intent ${ intent }.`);
-        await context.sendActivity(`CalculateLoan intents detected:  ${ luisResult.intents.map((intentObj) => intentObj.intent).join('\n\n') }.`);
+        await context.sendActivity(`None top intent ${ intent }.`);
+        await context.sendActivity(`None intents detected:  ${ luisResult.intents.map((intentObj) => intentObj.intent).join('\n\n') }.`);
 
         if (luisResult.entities.length > 0) {
-            await context.sendActivity(`CalculateLoan entities were found in the message: ${ luisResult.entities.map((entityObj) => entityObj.entity).join('\n\n') }.`);
+            await context.sendActivity(`None entities were found in the message: ${ luisResult.entities.map((entityObj) => entityObj.entity).join('\n\n') }.`);
         }
     }
     
 
-    async processAutoQnA(context) {
-        console.log('processAutoQnA');
+    async processQnA(context) {
+        console.log('processQnA');
 
         const results = await this.qnaMaker.getAnswers(context);
 

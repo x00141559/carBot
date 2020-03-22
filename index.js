@@ -18,6 +18,7 @@ const { DispatchBot } = require('./bots/dispatchBot');
 
 // This bot's main dialog.
 const { DialogAndWelcomeBot } = require('./bots/dialogAndWelcomeBot');
+
 const { MainDialog } = require('./dialogs/mainDialog');
 
 // the bot's loan dialog
@@ -92,6 +93,7 @@ const luisRecognizer = new LoanRecognizer(luisConfig);
 const loanDialog = new LoanDialog(LOAN_DIALOG);
 const dialog = new MainDialog(luisRecognizer, loanDialog);
 const bot = new DialogAndWelcomeBot(conversationState, userState, dialog);
+
 // Create the main dialog.
 const dispatcher = new DispatchBot();
 // Create HTTP server
