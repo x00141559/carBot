@@ -24,7 +24,7 @@ const { MainDialog } = require('./dialogs/mainDialog');
 // the bot's loan dialog
 const { LoanDialog } = require('./dialogs/loanDialog');
 const LOAN_DIALOG = 'loanDialog';
-
+var azure = require('botbuilder-azure');
 // Note: Ensure you have a .env file and include LuisAppId, LuisAPIKey and LuisAPIHostName.
 const ENV_FILE = path.join(__dirname, '.env');
 require('dotenv').config({ path: ENV_FILE });
@@ -72,7 +72,12 @@ adapter.onTurnError = async (context, error) => {
 
 // Create local Memory Storage - commented out.
 // var storage = new MemoryStorage();
-
+var documentDbOptions = {
+    host: 'Your-Azure-DocumentDB-URI', 
+    masterKey: 'Your-Azure-DocumentDB-Key', 
+    database: 'botdocs',   
+    collection: 'botdata'
+};
 // Create access to CosmosDb Storage - this replaces local Memory Storage.
 var storage = new CosmosDbPartitionedStorage({
     cosmosDbEndpoint: process.env.DB_SERVICE_ENDPOINT, 

@@ -12,9 +12,16 @@ const CONFIRM_PROMPT = 'confirmPrompt';
 const DATE_RESOLVER_DIALOG = 'dateResolverDialog';
 const TEXT_PROMPT = 'textPrompt';
 const WATERFALL_DIALOG = 'waterfallDialog';
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const mseg = {
+    to: 'aoife_80@msn.com',
+    from: 'aoife_80@msn.com',
+    subject: 'Sending with Twilio SendGrid is Fun',
+    text: 'and easy to do anywhere, even with Node.js',
+    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+  };
 
-
-//const CHOICE_PROMPT = 'CHOICE_PROMPT';
 class LoanDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || 'loanDialog');
@@ -24,6 +31,8 @@ class LoanDialog extends CancelAndHelpDialog {
             .addDialog(new DateResolverDialog(DATE_RESOLVER_DIALOG))
             .addDialog(new ChoicePrompt(CHOICE_PROMPT))
             .addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
+                this.nameStep.bind(this),
+                this.emailStep.bind(this),
                 this.amountStep.bind(this),
                 this.termStep.bind(this),
                 this.lenderTypeStep.bind(this),
@@ -35,14 +44,32 @@ class LoanDialog extends CancelAndHelpDialog {
 
         this.initialDialogId = WATERFALL_DIALOG;
     }
-   
-
+    async nameStep(stepContext) {
+        const loanDetails = stepContext.options;
+    
+        if (!loanDetails.amount) {
+            const messageText = 'What is your name?';
+            const msg = MessageFactory.text(messageText, 'What is your name?', InputHints.ExpectingInput);
+            return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+        }
+        return await stepContext.next(loanDetails.name);
+    }
+    async emailStep(stepContext) {
+        const loanDetails = stepContext.options;
+        loanDetails.name = stepContext.result;
+        if (!loanDetails.amount) {
+            const messageText = 'Enter your email';
+            const msg = MessageFactory.text(messageText, 'Enter your email', InputHints.ExpectingInput);
+            return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+        }
+        return await stepContext.next(loanDetails.email);
+    }
        /**
      * If an amount has not been provided, prompt for one.
      */
     async amountStep(stepContext) {
         const loanDetails = stepContext.options;
-        loanDetails.card = stepContext.result;
+        loanDetails.email = stepContext.result;
         if (!loanDetails.amount) {
             const messageText = 'How much would you like to borrow?';
             const msg = MessageFactory.text(messageText, 'How much would you like to borrow?', InputHints.ExpectingInput);
@@ -107,7 +134,7 @@ class LoanDialog extends CancelAndHelpDialog {
 
         // Capture the results of the previous step
         loanDetails.birthDate = stepContext.result;
-        const messageText = `Please confirm, I have you a loan for ${ loanDetails.amount} from: ${ loanDetails.lenderType } your birth date is: ${ loaDetails.birthDate }. Is this correct?`;
+        const messageText = `Please confirm, I have you a loan for ${ loanDetails.amount} from: ${ loanDetails.lenderType } your birth date is: ${ loanDetails.birthDate }. Is this correct?`;
         const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         // Offer a YES/NO prompt.
         return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
@@ -124,22 +151,35 @@ class LoanDialog extends CancelAndHelpDialog {
             const loanDetails = stepContext.options;
             
             console.log(calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`));
-           
+
+
+
+
             const messageText = `Your Monthly payment would be: ${calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`)} , do you wish to have an advisor contact you in relation to this quote? `;
             const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
             // Offer a YES/NO prompt.
             return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
-            return await stepContext.endDialog(loanDetails);
+           
+            //return await stepContext.endDialog(loanDetails);
         }
-        return await stepContext.endDialog();
+        if (stepContext.msg ==  'yes'.toLocaleUpperCase())
+        {// using Twilio SendGrid's v3 Node.js Library
+        // https://github.com/sendgrid/sendgrid-nodejs
+            sgMail.send(mseg);
+        }
+        return await stepContext.endDialog(loanDetails);
     }
 
     isAmbiguous(timex) {
         const timexPropery = new TimexProperty(timex);
         return !timexPropery.types.has('definite');
     }
+    
    
 }
+
+
+
 function calcLoanAmount(loanTerm,loanAmount)
 {
    // https://www.ifsautoloans.com/blog/car-loan-interest/
