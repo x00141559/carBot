@@ -20,10 +20,21 @@ const { DispatchBot } = require('./bots/dispatchBot');
 const { DialogAndWelcomeBot } = require('./bots/dialogAndWelcomeBot');
 
 const { MainDialog } = require('./dialogs/mainDialog');
-
+// const sgMail = require('@sendgrid/mail');
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// const mseg = {
+//     to: `${loanDetails.email}`,
+//     from: 'aoife_80@msn.com',
+//     subject: 'Sending with Twilio SendGrid is Fun',
+//     text: 'and easy to do anywhere, even with Node.js',
+//     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+//   }
+//   sgMail.send(mseg);
 // the bot's loan dialog
 const { LoanDialog } = require('./dialogs/loanDialog');
 const LOAN_DIALOG = 'loanDialog';
+const { ApplicationDialog } = require('./dialogs/ApplicationDialog')
+const APPLICATION_DIALOG = 'applicationDialog';
 var azure = require('botbuilder-azure');
 // Note: Ensure you have a .env file and include LuisAppId, LuisAPIKey and LuisAPIHostName.
 const ENV_FILE = path.join(__dirname, '.env');
@@ -96,7 +107,8 @@ const luisRecognizer = new LoanRecognizer(luisConfig);
 
 // Create the main dialog.
 const loanDialog = new LoanDialog(LOAN_DIALOG);
-const dialog = new MainDialog(luisRecognizer, loanDialog);
+const applicationDialog = new ApplicationDialog(APPLICATION_DIALOG);
+const dialog = new MainDialog(luisRecognizer, loanDialog, applicationDialog);
 const bot = new DialogAndWelcomeBot(conversationState, userState, dialog);
 
 // Create the main dialog.

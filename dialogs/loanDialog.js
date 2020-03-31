@@ -155,7 +155,7 @@ class LoanDialog extends CancelAndHelpDialog {
 
 
 
-            const messageText = `Your Monthly payment would be: ${calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`)} , do you wish to have an advisor contact you in relation to this quote? `;
+            const messageText = `Your Monthly payment would be: ${calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`)} , an email with quote details has been sent, do you wish to check you eligibility for a loan? `;
             const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
             // Offer a YES/NO prompt.
             return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });

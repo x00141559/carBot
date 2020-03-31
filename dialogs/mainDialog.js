@@ -10,7 +10,7 @@ const { ComponentDialog, DialogSet, DialogTurnStatus, TextPrompt, WaterfallDialo
 const MAIN_WATERFALL_DIALOG = 'mainWaterfallDialog';
 
 class MainDialog extends ComponentDialog {
-    constructor(luisRecognizer, loanDialog) {
+    constructor(luisRecognizer, loanDialog, ApplicationDialog) {
         super('MainDialog');
 
         try {
@@ -32,10 +32,12 @@ class MainDialog extends ComponentDialog {
         this.addDialog(new TextPrompt('TextPrompt'))
             .addDialog(new TextPrompt('AdaptiveCardPrompt'))
             .addDialog(loanDialog)
+            .addDialog(ApplicationDialog)
             .addDialog(new WaterfallDialog(MAIN_WATERFALL_DIALOG, [
                 this.introStep.bind(this),
                // this.promptCardStep.bind(this),
                 this.actStep.bind(this),
+                this.applyStep.bind(this),
                 this.finalStep.bind(this)
             ]));
 
@@ -169,6 +171,8 @@ class MainDialog extends ComponentDialog {
 
         return await stepContext.next();
     }
+
+   
     async processAutoQnA(context) {
         console.log('processAutoQnA');
     
@@ -185,7 +189,7 @@ class MainDialog extends ComponentDialog {
      * Shows a warning if the requested From or To cities are recognized as entities but they are not in the Airport entity list.
      * In some cases LUIS will recognize the From and To composite entities as a valid cities but the From and To Airport values
      * will be empty if those entity values can't be mapped to a canonical item in the Airport.
-     */
+     */ 
     async showWarningForUnsupportedCities(context, fromEntities, forEntities) {
         const unsupportedFrom = [];
         if (fromEntities.from && !fromEntities.lender) {
@@ -202,7 +206,13 @@ class MainDialog extends ComponentDialog {
         }
        
     }
+    async applyStep(stepContext) {
+        const ApplicationDetails = {};
 
+      
+            // LUIS is not configured, we just run the loanDialog path.
+            return await stepContext.beginDialog('applicationDialog', ApplicationDetails);
+        }
     /**
      * This is the final step in the main waterfall dialog.
      * It wraps up the sample "book a flight" interaction with a simple confirmation.
