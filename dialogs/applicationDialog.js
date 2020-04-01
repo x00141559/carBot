@@ -43,7 +43,7 @@ class ApplicationDialog extends CancelAndHelpDialog {
     }
     async incomeStep(stepContext) {
         const ApplicationDetails = stepContext.options;
-    
+        ApplicationDetails.income= 0;
         if (!ApplicationDetails.income) {
             const messageText = 'What is your monthly income after tax?';
             const msg = MessageFactory.text(messageText, 'What is your monthly income after tax?', InputHints.ExpectingInput);
@@ -54,6 +54,7 @@ class ApplicationDialog extends CancelAndHelpDialog {
        async extraIincomeStep(stepContext) {
          const ApplicationDetails = stepContext.options;
           ApplicationDetails.income = stepContext.result;
+          ApplicationDetails.extraIncome = 0;
            if (!ApplicationDetails.extraIncome) {
               const messageText = 'Do you have an additional monthly income you would like to add?';
               const msg = MessageFactory.text(messageText, 'Do you have an additional monthly income you would like to add?', InputHints.ExpectingInput);
@@ -72,6 +73,7 @@ class ApplicationDialog extends CancelAndHelpDialog {
             {
                 const ApplicationDetails = stepContext.options;
                 ApplicationDetails.extraIncome = stepContext.result;
+                ApplicationDetails.extra = 0;
                  if (!ApplicationDetails.extra) {
                 if(   ApplicationDetails.extraIncome == 'yes')
             {
@@ -132,17 +134,19 @@ return await stepContext.next(ApplicationDetails.repay);
      async numChildrenStep(stepContext) {
         const ApplicationDetails = stepContext.options;
          ApplicationDetails.children = stepContext.result;
+         ApplicationDetails.numChildren = 0;
         if (!ApplicationDetails.numChildren) {
            if(ApplicationDetails.children == 'yes'){
+           
          const messageText = `Enter the monthly amount for childcare`;
          const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
          // Offer a YES/NO prompt.
-         return await stepContext.prompt(NUMBER_PROMPT, { prompt: msg });  
+         return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });  
    }
-   return await stepContext.next(ApplicationDetails.numChildren);
-}
   
+}
 
+return await stepContext.next(ApplicationDetails.numChildren);
   }
   async MaintenainceStep(stepContext) {
     const ApplicationDetails = stepContext.options;
@@ -161,6 +165,7 @@ return await stepContext.next(ApplicationDetails.maintenaince);
 async numMainStep(stepContext) {
     const ApplicationDetails = stepContext.options;
      ApplicationDetails.maintenaince = stepContext.result;
+     ApplicationDetails.numMain = 0;
     if (!ApplicationDetails.numMain) {
        if(ApplicationDetails.maintenaince == 'yes'){
      const messageText = `Enter the monthly amount for maintenaince`;
@@ -168,10 +173,10 @@ async numMainStep(stepContext) {
      // Offer a YES/NO prompt.
      return await stepContext.prompt(NUMBER_PROMPT, { prompt: msg });  
 }
-return await stepContext.next(ApplicationDetails.numMain);
+
 }
 
-
+return await stepContext.next(ApplicationDetails.numMain);
 
 }
     // async termStep(stepContext) {
@@ -222,7 +227,7 @@ return await stepContext.next(ApplicationDetails.numMain);
 
           // Capture the results of the previous step
         ApplicationDetails.numMain = stepContext.result;
-        const messageText = `The maxium monthly repayment you could afford is: ${ calcEligibility(`${ApplicationDetails.income}`,`${ApplicationDetails.extra}`,`${ApplicationDetails.repay}`,`${ApplicationDetails.numChildren}`)}, would you like an advisor to get in touch?`;
+        const messageText = `The maxium monthly repayment you could afford is: ${ calcEligibility(`${ApplicationDetails.income}`,`${ApplicationDetails.extra}`,`${ApplicationDetails.repay}`,`${ApplicationDetails.numChildren}`,`${ApplicationDetails.numMain}`)}, would you like an advisor to get in touch?`;
          const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
        // Offer a YES/NO prompt.
        return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
@@ -276,7 +281,7 @@ return await stepContext.next(ApplicationDetails.numMain);
     
        function calcEligibility(income=0,extra=0,repay=0,numChildren=0, numMain=0)
        {
-         
+            
            const loanTerm = 1;
            const divisor = 12.00;
            const APR = .10;
@@ -284,8 +289,8 @@ return await stepContext.next(ApplicationDetails.numMain);
            console.log('repay',`${repay}`);
            console.log('numChildren',`${numChildren}`);
            console.log('numMain',`${numMain}`);
-           console.log('numMain',`${extra}`);
-           const totMoney = ((income + extra) - repay );
+           console.log('extra',`${extra}`);
+           const totMoney = ((parseInt(income) + parseInt(extra)) - parseInt(repay) - parseInt(numMain) - parseInt(numChildren));
            console.log('totMoney',`${totMoney}`);
            let mon = totMoney * APR;
            let mon2 = mon * divisor;
