@@ -85,7 +85,7 @@ class MainDialog extends ComponentDialog {
             return await next();
         }
       
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg :   ' hi there';
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg :   ' Hello';
         const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
        

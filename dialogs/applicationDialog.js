@@ -6,7 +6,16 @@ const { InputHints, MessageFactory,ActivityTypes} = require('botbuilder');
 const { ConfirmPrompt, TextPrompt, NumberPrompt, WaterfallDialog,ChoiceFactory,ChoicePrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { DateResolverDialog } = require('./dateResolverDialog');
-
+const { IncomePrompt } = require('../prompts/incomePrompt');
+const { ExtraPrompt } = require('../prompts/extraPrompt');
+const { RepayPrompt } = require('../prompts/repayPrompt');
+const { NumChildrenPrompt } = require('../prompts/numChildrenPrompt');
+const { NumMainPrompt } = require('../prompts/numMainPrompt');
+const GET_INCOME_PROMPT = 'incomePrompt';
+const GET_EXTRA_PROMPT = 'extraPrompt';
+const GET_REPAY_PROMPT = 'repayPrompt';
+const GET_NUMCHILDREN_PROMPT = 'numChildrenPrompt';
+const GET_NUMMAIN_PROMPT = 'numMainPrompt';
 const CHOICE_PROMPT = 'choicePrompt';
 const CONFIRM_PROMPT = 'confirmPrompt';
 const DATE_RESOLVER_DIALOG = 'dateResolverDialog';
@@ -24,6 +33,11 @@ class ApplicationDialog extends CancelAndHelpDialog {
             .addDialog(new DateResolverDialog(DATE_RESOLVER_DIALOG))
             .addDialog(new ChoicePrompt(CHOICE_PROMPT))
             .addDialog(new NumberPrompt(NUMBER_PROMPT))
+            .addDialog(new ExtraPrompt(GET_EXTRA_PROMPT))
+            .addDialog(new IncomePrompt(GET_INCOME_PROMPT))
+            .addDialog(new RepayPrompt(GET_REPAY_PROMPT))
+            .addDialog(new NumChildrenPrompt(GET_NUMCHILDREN_PROMPT))
+            .addDialog(new NumMainPrompt(GET_NUMMAIN_PROMPT))
             .addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
                 this.incomeStep.bind(this),
                 this.extraIincomeStep.bind(this),
@@ -45,9 +59,7 @@ class ApplicationDialog extends CancelAndHelpDialog {
         const ApplicationDetails = stepContext.options;
         ApplicationDetails.income= 0;
         if (!ApplicationDetails.income) {
-            const messageText = 'What is your monthly income after tax?';
-            const msg = MessageFactory.text(messageText, 'What is your monthly income after tax?', InputHints.ExpectingInput);
-            return await stepContext.prompt(NUMBER_PROMPT, { prompt: msg });
+            return await stepContext.prompt(GET_INCOME_PROMPT, 'What is your monthly income after tax?');
         }
         return await stepContext.next(ApplicationDetails.income);
     }
@@ -57,10 +69,11 @@ class ApplicationDialog extends CancelAndHelpDialog {
           ApplicationDetails.extraIncome = 0;
            if (!ApplicationDetails.extraIncome) {
               const messageText = 'Do you have an additional monthly income you would like to add?';
-              const msg = MessageFactory.text(messageText, 'Do you have an additional monthly income you would like to add?', InputHints.ExpectingInput);
+              const msg = MessageFactory.text(messageText, 'Do you have an additional monthly income you would like to add? Enter Yes or No.', InputHints.ExpectingInput);
              
               return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
-           }          
+           }         
+         
               return await stepContext.next(ApplicationDetails.extraIncome);
            
        
@@ -75,12 +88,13 @@ class ApplicationDialog extends CancelAndHelpDialog {
                 ApplicationDetails.extraIncome = stepContext.result;
                 ApplicationDetails.extra = 0;
                  if (!ApplicationDetails.extra) {
-                if(   ApplicationDetails.extraIncome == 'yes')
+                if( (ApplicationDetails.extraIncome == 'yes'.toUpperCase() )|| (ApplicationDetails.extraIncome == 'yes') ||
+                 (ApplicationDetails.extraIncome == 'Yes') || (ApplicationDetails.extraIncome == 'y')  ||
+                  (ApplicationDetails.extraIncome == 'y'.toUpperCase()))
             {
-             const messageText = 'Enter additional income';
-             const msg = MessageFactory.text(messageText, 'Enter additional income', InputHints.ExpectingInput);
+    
             
-            return await stepContext.prompt(NUMBER_PROMPT, { prompt: msg });
+            return await stepContext.prompt(GET_EXTRA_PROMPT, 'Enter additional income');
             }
         
             return await stepContext.next(ApplicationDetails.extra);
@@ -90,7 +104,7 @@ class ApplicationDialog extends CancelAndHelpDialog {
             const ApplicationDetails = stepContext.options;
             ApplicationDetails.extra = stepContext.result;
              if (!ApplicationDetails.commitments) {
-                if(   ApplicationDetails.extraIncome == 'yes'){
+                if( ( ApplicationDetails.extraIncome == 'yes') || (ApplicationDetails.extraIncome == 'yes'.toUpperCase())){
        
         const messageText = `Do you make any monthly loan repayments?`;
         const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
@@ -107,12 +121,11 @@ class ApplicationDialog extends CancelAndHelpDialog {
         ApplicationDetails.commitments = stepContext.result;
         ApplicationDetails.repay = 0;
          if (!ApplicationDetails.repay) {
-            if(   ApplicationDetails.commitments == 'yes'){
+          if( (ApplicationDetails.commitments == 'yes'.toUpperCase() )|| (ApplicationDetails.commitments == 'yes') ||
+          (ApplicationDetails.commitments == 'Yes') || (ApplicationDetails.commitments == 'y')  ||
+           (ApplicationDetails.commitments == 'y'.toUpperCase())){
                 
-    const messageText = `Enter your monthly repayments amount`;
-    const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-    // Offer a YES/NO prompt.
-    return await stepContext.prompt(NUMBER_PROMPT, { prompt: msg });
+    return await stepContext.prompt(GET_REPAY_PROMPT,  `Enter your monthly repayments amount`);
     
 }
 return await stepContext.next(ApplicationDetails.repay);
@@ -136,12 +149,10 @@ return await stepContext.next(ApplicationDetails.repay);
          ApplicationDetails.children = stepContext.result;
          ApplicationDetails.numChildren = 0;
         if (!ApplicationDetails.numChildren) {
-           if(ApplicationDetails.children == 'yes'){
-           
-         const messageText = `Enter the monthly amount for childcare`;
-         const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-         // Offer a YES/NO prompt.
-         return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });  
+          if( (ApplicationDetails.numChildren == 'yes'.toUpperCase() )|| (ApplicationDetails.numChildren == 'yes') ||
+          (ApplicationDetails.numChildren == 'Yes') || (ApplicationDetails.numChildren == 'y')  ||
+           (ApplicationDetails.numChildren == 'y'.toUpperCase())){
+         return await stepContext.prompt(GET_NUMCHILDREN_PROMPT, `Enter your monthly childcare costs`);  
    }
   
 }
@@ -167,11 +178,11 @@ async numMainStep(stepContext) {
      ApplicationDetails.maintenaince = stepContext.result;
      ApplicationDetails.numMain = 0;
     if (!ApplicationDetails.numMain) {
-       if(ApplicationDetails.maintenaince == 'yes'){
-     const messageText = `Enter the monthly amount for maintenaince`;
-     const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-     // Offer a YES/NO prompt.
-     return await stepContext.prompt(NUMBER_PROMPT, { prompt: msg });  
+      if( (ApplicationDetails.maintenaince == 'yes'.toUpperCase() )|| (ApplicationDetails.maintenaince == 'yes') ||
+      (ApplicationDetails.maintenaince == 'Yes') || (ApplicationDetails.maintenaince == 'y')  ||
+       (ApplicationDetails.maintenaince == 'y'.toUpperCase())){
+
+     return await stepContext.prompt(GET_NUMMAIN_PROMPT,  `Enter the monthly amount for maintenaince` );  
 }
 
 }
@@ -179,49 +190,7 @@ async numMainStep(stepContext) {
 return await stepContext.next(ApplicationDetails.numMain);
 
 }
-    // async termStep(stepContext) {
-    //     const loanDetails = stepContext.options;
-    //     loanDetails.amount = stepContext.result;
-    //     if (!loanDetails.term) {
-        // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-        // Running a prompt here means the next WaterfallStep will be run when the user's response is received.
-        // return await stepContext.prompt(CHOICE_PROMPT, {
-        //     prompt: 'Please enter your loan term in years.',
-        //     choices: ChoiceFactory.toChoices(['1', '2', '3','4','5','6'])
-    //     const messageText = 'How long would you like the term (1-6)';
-    //     const msg = MessageFactory.text(messageText, 'How long would you like the term (1-6)', InputHints.ExpectingInput);
-    //     return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
-    
-    // }
-
-    // return await stepContext.next(loanDetails.term);
-    // }
-
-    // /**
-    //  * If an origin city has not been provided, prompt for one.
-    //  */
-    // async lenderTypeStep(stepContext) {
-    //     const loanDetails = stepContext.options;
-
-  
-    // /**
-    //  * If a travel date has not been provided, prompt for one.
-    //  * This will use the DATE_RESOLVER_DIALOG.
-    //  */
-    // async birthDateStep(stepContext) {
-    //     const loanDetails = stepContext.options;
-
-    //     // Capture the results of the previous step
-    //     loanDetails.lenderType = stepContext.result;
-    //     if (!loanDetails.birthDate || this.isAmbiguous(loanDetails.birthDate)) {
-    //         return await stepContext.beginDialog(DATE_RESOLVER_DIALOG, { date: loanDetails.birthDate });
-    //     }
-    //     return await stepContext.next(loanDetails.birthDate);
-    // }
-
-    // /**
-    //  * Confirm the information the user has provided.
-    //  */
+   
       async confirmStep(stepContext) {
        const ApplicationDetails = stepContext.options;
 
@@ -238,7 +207,7 @@ return await stepContext.next(ApplicationDetails.numMain);
     // /**
     //  * Complete the interaction and end the dialog.
     //  */
-    // async finalStep(stepContext) {
+    //async finalStep(stepContext) {
  
     //     if (stepContext.result === true) {
     //         const loanDetails = stepContext.options;
@@ -248,32 +217,12 @@ return await stepContext.next(ApplicationDetails.numMain);
 
 
 
-           // const messageText = `Your Monthly payment would be: ${calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`)} , do you wish to have an advisor contact you in relation to this quote? `;
-         //   const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-            // Offer a YES/NO prompt.
-            //return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
-           
-            //return await stepContext.endDialog(loanDetails);
-      //  }
-      //  if (stepContext.msg ==  'yes'.toLocaleUpperCase())
-       // {
-           // email = this.email;
-       // }
-      //  return await stepContext.endDialog( applicationDialog);
-//     }
-
-//     isAmbiguous(timex) {
-//         const timexPropery = new TimexProperty(timex);
-//         return !timexPropery.types.has('definite');
-//     }
-    
-   
-// }
+  
 
 
 
 
-      //    }
+
     
 
       

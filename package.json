@@ -16,6 +16,7 @@
     "url": "git+https://github.com/Microsoft/BotBuilder-Samples.git"
   },
   "dependencies": {
+    "@google-cloud/pubsub": "github:googleapis/nodejs-pubsub",
     "@microsoft/recognizers-text-data-types-timex-expression": "^1.2.7",
     "@sendgrid/mail": "^6.5.5",
     "adaptivecards": "^1.2.5",
@@ -26,7 +27,9 @@
     "botbuilder-testing": "^4.6.2",
     "dotenv": "^8.2.0",
     "node-mandrill": "^1.0.1",
-    "restify": "^8.5.1"
+    "restify": "^8.5.1",
+    "validate": "^5.1.0",
+    "validator": "^13.0.0"
   },
   "devDependencies": {
     "eslint": "^6.6.0",

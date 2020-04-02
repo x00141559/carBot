@@ -1,17 +1,25 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
+const { NamePrompt } = require('../prompts/namePrompt');
+const { EmailPrompt } = require('../prompts/emailPrompt');
+const { AmountPrompt } = require('../prompts/amountPrompt');
+const { TermPrompt } = require('../prompts/termPrompt');
 
 const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
-const { InputHints, MessageFactory,ActivityTypes} = require('botbuilder');
-const { ConfirmPrompt, TextPrompt, WaterfallDialog,ChoiceFactory,ChoicePrompt } = require('botbuilder-dialogs');
+const { InputHints, MessageFactory} = require('botbuilder');
+const { ConfirmPrompt, TextPrompt, WaterfallDialog,ChoicePrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { DateResolverDialog } = require('./dateResolverDialog');
-
+const GET_NAME_PROMPT = 'namePrompt';
+const GET_EMAIL_PROMPT = 'emailPrompt';
+const GET_AMOUNT_PROMPT = 'amountPrompt';
+const GET_TERM_PROMPT = 'termPrompt';
 const CHOICE_PROMPT = 'choicePrompt';
 const CONFIRM_PROMPT = 'confirmPrompt';
 const DATE_RESOLVER_DIALOG = 'dateResolverDialog';
 const TEXT_PROMPT = 'textPrompt';
 const WATERFALL_DIALOG = 'waterfallDialog';
+var validator = require('validator');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const mseg = {
@@ -23,6 +31,7 @@ const mseg = {
   };
 
 class LoanDialog extends CancelAndHelpDialog {
+    
     constructor(id) {
         super(id || 'loanDialog');
         
@@ -30,6 +39,10 @@ class LoanDialog extends CancelAndHelpDialog {
             .addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
             .addDialog(new DateResolverDialog(DATE_RESOLVER_DIALOG))
             .addDialog(new ChoicePrompt(CHOICE_PROMPT))
+            .addDialog(new NamePrompt(GET_NAME_PROMPT))
+            .addDialog(new AmountPrompt(GET_AMOUNT_PROMPT))
+            .addDialog(new TermPrompt(GET_TERM_PROMPT))
+            .addDialog(new EmailPrompt(GET_EMAIL_PROMPT))
             .addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
                 this.nameStep.bind(this),
                 this.emailStep.bind(this),
@@ -47,57 +60,56 @@ class LoanDialog extends CancelAndHelpDialog {
     async nameStep(stepContext) {
         const loanDetails = stepContext.options;
     
-        if (!loanDetails.amount) {
-            const messageText = 'What is your name?';
-            const msg = MessageFactory.text(messageText, 'What is your name?', InputHints.ExpectingInput);
-            return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+        if (!loanDetails.name) {
+            
+            return await stepContext.prompt(GET_NAME_PROMPT, 'What is your name?');
+           
         }
-        return await stepContext.next(loanDetails.name);
-    }
+            return await stepContext.next(loanDetails.name);
+        }
+    
+
+     
+    
     async emailStep(stepContext) {
         const loanDetails = stepContext.options;
         loanDetails.name = stepContext.result;
-        if (!loanDetails.amount) {
-            const messageText = 'Enter your email';
-            const msg = MessageFactory.text(messageText, 'Enter your email', InputHints.ExpectingInput);
-            return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+        if (!loanDetails.email) {
+               
+            return await stepContext.prompt(GET_EMAIL_PROMPT, 'What is your email?');
+           
         }
-        return await stepContext.next(loanDetails.email);
-    }
-       /**
-     * If an amount has not been provided, prompt for one.
-     */
+    
+          return await stepContext.next(loanDetails.email);
+        }
+    
+
+     
+    
+
+ 
     async amountStep(stepContext) {
         const loanDetails = stepContext.options;
         loanDetails.email = stepContext.result;
         if (!loanDetails.amount) {
-            const messageText = 'How much would you like to borrow?';
-            const msg = MessageFactory.text(messageText, 'How much would you like to borrow?', InputHints.ExpectingInput);
-            return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+          
+            return await stepContext.prompt(GET_AMOUNT_PROMPT, 'How much would you like to borrow?');
+        } 
+         
+            return await stepContext.next(loanDetails.amount);
         }
-        return await stepContext.next(loanDetails.amount);
-    }
     async termStep(stepContext) {
         const loanDetails = stepContext.options;
         loanDetails.amount = stepContext.result;
         if (!loanDetails.term) {
-        // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-        // Running a prompt here means the next WaterfallStep will be run when the user's response is received.
-        // return await stepContext.prompt(CHOICE_PROMPT, {
-        //     prompt: 'Please enter your loan term in years.',
-        //     choices: ChoiceFactory.toChoices(['1', '2', '3','4','5','6'])
-        const messageText = 'How long would you like the term (1-6)';
-        const msg = MessageFactory.text(messageText, 'How long would you like the term (1-6)', InputHints.ExpectingInput);
-        return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+       return await stepContext.prompt(GET_TERM_PROMPT, 'How long would you like the term (1-6)');
     
     }
 
     return await stepContext.next(loanDetails.term);
     }
 
-    /**
-     * If an origin city has not been provided, prompt for one.
-     */
+    
     async lenderTypeStep(stepContext) {
         const loanDetails = stepContext.options;
 
@@ -162,12 +174,12 @@ class LoanDialog extends CancelAndHelpDialog {
            
             //return await stepContext.endDialog(loanDetails);
         }
-        if (stepContext.msg ==  'yes'.toLocaleUpperCase())
-        {// using Twilio SendGrid's v3 Node.js Library
-        // https://github.com/sendgrid/sendgrid-nodejs
-            sgMail.send(mseg);
+        const value = prompt.recognized.value;
+        if (value == 'Yes')
+        {
+            return await stepContext.endDialog(loanDetails);
         }
-        return await stepContext.endDialog(loanDetails);
+        
     }
 
     isAmbiguous(timex) {
@@ -194,7 +206,8 @@ function calcLoanAmount(loanTerm,loanAmount)
         console.log(middle);
         console.log(bottom);
   return `${monthlyRepayment.toFixed(2)}`
-    
+
+  
 }
 
 module.exports.LoanDialog = LoanDialog;
