@@ -143,14 +143,15 @@ class LoanDialog extends CancelAndHelpDialog {
      */
     async confirmStep(stepContext) {
         const loanDetails = stepContext.options;
-
+        if (!loanDetails.choice) {
         // Capture the results of the previous step
         loanDetails.birthDate = stepContext.result;
         const messageText = `Please confirm, I have you a loan for ${ loanDetails.amount} from: ${ loanDetails.lenderType } your birth date is: ${ loanDetails.birthDate }. Is this correct?`;
         const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         // Offer a YES/NO prompt.
         return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
-        
+        }
+        return await stepContext.next(loanDetails.choice);
     }
    
 
@@ -158,7 +159,7 @@ class LoanDialog extends CancelAndHelpDialog {
      * Complete the interaction and end the dialog.
      */
     async finalStep(stepContext) {
- 
+        
         if (stepContext.result === true) {
             const loanDetails = stepContext.options;
             

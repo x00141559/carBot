@@ -208,11 +208,17 @@ class MainDialog extends ComponentDialog {
     }
     async applyStep(stepContext) {
         const ApplicationDetails = {};
-
-      
+     
+        if (stepContext.result === true) {
+         
             // LUIS is not configured, we just run the loanDialog path.
             return await stepContext.beginDialog('applicationDialog', ApplicationDetails);
+        }else{
+             // Restart the main dialog with a different message the second time around
+        return await stepContext.replaceDialog(this.initialDialogId, { restartMsg: 'What else can I do for you?' });
         }
+    }
+
     /**
      * This is the final step in the main waterfall dialog.
      * It wraps up the sample "book a flight" interaction with a simple confirmation.
