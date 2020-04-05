@@ -1,0 +1,40 @@
+{
+  "authoringRegion": "westus",
+  "culture": "en-us",
+  "hierarchical": true,
+  "useAllTrainingData": false,
+  "dontReviseUtterance": false,
+  "copyLuisData": true,
+  "normalizeDiacritics": true,
+  "services": [
+    {
+      "intentName": "q_sample",
+      "includePrompts": true,
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "subscriptionKey": "d1c76e8cded04d12b4d3cff1223be5ee",
+      "type": "qna",
+      "name": "q_sample-qna",
+      "id": "1"
+    },
+    {
+      "intentName": "l_getloan",
+      "appId": "eea35cbb-4ec7-4fcb-942d-90a24e080cbb",
+      "authoringKey": "a45f6b6d3ebc401dbe5f9263b816d8bb",
+      "version": "0.1",
+      "region": "westus",
+      "type": "luis",
+      "name": "GetLoan",
+      "id": "2"
+    }
+  ],
+  "serviceIds": [
+    "1",
+    "2"
+  ],
+  "appId": "771b9889-d3ae-4f9d-bf07-a115f1a9bd04",
+  "authoringKey": "a45f6b6d3ebc401dbe5f9263b816d8bb",
+  "version": "0.1",
+  "region": "westus",
+  "type": "dispatch",
+  "name": "dispatch"
+}

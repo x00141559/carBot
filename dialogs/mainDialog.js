@@ -129,7 +129,7 @@ class MainDialog extends ComponentDialog {
     async actStep(stepContext) {
         const loanDetails = {};
 
-        if (!this.luisRecognizer.isConfigured) {
+        if (this.luisRecognizer.isConfigured) {
             // LUIS is not configured, we just run the loanDialog path.
             return await stepContext.beginDialog('loanDialog', loanDetails);
         }
@@ -137,7 +137,7 @@ class MainDialog extends ComponentDialog {
         // Call LUIS and gather any potential loan details. (Note the TurnContext has the response to the prompt)
         const luisResult = await this.luisRecognizer.executeLuisQuery(stepContext.context);
         switch (LuisRecognizer.topIntent(luisResult)) {
-        case 'l_GetLoan': {
+        case 'l_getloan': {
             // Extract the values for the composite entities from the LUIS result.
             const fromEntities = this.luisRecognizer.getFromEntities(luisResult);
             const forEntities = this.luisRecognizer.getForEntities(luisResult);
@@ -147,7 +147,7 @@ class MainDialog extends ComponentDialog {
 
             // Initialize loanDetails with any entities we may have found in the response.
             loanDetails.amount = forEntities.money;
-            loanDetails.lenderType = fromEntities.lender;
+            loanDetails.lender = fromEntities.lender;
             loanDetails.birthDate = this.luisRecognizer.getBirthDate(luisResult);
             console.log(`${forEntities.money}`);
             console.log('LUIS extracted these loan details:' , JSON.stringify(loanDetails));
@@ -156,7 +156,7 @@ class MainDialog extends ComponentDialog {
             return await stepContext.beginDialog('loanDialog', loanDetails);
         }
 
-        case 'q_sample-qna': {
+        case 'q_sample': {
             await this.processAutoQnA(stepContext.context);
             break;
            

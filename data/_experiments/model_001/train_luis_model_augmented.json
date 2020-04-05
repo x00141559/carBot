@@ -2,10 +2,10 @@
   "luis_schema_version": "4.0.0",
   "intents": [
     {
-      "name": "q_sample-qna"
+      "name": "q_sample"
     },
     {
-      "name": "l_GetLoan"
+      "name": "l_getloan"
     }
   ],
   "entities": [],
@@ -15,312 +15,267 @@
   "utterances": [
     {
       "text": "a loan from bank of ireland for $2000 06/06/98",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "get a loan from aib for £1000",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "get a loan from credit union",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "apply for bank loan",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "can i get a loan",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "apply for loan from a bank for £9000",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "cancel application",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "apply for loan from bank",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "get me a loan for £500 from the bank",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "apply for loan from permanent tsb for £4000, my date of birth is 02/02/95",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "get loan from aib for $3000, 03/01/97",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "apply for $29292",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "bye",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "exit",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "ignore",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "loan from bank of america for $333",
-      "intent": "l_GetLoan",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "loan for $2000, 04/04/97",
-      "intent": "l_GetLoan",
-      "entities": []
-    },
-    {
-      "text": "can i refinance my auto loan if the payoff balance on my current loan is more than my vehicle's current value? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "purchasing from an approved independent dealer , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "when can you buy out your lease? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "purchasing from a franchise dealer , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "if i can get special rate financing at the dealership, why would i finance my car with bank of america? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "purchasing through a private party , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "can i get approved for an auto loan before i pick out my car? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "how do i sign up for bank of america's online banking? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "i closed on my loan with bank of america; what happens next? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "who is eligible to apply for an auto loan? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "where can i get the payoff amount for my auto loan in online banking? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "how soon will i know if my auto loan application has been approved? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "how can i pay off my loan? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "what are the benefits of buying out your lease? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "how is simple interest calculated? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "do you offer car loans in all 50 states? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "what type of information do you collect when i apply for an auto loan? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "how can i get a letter showing the interest i paid last year? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "buying out your lease , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "what is a lease buyout? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "are there any specific terms and conditions i should be aware of before applying for an auto loan? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "once i pay off my loan in full, how long will it take for me to receive proof that the loan is closed and get my title? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "what is the online car shopping process? , closed",
-      "intent": "q_sample-qna",
+      "intent": "l_getloan",
       "entities": []
     },
     {
       "text": "if i decide to pay my auto loan off early, is there a prepayment penalty? , closed",
-      "intent": "q_sample-qna",
+      "intent": "q_sample",
       "entities": []
     },
     {
-      "text": "refinancing an existing car loan , closed",
-      "intent": "q_sample-qna",
+      "text": "if i get an auto loan from  you, can i use it to buy a car from anyone? , closed",
+      "intent": "q_sample",
       "entities": []
     },
     {
-      "text": "when will i receive the first monthly statement for my auto loan? , closed",
-      "intent": "q_sample-qna",
+      "text": "if i can get special rate financing at the dealership, why would i finance my car with your bank? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "are there any types of vehicles the bank does not finance? , closed",
+      "intent": "q_sample",
       "entities": []
     },
     {
       "text": "what is the auto loan benefit for preferred rewards members? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "what options do i have for making payments to my auto loan? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "how do i check the status of my auto loan application? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "if i'm approved, how long is my loan offer good for? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "is my loan assumable by another party? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "how can i sign up for automatic payments to my auto loan? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "can i see current and past auto loan statements online? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "how do i access a saved loan application? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "purchasing through the online car shopping process , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "does bank of america charge a fee to apply for an auto loan? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "what qualifies a vehicle for a new vs. used auto loan rate? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "what types of car loans do you offer? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "can i refinance my existing auto loan through bank of america? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "are there any types of vehicles bank of america does not finance? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "if i get an auto loan from bank of america, can i use it to buy a car from anyone? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "what are the benefits of refinancing? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "how do i apply for an auto loan? , closed",
-      "intent": "q_sample-qna",
-      "entities": []
-    },
-    {
-      "text": "how do i email bank of america with a question about my auto loan? , closed",
-      "intent": "q_sample-qna",
+      "intent": "q_sample",
       "entities": []
     },
     {
       "text": "what should i do if i've frozen my credit? , closed",
-      "intent": "q_sample-qna",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "what are the benefits of buying out your lease? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "once i pay off my loan in full, how long will it take for me to receive proof that the loan is closed and get my title? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "when will i receive the first monthly statement for my auto loan? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "what qualifies a vehicle for a new vs. used auto loan rate? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "is my loan assumable by another party? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "what is a lease buyout? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "buying out your lease , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "does you charge a fee to apply for an auto loan? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "how can i pay off my loan? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "how do i access a saved loan application? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "can i refinance my auto loan if the payoff balance on my current loan is more than my vehicle's current value? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "how do i check the status of my auto loan application? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "what is the online car shopping process? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "where can i get the payoff amount for my auto loan in online banking? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "can i refinance my existing auto loan? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "do you offer car loans in all 32 counties? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "how soon will i know if my auto loan application has been approved? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "how do i apply for an auto loan? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "who is eligible to apply for an auto loan? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "i closed on my loan; what happens next? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "what types of car loans do you offer? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "how is simple interest calculated? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "how long does loan approval take",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "can i get approved for an auto loan before i pick out my car? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "if i'm approved, how long is my loan offer good for? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "when can you buy out your lease? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "what type of information do you collect when i apply for an auto loan? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "what documentation will i need",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "what are the benefits of refinancing? , closed",
+      "intent": "q_sample",
+      "entities": []
+    },
+    {
+      "text": "are there any specific terms and conditions i should be aware of before applying for an auto loan? , closed",
+      "intent": "q_sample",
       "entities": []
     }
   ],

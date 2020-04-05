@@ -1,0 +1,29 @@
+{
+  "authoringRegion": "westus",
+  "culture": "en-us",
+  "hierarchical": true,
+  "useAllTrainingData": false,
+  "dontReviseUtterance": false,
+  "copyLuisData": true,
+  "normalizeDiacritics": true,
+  "services": [
+    {
+      "intentName": "q_sample",
+      "includePrompts": true,
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "subscriptionKey": "d1c76e8cded04d12b4d3cff1223be5ee",
+      "type": "qna",
+      "name": "q_sample-qna",
+      "id": "1"
+    }
+  ],
+  "serviceIds": [
+    "1"
+  ],
+  "appId": "67bfebc3-2f42-47d0-8f5d-528889a8c1a2",
+  "authoringKey": "a45f6b6d3ebc401dbe5f9263b816d8bb",
+  "version": "Dispatch",
+  "region": "westus",
+  "type": "dispatch",
+  "name": "q_sample-qna"
+}

@@ -1,0 +1,733 @@
+{
+  "qnaDocuments": [
+    {
+      "id": 1,
+      "answer": "We offer a variety of auto loan types:\n\n*   [Dealer purchases](../auto-loan-faq/#purchasing-a-car) (when you purchase a new or used car at a dealership)\n\n*   [Refinancing of current auto loans](../auto-loan-faq/#refinancing-an-existing-car-loan)\n\n*   [Lease buyouts](../auto-loan-faq/#buying-out-your-lease) (when you decide to purchase your leased vehicle)\n\n*   [Private party](../auto-loan-faq/#purchasing-a-car) (when you purchase a vehicle from another individual). You can apply for a private party loan by visiting a financial center.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "What types of car loans do you offer? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 2,
+      "answer": "Yes. The following vehicles are **not eligible** for financing:\n\n*   Vehicles older than 10 calendar years\n\n*   Vehicles with €125,000 miles or more\n\n*   Vehicles valued at less than €6,000 (based on franchise dealer invoice for new vehicles\n\n* ",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "Are there any types of vehicles the Bank does not finance? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 3,
+      "answer": "The applicant (and any co-signer) must be at least 18 years and must live in Ireland and be an Irish citizen, resident alien or non-resident alien.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "Who is eligible to apply for an auto loan? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": [
+          {
+            "displayOrder": 0,
+            "qnaId": 7,
+            "displayText": "What qualifies a vehicle for a new vs. used auto loan rate? , closed"
+          },
+          {
+            "displayOrder": 0,
+            "qnaId": 7,
+            "displayText": "What qualifies a vehicle for a new vs. used auto loan rate? , closed"
+          }
+        ]
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 4,
+      "answer": "Yes, car loans are available in all 32 counties",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "Do you offer car loans in all 32 counties? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": [
+          {
+            "displayOrder": 0,
+            "qnaId": 8,
+            "displayText": "How do I apply for an auto loan? , closed"
+          },
+          {
+            "displayOrder": 0,
+            "qnaId": 8,
+            "displayText": "How do I apply for an auto loan? , closed"
+          }
+        ]
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 5,
+      "answer": "Specific terms for your auto loan are determined by a variety of factors, but you should be aware of the following:\n\n*   The minimum amount we finance is €500 (\n\n*   Term limitations may apply\n\n*   Loan-to-value restrictions apply\n\n*   A down payment may be required\n\n* ",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "Are there any specific terms and conditions I should be aware of before applying for an auto loan? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 6,
+      "answer": "No —&nbsp; we do not enforce prepayment penalties for automobile financing accounts that it services.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "If I decide to pay my auto loan off early, is there a prepayment penalty? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 7,
+      "answer": "Vehicle is considered new when it meets both of the following criteria:\n\n*   Never been titled or registered with the DMV or any other appropriate agency\n\n*   Odometer (if applicable) has less than 6,000 miles\n\nNote – Prior year untitled vehicles must be considered used as of March 1 of the current year (Example: a 2017 model is considered used as of March 1, 2018)\n[ Applying for a car loan , closed   ](javascript:void(0))[Expand all panels](javascript:void(0))",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "What qualifies a vehicle for a new vs. used auto loan rate? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 8,
+      "answer": "You can apply for your auto loan online at your local financial center to meet with us at your convenience or contact us at 1890 500 121 to apply over the phone.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "How do I apply for an auto loan? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": [
+          {
+            "displayOrder": 0,
+            "qnaId": 26,
+            "displayText": "When can you buy out your lease? , closed"
+          },
+          {
+            "displayOrder": 0,
+            "qnaId": 26,
+            "displayText": "When can you buy out your lease? , closed"
+          }
+        ]
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 9,
+      "answer": "No. We do not charge you an auto loan application fee.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "Does you charge a fee to apply for an auto loan? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 10,
+      "answer": "When you apply for an auto loan with us, you'll be asked to provide personal information such as your name, address, Social Security number, employment information, income, Irish citizenship status and email address.\n\nDepending on the specifics of your loan request, the following documents may be required prior to closing: purchase agreement/bill of sale, registration, title, lease buyout instructions, proof of income, federal tax returns, W-2s and financial statements.\n\nFor refinance loans and lease buyouts, we require specific vehicle information such as make, model, year, mileage and vehicle identification number (VIN).",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "What type of information do you collect when I apply for an auto loan? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 11,
+      "answer": "If you have frozen your credit report due to security concerns, you will need to temporarily unfreeze with all three credit bureaus (Equifax, TransUnion and Experian) to proceed with an auto application. Please refer to the instructions provided when you froze your report or contact the individual bureaus for more information.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "What should I do if I've frozen my credit? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 12,
+      "answer": "You can access your saved application online for 30 days. If you're already an Online Banking customer, you can also access your saved application when you sign in.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "How do I access a saved loan application? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 13,
+      "answer": "Most decisions are available in about 60 seconds. In cases where applications require a more detailed review, we'll send you an email when the decision is ready.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "How soon will I know if my auto loan application has been approved? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 14,
+      "answer": "Your loan approval and interest rate are locked in for 30 calendar days from the date of your original loan submission.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "If I'm approved, how long is my loan offer good for? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 15,
+      "answer": "You can securely check the status of your car loan application anytime. We will also send you an email when a decision about your application has been made.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "How do I check the status of my auto loan application? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 16,
+      "answer": "Yes. Your purchase loan approval and interest rate are locked in for 30 calendar days from the date of your original loan submission, which means you know before you shop exactly how much car you can afford.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "Can I get approved for an auto loan before I pick out my car? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 17,
+      "answer": "As a Preferred Rewards member, you are eligible to receive an interest rate discount [Footnote 1](#ftn_preferredRewardsDiscount_content) on a new auto purchase or refinance loan.\n\n*   Gold – 0.25%\n\n*   Platinum – 0.35%\n\n*   Platinum Honors – 0.50%\n\nYou must be enrolled in Preferred Rewards at the time of application to receive the discount. The discount will be reflected in the interest rate presented to you upon loan approval.\n[ Purchasing a car , closed   ](javascript:void(0))[Expand all panels](javascript:void(0))",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "What is the auto loan benefit for Preferred Rewards members? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 18,
+      "answer": "You have a few options when using us to buy a car:\n\n*   **Franchise dealers**\n\nFranchise dealers sell new and used cars for auto manufacturers such as Ford®, General Motors®, Chrysler®, Honda® and others.\n\n*   **Approved independent dealers**\n\nIndependent dealers are not affiliated with auto manufacturers. Bank of America only finances vehicles purchased from the following independent dealers: CarMax®, Hertz Car Sales®, Enterprise Car Sales and Carvana.\n\n*   **Private party**\n\n You can purchase a vehicle from another individual via a private party loan. Online Banking customers may apply online for a private party loan. If you’re not currently enrolled in Online Banking, please [visit a financial center] or schedule an appointment to apply for your loan. Please be aware that there are additional requirements for private party loans including:\n\n*   *   The seller(s) must be the same as the registered owner(s) listed on the vehicle title\n    *   The vehicle must be purchased directly from the seller/owner (consignment sales are not eligible for financing)\n\nRegardless of who you purchase your car from, be sure to review [what to do once approved](../auto-loan-faq/#what-to-do-once-approved).",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "If I get an auto loan from  you, can I use it to buy a car from anyone? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 19,
+      "answer": "You can save time and effort when you shop for your next vehicle online through our extensive participating dealer network. Choose your car and financing online, then visit the dealership to take a test drive and finalize the paperwork. You can even change your mind at any time about the vehicle you want. ",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "What is the online car shopping process? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 20,
+      "answer": "Special rate programs can be very attractive if they're offered for the specific car you want and they provide you with appropriate loan terms, but sometimes the terms are too restrictive or you may want different terms.\n\nDealers often offer cash rebates as an alternative to low interest rates. Choosing the cash rebate and financing with us may be a better option for you: By choosing the rebate, applying it to your down payment and combining that with low-rate financing from us, you can maximize your total savings.\n[ Refinancing an existing car loan , closed   ](javascript:void(0))[Expand all panels](javascript:void(0))",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "If I can get special rate financing at the dealership, why would I finance my car with your bank? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 21,
+      "answer": "Refinancing your existing auto loan may offer you 1 of 2 potential benefits. First, refinancing may reduce your monthly payment through lowering your interest rate, extending your loan term, or both. Or, refinancing may help you to reduce the overall amount of interest paid [Footnote 3](#ftn_refinanceDisclosure_content).",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "What are the benefits of refinancing? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 22,
+      "answer": "Yes, and you can refinance your existing auto loan whether it’s through us or another financial institution.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "Can I refinance my existing auto loan? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 23,
+      "answer": "Yes, but if your current loan’s payoff balance is more than the car's current value, you may be asked to pay the difference as a requirement for getting your auto loan refinanced.\n[ Buying out your lease , closed   ](javascript:void(0))[Expand all panels](javascript:void(0))",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "Can I refinance my auto loan if the payoff balance on my current loan is more than my vehicle's current value? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 24,
+      "answer": "A lease buyout is a purchase of the vehicle that you are currently leasing.\n\nCustomers purchasing a vehicle that they’re currently leasing in their name are eligible for a lease buyout. Financing is not available for customers who wish to finance a vehicle leased by another individual or if the lease buyout request involves a name change.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "What is a lease buyout? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 25,
+      "answer": "A lease buyout allows you to keep driving the car that you know. It also may allow you to avoid end-of-lease fees such as mileage and/or excess wear and tear. Refer to the terms of your lease agreement, which can be obtained from your current leasing company, for details regarding any fees upon termination of your lease.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "What are the benefits of buying out your lease? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 26,
+      "answer": "You may not have to wait until the end of your lease to do a lease buyout. Refer to the terms of your lease agreement, which can be obtained from your current leasing company, for details regarding any fees upon termination of your lease.\n\n[Get more information on lease buyout loans](https://www.bankofamerica.com/auto-loans/lease-buyout/)\n[ What to do once you're approved , closed   ](javascript:void(0))[Expand all panels](javascript:void(0))",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "When can you buy out your lease? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 32,
+      "answer": "1.  Speak with one of our loan specialists using the phone number provided to you with your approval.\n\n2.  Submit documents requested by the loan specialist, including current registration and lease buyout package obtained from your current leasing company.\n\n3.  Payment will be sent to your current leasing company.\n\n4.  You may need to speak with your current leasing company to finalize the termination of your lease.\n\nWe will provide you detailed next steps on how to complete the title process once the loan is complete.\n\nNote: Customers purchasing a vehicle currently being leased in their name are eligible for a lease buyout. Financing is not available for customers who wish to finance a vehicle leased by another individual or if the lease buyout request involves a name change.\n[ Managing your car loan , closed   ](javascript:void(0))[Expand all panels](javascript:void(0))",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "Buying out your lease , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 33,
+      "answer": "Within 10-15 business days after your closing date, you'll receive a welcome package containing the following:\n\n*   A letter welcoming you to the Bank\n\n*   Information about your account including your account number, the date your first payment is due and confirmation of your monthly payment amount\n\n*   Instructions on how to sign up for automatic payments\n\n*   Information about Online Banking features and benefitsn\n* ",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "I closed on my loan; what happens next? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 35,
+      "answer": "Your paper statement is mailed each month 20 days prior to your due date, unless you decide to set up automatic payments through Online Bill Pay, in which case you won't receive monthly paper statements. With Online Bill Pay, you can schedule recurring or one-time bill payments from your checking or money market accounts.\n\nYou can also sign up for electronic bills by signing in to Online Banking and selecting **eBills** from the **Bill Pay** navigation menu.\n\n",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "When will I receive the first monthly statement for my auto loan? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 40,
+      "answer": "Interest on your loan accrues daily. It is for this reason that the portion of your monthly payment allocated to interest may fluctuate to match the number of days in each month. To calculate the interest due on your loan, follow these steps:\n\n1.  Obtain the new principal balance of your loan from your Online Banking Account Services page or the automated phone service.\n\n2.  Multiply your principal balance by your interest rate. Divide your answer by 365 days (366 days in a leap year) to find your daily interest accrual or your per diem.\n\n3.  Multiply this amount by the number of calendar days that have elapsed since the date of your last payment to find your interest due.\n\nHere is an example:\n\n1. €10,000 principal balance.\n\n2. €10,000 multiplied by 8.5% interest divided by 365 days in the year = €2.33 per diem.\n\n3. €2.33 multiplied by 33 days elapsed since the date of your last payment = €76.85. This portion of your payment will be allocated to interest accrued.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "How is simple interest calculated? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 42,
+      "answer": "Sign in to Online Banking and select the **Automobile Loan** link listed under **Personal accounts** on your accounts overview page. You can also select the **Quick View** link beneath the automobile loan listing on your accounts overview page.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "Where can I get the payoff amount for my auto loan in Online Banking? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 43,
+      "answer": "You have multiple loan payoff options:\n\n*   **Pay using Bill Pay:** If you're an Online Banking customer, you can sign in to make a payment through Online Bill Pay.\n\n*   **Pay by phone:** You can call 1890 500 121 to pay by phone 24/7. Please note that same-day payments cannot be canceled.\n\n* You can pay off your auto loan in person at one of our financial centers.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "How can I pay off my loan? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 44,
+      "answer": "In most situations you can expect to receive your lien release, paid-in-full letter and title (if the title is available) within 7-10 business days after we receive and process your payoff. If the title is electronic or other conditions apply, our letter will detail the process to obtain the title and ensure that the lien release is properly recorded.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "Once I pay off my loan in full, how long will it take for me to receive proof that the loan is closed and get my title? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 45,
+      "answer": "No.",
+      "source": "https://www.bankofamerica.com/auto-loans/auto-loan-faq/",
+      "questions": [
+        "Is my loan assumable by another party? , closed"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 46,
+      "answer": "\n\n*   Photo ID (passport, drivers license)\n\n*   3 payslips / Social Welfare dockets\n\n*   3 months recent bank statements\n\n### [\n\n](https://social.capitalcu.ie/car-affordability-calculator/?utm_source=Facebook&utm_medium=Conversion&utm_campaign=Car_2020_Feb&utm_content=Video&fbclid=IwAR3nr5BE4qgGG47VI2Fo-JHrJoUjb_Uy1WIPSbyd_Zik50oER0NQrxXjgDo#)\n\n",
+      "source": "Editorial",
+      "questions": [
+        "What documentation will I need?"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": [
+          {
+            "displayOrder": 0,
+            "qnaId": 14,
+            "displayText": "If I'm approved, how long is my loan offer good for? , closed"
+          }
+        ]
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 47,
+      "answer": "*   The majority of loan applications are assessed on the day we receive the supporting documents from the applicant. Sometimes it can take a little longer, if it does, we will keep you informed every step of the way",
+      "source": "Editorial",
+      "questions": [
+        "How long does loan approval take?"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 48,
+      "answer": "-Photo ID (passport, drivers license)\n\n-payslips / Social Welfare dockets\n\n-3 months recent bank statements",
+      "source": "Editorial",
+      "questions": [
+        "What documentation will I need?"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": [
+          {
+            "displayOrder": 0,
+            "qnaId": 14,
+            "displayText": "If I'm approved, how long is my loan offer good for? , closed"
+          }
+        ]
+      },
+      "isQAEmbeddingPresent": false
+    },
+    {
+      "id": 49,
+      "answer": "The majority of loan applications are assessed on the day we receive the supporting documents from the applicant. Sometimes it can take a little longer, if it does, we will keep you informed every step of the way.",
+      "source": "Editorial",
+      "questions": [
+        "How long does loan approval take?"
+      ],
+      "metadata": [],
+      "alternateQuestions": "",
+      "alternateQuestionClusters": [],
+      "changeStatus": "NoChange",
+      "kbId": "fce212a6-d890-4089-ab48-0c2a7657c77d",
+      "context": {
+        "isContextOnly": false,
+        "prompts": []
+      },
+      "isQAEmbeddingPresent": false
+    }
+  ]
+}

@@ -1,13 +1,11 @@
 Label	Weight	Text
-l_GetLoan	1	apply for bank loan
-l_GetLoan	1	can i get a loan
-l_GetLoan	1	apply for loan from a bank for £9000
-q_sample-qna	1	Who is eligible to apply for an auto loan? , closed
-q_sample-qna	1	Where can I get the payoff amount for my auto loan in Online Banking? , closed
-q_sample-qna	1	How soon will I know if my auto loan application has been approved? , closed
-q_sample-qna	1	How can I pay off my loan? , closed
-q_sample-qna	1	What are the benefits of buying out your lease? , closed
-q_sample-qna	1	How is simple interest calculated? , closed
-q_sample-qna	1	Do you offer car loans in all 50 states? , closed
-q_sample-qna	1	What type of information do you collect when I apply for an auto loan? , closed
-q_sample-qna	1	How can I get a letter showing the interest I paid last year? , closed
+l_getloan	1	apply for bank loan
+l_getloan	1	can i get a loan
+l_getloan	1	apply for loan from a bank for £9000
+q_sample	1	Once I pay off my loan in full, how long will it take for me to receive proof that the loan is closed and get my title? , closed
+q_sample	1	When will I receive the first monthly statement for my auto loan? , closed
+q_sample	1	What qualifies a vehicle for a new vs. used auto loan rate? , closed
+q_sample	1	Is my loan assumable by another party? , closed
+q_sample	1	What is a lease buyout? , closed
+q_sample	1	Buying out your lease , closed
+q_sample	1	Does you charge a fee to apply for an auto loan? , closed

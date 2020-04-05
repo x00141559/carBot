@@ -1,13 +1,11 @@
 Label	Weight	Text
-l_GetLoan	1	apply for loan from permanent tsb for £4000, my date of birth is 02/02/95
-l_GetLoan	1	get loan from aib for $3000, 03/01/97
-l_GetLoan	1	apply for $29292
-q_sample-qna	1	What options do I have for making payments to my auto loan? , closed
-q_sample-qna	1	How do I check the status of my auto loan application? , closed
-q_sample-qna	1	If I'm approved, how long is my loan offer good for? , closed
-q_sample-qna	1	Is my loan assumable by another party? , closed
-q_sample-qna	1	How can I sign up for automatic payments to my auto loan? , closed
-q_sample-qna	1	Can I see current and past auto loan statements online? , closed
-q_sample-qna	1	How do I access a saved loan application? , closed
-q_sample-qna	1	Purchasing through the online car shopping process , closed
-q_sample-qna	1	Does Bank of America charge a fee to apply for an auto loan? , closed
+l_getloan	1	apply for loan from permanent tsb for £4000, my date of birth is 02/02/95
+l_getloan	1	get loan from aib for $3000, 03/01/97
+l_getloan	1	apply for $29292
+q_sample	1	Do you offer car loans in all 32 counties? , closed
+q_sample	1	How soon will I know if my auto loan application has been approved? , closed
+q_sample	1	How do I apply for an auto loan? , closed
+q_sample	1	Who is eligible to apply for an auto loan? , closed
+q_sample	1	I closed on my loan; what happens next? , closed
+q_sample	1	What types of car loans do you offer? , closed
+q_sample	1	How is simple interest calculated? , closed

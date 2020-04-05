@@ -1,13 +1,11 @@
 Label	Weight	Text
-l_GetLoan	1	bye
-l_GetLoan	1	exit
-l_GetLoan	1	ignore
-q_sample-qna	1	What qualifies a vehicle for a new vs. used auto loan rate? , closed
-q_sample-qna	1	What types of car loans do you offer? , closed
-q_sample-qna	1	Can I refinance my existing auto loan through Bank of America? , closed
-q_sample-qna	1	Are there any types of vehicles Bank of America does not finance? , closed
-q_sample-qna	1	If I get an auto loan from Bank of America, can I use it to buy a car from anyone? , closed
-q_sample-qna	1	What are the benefits of refinancing? , closed
-q_sample-qna	1	How do I apply for an auto loan? , closed
-q_sample-qna	1	How do I email Bank of America with a question about my auto loan? , closed
-q_sample-qna	1	What should I do if I've frozen my credit? , closed
+l_getloan	1	bye
+l_getloan	1	exit
+l_getloan	1	ignore
+q_sample	1	How long does loan approval take
+q_sample	1	Can I get approved for an auto loan before I pick out my car? , closed
+q_sample	1	If I'm approved, how long is my loan offer good for? , closed
+q_sample	1	When can you buy out your lease? , closed
+q_sample	1	What type of information do you collect when I apply for an auto loan? , closed
+q_sample	1	What documentation will I need
+q_sample	1	What are the benefits of refinancing? , closed
