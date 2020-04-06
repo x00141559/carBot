@@ -26,6 +26,7 @@
     "botbuilder-dialogs": "~4.6.0",
     "botbuilder-testing": "^4.6.2",
     "dotenv": "^8.2.0",
+    "moment": "^2.24.0",
     "node-mandrill": "^1.0.1",
     "restify": "^8.5.1",
     "validate": "^5.1.0",

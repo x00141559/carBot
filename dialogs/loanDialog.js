@@ -3,10 +3,14 @@
 const { NamePrompt } = require('../prompts/namePrompt');
 const { EmailPrompt } = require('../prompts/emailPrompt');
 const { AmountPrompt } = require('../prompts/amountPrompt');
+// Import AdaptiveCard content.
+const BoiCard = require('./resources/boi.json');
+const BamlCard = require('./resources/baml.json');
+
 const { TermPrompt } = require('../prompts/termPrompt');
 
 const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
-const { InputHints, MessageFactory} = require('botbuilder');
+const { InputHints, MessageFactory, ActivityHandler, CardFactory} = require('botbuilder');
 const { ConfirmPrompt, TextPrompt, WaterfallDialog,ChoicePrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { DateResolverDialog } = require('./dateResolverDialog');
@@ -30,6 +34,12 @@ const mseg = {
     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
   };
 
+
+  // Create array of AdaptiveCard content, this will be used to send a random card to the user.
+const CARDS = [
+    BoiCard,
+    BamlCard
+];
 class LoanDialog extends CancelAndHelpDialog {
     
     constructor(id) {
@@ -46,6 +56,7 @@ class LoanDialog extends CancelAndHelpDialog {
             .addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
                 this.nameStep.bind(this),
                 this.emailStep.bind(this),
+                this.cardStep.bind(this),
                 this.amountStep.bind(this),
                 this.termStep.bind(this),
                 this.lenderTypeStep.bind(this),
@@ -84,9 +95,7 @@ class LoanDialog extends CancelAndHelpDialog {
         }
     
 
-     
-    
-
+      
  
     async amountStep(stepContext) {
         const loanDetails = stepContext.options;
@@ -94,10 +103,14 @@ class LoanDialog extends CancelAndHelpDialog {
         if (!loanDetails.amount) {
           
             return await stepContext.prompt(GET_AMOUNT_PROMPT, 'How much would you like to borrow?');
+            
         } 
          
             return await stepContext.next(loanDetails.amount);
         }
+
+
+
     async termStep(stepContext) {
         const loanDetails = stepContext.options;
         loanDetails.amount = stepContext.result;
@@ -154,7 +167,18 @@ class LoanDialog extends CancelAndHelpDialog {
         return await stepContext.next(loanDetails.choice);
     }
    
-
+    async cardStep( stepContext){
+        //this.onMessage(async (context, next) => {
+            const randomlySelectedCard = CARDS[Math.floor((Math.random() * CARDS.length - 1) + 1)];
+            await stepContext.context.sendActivity({
+                text: 'Here is an Adaptive Card:',
+                attachments: [CardFactory.adaptiveCard(randomlySelectedCard)]
+            });  
+        
+            // By calling next() you ensure that the next BotHandler is run.
+            return await stepContext.next();
+        
+        }
     /**
      * Complete the interaction and end the dialog.
      */
