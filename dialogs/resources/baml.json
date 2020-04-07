@@ -30,7 +30,7 @@
                 },
                 {
                     "type": "TextBlock",
-                    "text": "DATE(parseDateFromEpoch(createdUtc), SHORT) TIME(parseDateFromEpoch(createdUtc)"
+                    "text": ""
                 }
             ]
         },
@@ -52,7 +52,7 @@
                                 },
                                 {
                                     "type": "TextBlock",
-                                    "text": " 2.1 EUR change%",
+                                    "text": " ▼2.1 EUR %",
                                     "color": " ('good', 'attention)",
                                     "spacing": "None"
                                 }
