@@ -24,16 +24,8 @@ const CONFIRM_PROMPT = 'confirmPrompt';
 const DATE_RESOLVER_DIALOG = 'dateResolverDialog';
 const TEXT_PROMPT = 'textPrompt';
 const WATERFALL_DIALOG = 'waterfallDialog';
-var validator = require('validator');
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const mseg = {
-    to: 'aoife_80@msn.com',
-    from: 'aoife_80@msn.com',
-    subject: 'Sending with Twilio SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-  };
+
+
 
 
   // Create array of AdaptiveCard content, this will be used to send a random card to the user.
@@ -134,7 +126,7 @@ class LoanDialog extends CancelAndHelpDialog {
         const loanDetails = stepContext.options;
 
         // Capture the results of the previous step
-        loanDetails.lenderType = stepContext.result;
+        loanDetails.term = stepContext.result;
         if (!loanDetails.birthDate || this.isAmbiguous(loanDetails.birthDate)) {
             
             return await stepContext.beginDialog(DATE_RESOLVER_DIALOG, { date: loanDetails.birthDate });
@@ -149,17 +141,17 @@ class LoanDialog extends CancelAndHelpDialog {
             const messageText = `Sorry, you must be older than 18 to apply for a loan with us`;
             const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
             // Offer a YES/NO prompt.
-            return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+           // return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
          
         }
-        
+        return await stepContext.next(loanDetails.birthDate);
     }
     
     async lenderStep( stepContext){
         
         const loanDetails = stepContext.options;
         loanDetails.birthDate = stepContext.result;
-        console.log(calculateAge(`${loanDetails.birthDate}`));
+  //      console.log(calculateAge(`${loanDetails.birthDate}`));
         if (!loanDetails.APR) {
         //this.onMessage(async (context, next) => {
             let card;
@@ -168,24 +160,24 @@ class LoanDialog extends CancelAndHelpDialog {
                 const messageText = `Sorry, you must be older than 18 to apply for a loan with us`;
                 const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
                 // Offer a YES/NO prompt.
-                return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+               // return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
              
             }
             if(`${ loanDetails.amount}`  <=3000)
             {
                 card = CreditCard;
-                loanDetails.APR = 9.6;
+                loanDetails.APR = .10;
 
             }
             else if (`${ loanDetails.amount}` <=5000)
             {
                 card = BoiCard;
-                loanDetails.APR =  8.5;
+                loanDetails.APR =  .20;
             }
             else
             {
                 card = BamlCard;
-                loanDetails.APR = 8.95;
+                loanDetails.APR = .45;
             }
            // const randomlySelectedCard = CARDS[Math.floor((Math.random() * CARDS.length - 1) + 1)];
             await stepContext.context.sendActivity({
@@ -207,12 +199,32 @@ class LoanDialog extends CancelAndHelpDialog {
         if (!loanDetails.choice) {
         // Capture the results of the previous step
         loanDetails.APR = stepContext.result;
+        if (`${ loanDetails.lenderType }` == 1 )
+        {
+            loanDetails.lenderType = 'Bank of Ireland'
+        }
+        else if (`${ loanDetails.lenderType }` == 2 )
+        {
+            loanDetails.lenderType = 'Credit Union'
+        }
+        else{
+            loanDetails.lenderType = 'Bank of America'
+        }
         const messageText = `Please confirm, I have you a loan for ${ loanDetails.amount} from: ${ loanDetails.lenderType } your birth date is: ${ loanDetails.birthDate }. Is this correct?`;
         const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         // Offer a YES/NO prompt.
+        
         return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
-        }
+
+        }  
+
+       
+
         return await stepContext.next(loanDetails.choice);
+     
+           
+       
+       
     }
    
     
@@ -220,30 +232,41 @@ class LoanDialog extends CancelAndHelpDialog {
      * Complete the interaction and end the dialog.
      */
     async finalStep(stepContext) {
-        
-        if (stepContext.result === true) {
+        if ((stepContext.result === false ) || (stepContext.result === 'undefined' ))
+        {
+            const messageText = `Okay, refresh, let's start again`;
+            return false;
+        }
+        else if(stepContext.result === true) {
             const loanDetails = stepContext.options;
-            console.log(`${loanDetails.APR}`);
-            console.log(calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`));
+            loanDetails.choice = stepContext.result;
+          //  console.log(`${loanDetails.APR}`);
+            console.log(calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`,`${loanDetails.APR}`));
 
-
+            
+                 
+             
 
 
             const messageText = `Your Monthly payment would be: ${calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`, `${loanDetails.APR}`)} , an email with quote details has been sent, do you wish to check you eligibility for a loan? `;
             const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
             // Offer a YES/NO prompt.
             return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
-           
+    
             //return await stepContext.endDialog(loanDetails);
         }
-        const value = prompt.recognized.value;
-        if (value == 'Yes')
-        {
-            return await stepContext.endDialog(loanDetails);
-        }
         
+        //var quote = `${calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`, `${loanDetails.APR}`)}`;
+        //console.log(quote);
+        // const value = prompt.recognized.value;
+        
+        // if (value == 'Yes')
+        // {
+        //     return await stepContext.endDialog(loanDetails);
+        // }
+        
+    
     }
-
     isAmbiguous(timex) {
         const timexPropery = new TimexProperty(timex);
         return !timexPropery.types.has('definite');
@@ -260,8 +283,11 @@ function calcLoanAmount(loanTerm,loanAmount,rate)
     const divisor = 12.00;
   
     const interestRate = rate/divisor;
+    //console.log('rate',rate);
     let middle = 1 + (interestRate);
+ 
     let term =loanTerm*divisor;
+    console.log('term',term)
     let top = interestRate* loanAmount;
     let bottom = (1-(middle)**(-term));
     let monthlyRepayment = top/bottom;
@@ -282,5 +308,15 @@ function calculateAge(dateString) {
     return age;
 }
 
+function sendEmail(email)
+{
+    const mseg = {
+        to: 'aoife_80@msn.com',
+        from: 'aoife_80@msn.com',
+        subject: 'Sending with Twilio SendGrid is Fun',
+        text: ' Your quote is',
+        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      };
+}
 
 module.exports.LoanDialog = LoanDialog;
