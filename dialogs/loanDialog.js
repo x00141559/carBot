@@ -136,17 +136,41 @@ class LoanDialog extends CancelAndHelpDialog {
         // Capture the results of the previous step
         loanDetails.lenderType = stepContext.result;
         if (!loanDetails.birthDate || this.isAmbiguous(loanDetails.birthDate)) {
+            
             return await stepContext.beginDialog(DATE_RESOLVER_DIALOG, { date: loanDetails.birthDate });
+            
         }
-        return await stepContext.next(loanDetails.birthDate);
-    }
-    async lenderStep( stepContext){
+       
+        
 
+      //  return await stepContext.next(loanDetails.birthDate);
+        if (calculateAge(`${loanDetails.birthDate}`) < 18)
+        {
+            const messageText = `Sorry, you must be older than 18 to apply for a loan with us`;
+            const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
+            // Offer a YES/NO prompt.
+            return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+         
+        }
+        
+    }
+    
+    async lenderStep( stepContext){
+        
         const loanDetails = stepContext.options;
         loanDetails.birthDate = stepContext.result;
+        console.log(calculateAge(`${loanDetails.birthDate}`));
         if (!loanDetails.APR) {
         //this.onMessage(async (context, next) => {
             let card;
+            if (calculateAge(`${loanDetails.birthDate}`) < 18)
+            {
+                const messageText = `Sorry, you must be older than 18 to apply for a loan with us`;
+                const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
+                // Offer a YES/NO prompt.
+                return await stepContext.prompt(TEXT_PROMPT, { prompt: msg });
+             
+            }
             if(`${ loanDetails.amount}`  <=3000)
             {
                 card = CreditCard;
@@ -165,7 +189,7 @@ class LoanDialog extends CancelAndHelpDialog {
             }
            // const randomlySelectedCard = CARDS[Math.floor((Math.random() * CARDS.length - 1) + 1)];
             await stepContext.context.sendActivity({
-                text: 'Based on the informstion provided the lender that would best suit is:',
+                text: 'Based on the information provided the lender that would best suit is:',
                 attachments: [CardFactory.adaptiveCard(card)]
             });    
         
@@ -247,5 +271,16 @@ function calcLoanAmount(loanTerm,loanAmount,rate)
 
   
 }
+function calculateAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
 
 module.exports.LoanDialog = LoanDialog;
