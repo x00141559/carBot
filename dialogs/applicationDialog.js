@@ -3,7 +3,7 @@
 
 const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
 const { InputHints, MessageFactory,ActivityTypes} = require('botbuilder');
-const { ConfirmPrompt, TextPrompt, NumberPrompt, WaterfallDialog,ChoiceFactory,ChoicePrompt } = require('botbuilder-dialogs');
+const { ConfirmPrompt, TextPrompt, NumberPrompt, WaterfallDialog,CardFactory,ChoicePrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { DateResolverDialog } = require('./dateResolverDialog');
 const { IncomePrompt } = require('../prompts/incomePrompt');
@@ -22,6 +22,7 @@ const DATE_RESOLVER_DIALOG = 'dateResolverDialog';
 const TEXT_PROMPT = 'textPrompt';
 const WATERFALL_DIALOG = 'waterfallDialog';
 const NUMBER_PROMPT = 'numberPrompt';
+
 
 
 class ApplicationDialog extends CancelAndHelpDialog {
@@ -49,6 +50,8 @@ class ApplicationDialog extends CancelAndHelpDialog {
                 this.MaintenainceStep.bind(this),
                 this.numMainStep.bind(this),
                 this.confirmStep.bind(this)
+               
+
                 
                 
             ]));
@@ -204,18 +207,9 @@ return await stepContext.next(ApplicationDetails.numMain);
      }
    
 
-    // /**
-    //  * Complete the interaction and end the dialog.
-    //  */
-    //async finalStep(stepContext) {
- 
-    //     if (stepContext.result === true) {
-    //         const loanDetails = stepContext.options;
-            
-    //         console.log("end");
-
-
-
+    
+  
+  
 
   
 

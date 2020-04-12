@@ -1,17 +1,20 @@
+module.exports = function calcLoanAmount(loanTerm,loanAmount,rate)
+{
+   // https://www.ifsautoloans.com/blog/car-loan-interest/
+    const divisor = 12.00;
+  
+    const interestRate = rate/divisor;
+    //console.log('rate',rate);
+    let middle = 1 + (interestRate);
+ 
+    let term =loanTerm*divisor;
+    console.log('term',term)
+    let top = interestRate* loanAmount;
+    let bottom = (1-(middle)**(-term));
+    let monthlyRepayment = top/bottom;
+        console.log(middle);
+        console.log(bottom);
+  return `${monthlyRepayment.toFixed(2)}`
 
-var validator = require('validator');
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-module.exports.Email = class Email extends TextPrompt {
-    constructor(dialogId) {
-const mseg = {
-    to: 'aoife_80@msn.com',
-    from: 'aoife_80@msn.com',
-    subject: 'Sending with Twilio SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-  };
-
+  
 }
-}
-

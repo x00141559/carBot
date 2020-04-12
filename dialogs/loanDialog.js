@@ -11,7 +11,7 @@ const CreditCard = require('./resources/creditUnion.json');
 const { TermPrompt } = require('../prompts/termPrompt');
 
 const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
-const { InputHints, MessageFactory, ActivityHandler, CardFactory} = require('botbuilder');
+const { InputHints, MessageFactory,  CardFactory} = require('botbuilder');
 const { ConfirmPrompt, TextPrompt, WaterfallDialog,ChoicePrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { DateResolverDialog } = require('./dateResolverDialog');
@@ -24,7 +24,7 @@ const CONFIRM_PROMPT = 'confirmPrompt';
 const DATE_RESOLVER_DIALOG = 'dateResolverDialog';
 const TEXT_PROMPT = 'textPrompt';
 const WATERFALL_DIALOG = 'waterfallDialog';
-
+const Rates = require('./resources/rates');
 
 
 
@@ -48,9 +48,11 @@ class LoanDialog extends CancelAndHelpDialog {
             .addDialog(new TermPrompt(GET_TERM_PROMPT))
             .addDialog(new EmailPrompt(GET_EMAIL_PROMPT))
             .addDialog(new WaterfallDialog(WATERFALL_DIALOG, [
+                this.displayCardStep.bind(this),
                 this.nameStep.bind(this),
                 this.emailStep.bind(this),
                 this.amountStep.bind(this),
+                this.rewardStep.bind(this),
                 this.termStep.bind(this),
                 this.birthDateStep.bind(this),
                 this.lenderStep.bind(this),
@@ -61,6 +63,19 @@ class LoanDialog extends CancelAndHelpDialog {
 
         this.initialDialogId = WATERFALL_DIALOG;
     }
+
+
+    async displayCardStep(stepContext) {
+        const displayCardStep = stepContext.options;
+  
+        // Display the Adaptive Card
+        await stepContext.context.sendActivity({
+            text: 'The most current rates:',
+            attachments: [CardFactory.adaptiveCard(Rates)],
+    });
+        // Display a Text Prompt
+        return await stepContext.prompt('textPrompt', 'do they look good for you?');
+    }
     async nameStep(stepContext) {
         const loanDetails = stepContext.options;
     
@@ -69,15 +84,19 @@ class LoanDialog extends CancelAndHelpDialog {
             return await stepContext.prompt(GET_NAME_PROMPT, 'What is your name?');
            
         }
-            return await stepContext.next(loanDetails.name);
+      
+        return await stepContext.next(loanDetails.name);
+       
+           
         }
-    
+      
 
      
     
     async emailStep(stepContext) {
         const loanDetails = stepContext.options;
         loanDetails.name = stepContext.result;
+        stepContext.context.sendActivity(`Thanks ${ stepContext.result }, let's get started.`);
         if (!loanDetails.email) {
                
             return await stepContext.prompt(GET_EMAIL_PROMPT, 'What is your email?');
@@ -103,10 +122,42 @@ class LoanDialog extends CancelAndHelpDialog {
         }
 
 
-
+        async rewardStep(stepContext) {
+            const loanDetails = stepContext.options;
+            loanDetails.amount = stepContext.result;
+            if (!loanDetails.reward) {
+                
+             //   return await stepContext.prompt(GET_REWARD_PROMPT, 'Choose your reward level');
+               // ListStyle passed in as Enum
+               return await stepContext.prompt(CHOICE_PROMPT, {
+                prompt: 'Please choose a reward level.',
+                retryPrompt: 'Sorry, please choose a reward level from the list.',
+                choices: ['silver', 'gold', 'honors', 'not a member'],
+            });
+            }
+console.log('result',stepContext.result);
+        //     if(`${loanDetails.reward}` ==  1)
+        // {
+        //     loanDetails.reward = 'silver'
+        // }
+        //  if (`${loanDetails.reward}`  == 2)
+        // {
+        //     loanDetails.reward  = 'gold'
+        // }
+        // else if (`${loanDetails.reward}` == 3)
+        // {
+        //     loanDetails.reward  = 'honours'
+        // }
+        // else 
+        // {
+        //     loanDetails.reward = 'none'
+        // }
+        
+                return await stepContext.next(loanDetails.reward);
+            }
     async termStep(stepContext) {
         const loanDetails = stepContext.options;
-        loanDetails.amount = stepContext.result;
+        loanDetails.reward = stepContext.result.value;
         if (!loanDetails.term) {
        return await stepContext.prompt(GET_TERM_PROMPT, 'How long would you like the term (1-6)');
     
@@ -210,7 +261,8 @@ class LoanDialog extends CancelAndHelpDialog {
         else{
             loanDetails.lenderType = 'Bank of America'
         }
-        const messageText = `Please confirm, I have you a loan for ${ loanDetails.amount} from: ${ loanDetails.lenderType } your birth date is: ${ loanDetails.birthDate }. Is this correct?`;
+        const messageText = `Please confirm, I have you a loan for ${ loanDetails.amount} from: ${ loanDetails.lenderType } your birth date is: ${ loanDetails.birthDate } and you have a reward membership of 
+        ${loanDetails.reward}. Is this correct?`;
         const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         // Offer a YES/NO prompt.
         
@@ -241,22 +293,22 @@ class LoanDialog extends CancelAndHelpDialog {
             const loanDetails = stepContext.options;
             loanDetails.choice = stepContext.result;
           //  console.log(`${loanDetails.APR}`);
-            console.log(calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`,`${loanDetails.APR}`));
+            console.log(calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`,`${loanDetails.APR}`,`${loanDetails.reward}`));
 
             
                  
              
 
 
-            const messageText = `Your Monthly payment would be: ${calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`, `${loanDetails.APR}`)} , an email with quote details has been sent, do you wish to check you eligibility for a loan? `;
+            const messageText = `Your Monthly payment would be: ${calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`, `${loanDetails.APR}`,`${loanDetails.reward}`)} , an email with quote details has been sent, do you wish to check you eligibility for a loan? `;
             const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
             // Offer a YES/NO prompt.
             return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
     
             //return await stepContext.endDialog(loanDetails);
         }
-        
-        //var quote = `${calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`, `${loanDetails.APR}`)}`;
+     //   sendMail(`${loanDetails.email}`);
+        const quote = `${calcLoanAmount(`${loanDetails.term}`,`${loanDetails.amount}`, `${loanDetails.APR}`)}`;
         //console.log(quote);
         // const value = prompt.recognized.value;
         
@@ -277,24 +329,60 @@ class LoanDialog extends CancelAndHelpDialog {
 
 
 
-function calcLoanAmount(loanTerm,loanAmount,rate)
+function calcLoanAmount(loanTerm,loanAmount,rate,rewardl)
 {
+    try{
    // https://www.ifsautoloans.com/blog/car-loan-interest/
+   let discount;
+   if(rewardl == 'silver')
+   {
+       discount = .5
+   }
+    if (rewardl ==  'gold')
+   {
+       discount = .10
+   }
+   else if (rewardl ==  'honours')
+   {
+       discount = .15
+   }
+   else 
+   {
+       discount = 0
+   }
     const divisor = 12.00;
-  
+    
     const interestRate = rate/divisor;
-    //console.log('rate',rate);
+    console.log('discount',discount);
     let middle = 1 + (interestRate);
  
     let term =loanTerm*divisor;
     console.log('term',term)
     let top = interestRate* loanAmount;
     let bottom = (1-(middle)**(-term));
-    let monthlyRepayment = top/bottom;
+    let monthlyRepayment1 = top/bottom;
         console.log(middle);
         console.log(bottom);
-  return `${monthlyRepayment.toFixed(2)}`
+       
+        
+        let discountcalc = monthlyRepayment1 * discount;
+        console.log('reward func ',rewardl);
+        console.log('discountcalc',discountcalc);
+        console.log('monthly repayment', monthlyRepayment1);
+        let monthlyRepayment = monthlyRepayment1 - discountcalc;
 
+  return `${monthlyRepayment.toFixed(2)}`
+    }catch (error) {
+
+        //Pass to callback if provided
+        if (cb) {
+          // eslint-disable-next-line callback-return
+          cb(error, null);
+        }
+  
+        //Reject promise
+        return Promise.reject(error);
+      }
   
 }
 function calculateAge(dateString) {
@@ -306,17 +394,41 @@ function calculateAge(dateString) {
         age--;
     }
     return age;
-}
+}   
+function sendMail(email,term,amount,APR,rate){
 
-function sendEmail(email)
-{
-    const mseg = {
-        to: 'aoife_80@msn.com',
-        from: 'aoife_80@msn.com',
-        subject: 'Sending with Twilio SendGrid is Fun',
-        text: ' Your quote is',
-        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-      };
-}
 
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+///console.log(LoanDialog.loanDetails.email);
+try{
+        const mseg = {
+           
+            to: `${LoanDialog.email}`,
+            from: 'aoife_80@msn.com',
+            subject: 'Sending with Twilio SendGrid is Fun',
+            text: `Your quote is:, ${calcLoanAmount(`${LoanDialog.term}`,`${LoanDialog.amount}`,`${LoanDialog.APR}`,`${LoanDialog.reward}`)}`, 
+            html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+                };
+                sgMail.send(mseg);
+            
+            }catch (error) {
+
+                    //Pass to callback if provided
+                    if (cb) {
+                      // eslint-disable-next-line callback-return
+                      cb(error, null);
+                    }
+              
+                    //Reject promise
+                    return Promise.reject(error);
+                  }
+               
+            
+        }
+    
+     
+            
+module.exports.calcLoanAmount = calcLoanAmount;
+module.exports.sendMail = sendMail;
 module.exports.LoanDialog = LoanDialog;

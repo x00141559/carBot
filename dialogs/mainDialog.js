@@ -35,7 +35,6 @@ class MainDialog extends ComponentDialog {
             .addDialog(ApplicationDialog)
             .addDialog(new WaterfallDialog(MAIN_WATERFALL_DIALOG, [
                 this.introStep.bind(this),
-               // this.promptCardStep.bind(this),
                 this.actStep.bind(this),
                 this.applyStep.bind(this),
                 this.finalStep.bind(this)
@@ -85,43 +84,14 @@ class MainDialog extends ComponentDialog {
             return await next();
         }
       
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg :   ' Hello';
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg :   ' Welcome to auto bot, here you can ask me questions, get a loan calculation, or find out if you are eligible for a loan, press any key to continue..';
         const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
        
     }
-    //         /* One step in a Waterfall Dialog. */
-    //     async promptCardStep(stepContext) {
-    //         // A form with a few Input.text fields.
-    //         const card = CardFactory.adaptiveCard(InputCard);
-    //         // Step 1: Send the form to the user.
-    //        await stepContext.context.sendActivity({
-    //        attachments: [card]
-    //         });
-    //        console.log(stepContext.activity.text);
-    //         // Step 2: (Text) Prompt user to complete the form.
-    //       //  return stepContext.prompt(FORM_PROMPT);
-    //       return await stepContext.beginDialog('loanDialog', loanDetails);
-    //   }
+   
+   
   
-    // async cardStep (stepContext) {
-    //     if (stepContext.activity.type == ActivityTypes.Message) {
-    //         console.log("ActivityTypes.Message");
-    //       // Ensure that message is a postBack (like a submission from Adaptive Cards)
-    //       if (stepContext.activity.channelData != null) {
-    //         if (stepContext.activity.channelData.postBack === true) {
-    //           const postbackActivity = stepContext.activity;
-    //           // Convert the user's Adaptive Card input into the input of a Text Prompt
-    //           // Must be sent as a string
-    //           postbackActivity.text = JSON.stringify(postbackActivity.value);
-    //           // context.activity.text = postbackActivity.value
-    //           await context.sendActivity(postbackActivity);
-    //           console.log(postbackActivity);
-    //         }
-    //       }
-    //     }
-    //     await next();
-    //   }
     /**
      * Second step in the waterfall.  This will use LUIS to attempt to extract the origin, destination and travel dates.
      * Then, it hands off to the loanDialog child dialog to collect any remaining details.
@@ -186,11 +156,11 @@ class MainDialog extends ComponentDialog {
     }
     
     /**
-     * Shows a warning if the requested From or To cities are recognized as entities but they are not in the Airport entity list.
-     * In some cases LUIS will recognize the From and To composite entities as a valid cities but the From and To Airport values
-     * will be empty if those entity values can't be mapped to a canonical item in the Airport.
+     * Shows a warning if the requested From lender or for amount are recognized as entities but they are not in the Lender entity list.
+     * In some cases LUIS will recognize the From and For composite entities as a valid entities but the From and For Lender values
+     * will be empty if those entity values can't be mapped to a canonical item in the Lender.
      */ 
-    async showWarningForUnsupportedCities(context, fromEntities, forEntities) {
+    async showWarningForUnsupportedLenders(context, fromEntities, forEntities) {
         const unsupportedFrom = [];
         if (fromEntities.from && !fromEntities.lender) {
             unsupportedFrom.push(fromEntities.from);
@@ -243,12 +213,6 @@ class MainDialog extends ComponentDialog {
     }
     
 }
-function wait(ms)
-{
-var d = new Date();
-var d2 = null;
-do { d2 = new Date(); }
-while(d2-d < ms);
-}
+
 
 module.exports.MainDialog = MainDialog;

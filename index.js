@@ -6,32 +6,27 @@
 // Import required packages
 const path = require('path');
 const restify = require('restify');
+const BootBot = require('bootbot');
 const { CosmosDbPartitionedStorage } = require("botbuilder-azure");
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, ConversationState, InputHints, MemoryStorage, UserState } = require('botbuilder');
 
 const { LoanRecognizer } = require('./dialogs/loanRecognizer');
-
+const { LoanDialog } = require('./dialogs/loanDialog');
 
 const { DispatchBot } = require('./bots/dispatchBot');
 
 // This bot's main dialog.
 const { DialogAndWelcomeBot } = require('./bots/dialogAndWelcomeBot');
-
+//const {Mail }= require('./prompts/mail')
 const { MainDialog } = require('./dialogs/mainDialog');
-// const sgMail = require('@sendgrid/mail');
+ const sgMail = require('@sendgrid/mail');
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-// const mseg = {
-//     to: `${loanDetails.email}`,
-//     from: 'aoife_80@msn.com',
-//     subject: 'Sending with Twilio SendGrid is Fun',
-//     text: 'and easy to do anywhere, even with Node.js',
-//     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-//   }
-//   sgMail.send(mseg);
+ const ld = require('./dialogs/loanDialog');  
 // the bot's loan dialog
-const { LoanDialog } = require('./dialogs/loanDialog');
+
+//const  msg = require('./prompts/mail')
 const LOAN_DIALOG = 'loanDialog';
 const { ApplicationDialog } = require('./dialogs/ApplicationDialog')
 const APPLICATION_DIALOG = 'applicationDialog';
@@ -39,7 +34,7 @@ var azure = require('botbuilder-azure');
 // Note: Ensure you have a .env file and include LuisAppId, LuisAPIKey and LuisAPIHostName.
 const ENV_FILE = path.join(__dirname, '.env');
 require('dotenv').config({ path: ENV_FILE });
-
+const { email, reward,amount,term,APR} = require('./dialogs/loanDialog');
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about adapters.
 const adapter = new BotFrameworkAdapter({
@@ -114,18 +109,39 @@ const bot = new DialogAndWelcomeBot(conversationState, userState, dialog);
 // Create the main dialog.
 const dispatcher = new DispatchBot();
 // Create HTTP server
+//const mail = sendMail(`${LoanDialog.email}`);
 const server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function() {
     console.log(`\n${ server.name } listening to ${ server.url }`);
     console.log('\nGet Bot Framework Emulator: https://aka.ms/botframework-emulator');
-    console.log('\nTo talk to your bot, open the emulator select "Open Bot"');
+  
 });
 
 // Listen for incoming activities and route them to your bot main dialog.
 server.post('/api/messages', (req, res) => {
+
     // Route received a request to adapter for processing
     adapter.processActivity(req, res, async (turnContext) => {
         // route to bot activity handler.
+        console.log('\nTo talk to your bot, open the emulator select "Open Bot"');
+       
         await bot.run(turnContext);
+    
+        try{
+           //  ld.sendMail(email,term,amount,APR,reward);
+        
+        }catch (error) {
+
+            //Pass to callback if provided
+            if (cb) {
+              // eslint-disable-next-line callback-return
+              cb(error, null);
+            }
+      
+            //Reject promise
+            return Promise.reject(error);
+          }
+       
     });
+    
 });
