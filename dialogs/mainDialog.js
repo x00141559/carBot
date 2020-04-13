@@ -84,7 +84,7 @@ class MainDialog extends ComponentDialog {
             return await next();
         }
       
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg :   ' Welcome to auto bot, here you can ask me questions, get a loan calculation, or find out if you are eligible for a loan, press any key to continue..';
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg :   ' Welcome to auto bot, here you can ask me questions, get a loan calculation, or find out if you are eligible for a loan, press Enter to continue..';
         const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
        

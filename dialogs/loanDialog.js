@@ -96,7 +96,7 @@ class LoanDialog extends CancelAndHelpDialog {
     async emailStep(stepContext) {
         const loanDetails = stepContext.options;
         loanDetails.name = stepContext.result;
-        stepContext.context.sendActivity(`Thanks ${ stepContext.result }, let's get started.`);
+        stepContext.context.sendActivity(`Thanks ${ stepContext.result }, let's get started with your quote.`);
         if (!loanDetails.email) {
                
             return await stepContext.prompt(GET_EMAIL_PROMPT, 'What is your email?');
@@ -159,7 +159,7 @@ console.log('result',stepContext.result);
         const loanDetails = stepContext.options;
         loanDetails.reward = stepContext.result.value;
         if (!loanDetails.term) {
-       return await stepContext.prompt(GET_TERM_PROMPT, 'How long would you like the term (1-6)');
+       return await stepContext.prompt(GET_TERM_PROMPT, 'How long would you like the term in years (1-6)');
     
     }
 

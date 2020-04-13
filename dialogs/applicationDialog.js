@@ -2,8 +2,8 @@
 // Licensed under the MIT License.
 
 const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
-const { InputHints, MessageFactory,ActivityTypes} = require('botbuilder');
-const { ConfirmPrompt, TextPrompt, NumberPrompt, WaterfallDialog,CardFactory,ChoicePrompt } = require('botbuilder-dialogs');
+const { InputHints, MessageFactory,CardFactory} = require('botbuilder');
+const { ConfirmPrompt, TextPrompt, NumberPrompt, WaterfallDialog,ChoicePrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { DateResolverDialog } = require('./dateResolverDialog');
 const { IncomePrompt } = require('../prompts/incomePrompt');
@@ -22,8 +22,7 @@ const DATE_RESOLVER_DIALOG = 'dateResolverDialog';
 const TEXT_PROMPT = 'textPrompt';
 const WATERFALL_DIALOG = 'waterfallDialog';
 const NUMBER_PROMPT = 'numberPrompt';
-
-
+const cards = require('./resources/bye');
 
 class ApplicationDialog extends CancelAndHelpDialog {
     constructor(id) {
@@ -49,7 +48,8 @@ class ApplicationDialog extends CancelAndHelpDialog {
                 this.numChildrenStep.bind(this),
                 this.MaintenainceStep.bind(this),
                 this.numMainStep.bind(this),
-                this.confirmStep.bind(this)
+                this.confirmStep.bind(this),
+                this.displayCardStep.bind(this)
                
 
                 
@@ -206,9 +206,26 @@ return await stepContext.next(ApplicationDetails.numMain);
         
      }
    
-
+     async displayCardStep(stepContext) {
+      const ApplicationDetails = stepContext.options;
+      var c = stepContext.result;
+      if (!ApplicationDetails.displayCardStep) {
     
-  
+  if(stepContext.result === false)
+{
+       return await stepContext.endDialog(ApplicationDialog);
+}else{
+      // Display the Adaptive Card
+      await stepContext.context.sendActivity({
+          text: '',
+          attachments: [CardFactory.adaptiveCard(cards)],
+  });
+      // Display a Text Prompt
+      return await stepContext.endDialog(ApplicationDialog);
+  }
+}
+    
+}
   
 
   
