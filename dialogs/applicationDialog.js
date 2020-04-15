@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
 const { InputHints, MessageFactory,CardFactory} = require('botbuilder');
 const { ConfirmPrompt, TextPrompt, NumberPrompt, WaterfallDialog,ChoicePrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
@@ -58,6 +57,7 @@ class ApplicationDialog extends CancelAndHelpDialog {
 
         this.initialDialogId = WATERFALL_DIALOG;
     }
+    //ask user for income
     async incomeStep(stepContext) {
         const ApplicationDetails = stepContext.options;
         ApplicationDetails.income= 0;
@@ -66,6 +66,7 @@ class ApplicationDialog extends CancelAndHelpDialog {
         }
         return await stepContext.next(ApplicationDetails.income);
     }
+    //yes or no does user have additional income
        async extraIincomeStep(stepContext) {
          const ApplicationDetails = stepContext.options;
           ApplicationDetails.income = stepContext.result;
@@ -78,12 +79,10 @@ class ApplicationDialog extends CancelAndHelpDialog {
            }         
          
               return await stepContext.next(ApplicationDetails.extraIncome);
-           
-       
-         
+             
             }
             
-
+          //check response and accept user input if any
             async extra(stepContext)
          
             {
@@ -91,8 +90,9 @@ class ApplicationDialog extends CancelAndHelpDialog {
                 ApplicationDetails.extraIncome = stepContext.result;
                 ApplicationDetails.extra = 0;
                  if (!ApplicationDetails.extra) {
+
                 if( (ApplicationDetails.extraIncome == 'yes'.toUpperCase() )|| (ApplicationDetails.extraIncome == 'yes') ||
-                 (ApplicationDetails.extraIncome == 'Yes') || (ApplicationDetails.extraIncome == 'y')  ||
+                  (ApplicationDetails.extraIncome == 'Yes') || (ApplicationDetails.extraIncome == 'y')  ||
                   (ApplicationDetails.extraIncome == 'y'.toUpperCase()))
             {
     
@@ -103,6 +103,7 @@ class ApplicationDialog extends CancelAndHelpDialog {
             return await stepContext.next(ApplicationDetails.extra);
         }
     }
+    //check for additional monetary commitments
           async commitmentsStep(stepContext) {
             const ApplicationDetails = stepContext.options;
             ApplicationDetails.extra = stepContext.result;
@@ -119,6 +120,7 @@ class ApplicationDialog extends CancelAndHelpDialog {
           }
     
         }
+        //user enters repayments amount
     async repayStep(stepContext) {
         const ApplicationDetails = stepContext.options;
         ApplicationDetails.commitments = stepContext.result;
@@ -134,6 +136,7 @@ class ApplicationDialog extends CancelAndHelpDialog {
 return await stepContext.next(ApplicationDetails.repay);
 }
     }
+    //does user have any dependants
      async childrenStep(stepContext) {
            const ApplicationDetails = stepContext.options;
             ApplicationDetails.repay = stepContext.result;
@@ -147,6 +150,7 @@ return await stepContext.next(ApplicationDetails.repay);
 
      }
 
+     // if dependants, how many?
      async numChildrenStep(stepContext) {
         const ApplicationDetails = stepContext.options;
          ApplicationDetails.children = stepContext.result;
@@ -159,7 +163,7 @@ return await stepContext.next(ApplicationDetails.repay);
    }
   
 }
-
+// if maintenaince, how much do they pay?
 return await stepContext.next(ApplicationDetails.numChildren);
   }
   async MaintenainceStep(stepContext) {
@@ -176,6 +180,7 @@ return await stepContext.next(ApplicationDetails.maintenaince);
 
 
 }
+
 async numMainStep(stepContext) {
     const ApplicationDetails = stepContext.options;
      ApplicationDetails.maintenaince = stepContext.result;
@@ -193,7 +198,7 @@ async numMainStep(stepContext) {
 return await stepContext.next(ApplicationDetails.numMain);
 
 }
-   
+   //let the user know the loan they are eligible for
       async confirmStep(stepContext) {
        const ApplicationDetails = stepContext.options;
 
@@ -205,7 +210,7 @@ return await stepContext.next(ApplicationDetails.numMain);
        return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
         
      }
-   
+   //display card to end dialog
      async displayCardStep(stepContext) {
       const ApplicationDetails = stepContext.options;
       var c = stepContext.result;
