@@ -14,7 +14,7 @@
         {
             "type": "TextBlock",
             "text": "Todays Rates:",
-            "size": "Medium"
+            "size": "Large"
 
         },
         {
@@ -22,20 +22,21 @@
             "items": [
                 {
                     "type": "TextBlock",
-                    "text": "AIB:  ▲ 4.1%",
+                    "text": "AIB:  8.75% ▲ 4.1%",
                     "size": "Medium",
                     "wrap": true
                 },
+              
                 {
                     "type": "TextBlock",
-                    "text": "Bank of America: ▼   2.7%",
+                    "text": "Bank of America: 15% ▼   2.7%",
                     "size": "Medium",
                     "color": "Red",
                     "wrap": true
                 },
                 {
                     "type": "TextBlock",
-                    "text": "Bank of Ireland:  ▲ 1.7%",
+                    "text": "Bank of Ireland: 10%  ▲ 1.7%",
                     "size": "Medium",
                     "wrap": true
                 },

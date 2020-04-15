@@ -42,13 +42,13 @@
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    "text": "9.6% APR fixed ",
+                                    "text": "5% APR fixed ",
                                     "size": "ExtraLarge"
                                 },
                                 {
                                     "type": "TextBlock",
                                     "text": "▼ EUR 3.1%",
-                                    "color": "('good', 'attention')",
+                                    "color": "",
                                     "spacing": "None"
                                 }
                             ]

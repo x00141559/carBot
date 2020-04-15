@@ -9,6 +9,7 @@ class DialogAndWelcomeBot extends DialogBot {
     constructor(conversationState, userState, dialog) {
         super(conversationState, userState, dialog);
      
+        //check if user is present
         
        this.onMembersAdded(async (context, next) => {
            const membersAdded = context.activity.membersAdded;
