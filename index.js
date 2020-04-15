@@ -1,12 +1,13 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
-
+const { calcLoanAmount} = require('./dialogs/loanDialog');
 // index.js is used to setup and configure your bot
-
+const sgMail = require('@sendgrid/mail');
+    sgMail.setApiKey("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");
 // Import required packages
 const path = require('path');
 const restify = require('restify');
-const BootBot = require('bootbot');
+
 const { CosmosDbPartitionedStorage } = require("botbuilder-azure");
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
@@ -21,7 +22,7 @@ const { DispatchBot } = require('./bots/dispatchBot');
 const { DialogAndWelcomeBot } = require('./bots/dialogAndWelcomeBot');
 //const {Mail }= require('./prompts/mail')
 const { MainDialog } = require('./dialogs/mainDialog');
- const sgMail = require('@sendgrid/mail');
+ 
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
  const ld = require('./dialogs/loanDialog');  
 // the bot's loan dialog
@@ -34,7 +35,8 @@ var azure = require('botbuilder-azure');
 // Note: Ensure you have a .env file and include LuisAppId, LuisAPIKey and LuisAPIHostName.
 const ENV_FILE = path.join(__dirname, '.env');
 require('dotenv').config({ path: ENV_FILE });
-const { email, reward,amount,term,APR} = require('./dialogs/loanDialog');
+const { emailStep} = require('./dialogs/loanDialog');
+
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about adapters.
 const adapter = new BotFrameworkAdapter({
@@ -56,7 +58,17 @@ adapter.onTurnError = async (context, error) => {
         'https://www.botframework.com/schemas/error',
         'TurnError'
     );
+    
+    
+  
+    
+            
+                  
+    
+                
 
+                   
+               
     // Send a message to the user
     let onTurnErrorMessage = 'The bot encounted an error or bug.';
     await context.sendActivity(onTurnErrorMessage, onTurnErrorMessage, InputHints.ExpectingInput);
@@ -91,9 +103,16 @@ var storage = new CosmosDbPartitionedStorage({
     databaseId: process.env.DATABASE_ID,
     containerId: process.env.CONTAINER
 })
+const loanDialog = new LoanDialog(LOAN_DIALOG);
 const conversationState = new ConversationState(storage);
 const userState = new UserState(storage);
-
+const mseg = {
+    to: this.email,
+    from: 'aoife_80@msn.com',
+    subject: 'Sending with Twilio SendGrid is Fun',
+    text: `Your quote is:, ${this.monthlyRepayment}`, 
+    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+        };
 // If configured, pass in the LoanRecognizer.  (Defining it externally allows it to be mocked for tests)
 const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
 const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
@@ -101,7 +120,7 @@ const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint
 const luisRecognizer = new LoanRecognizer(luisConfig);
 
 // Create the main dialog.
-const loanDialog = new LoanDialog(LOAN_DIALOG);
+
 const applicationDialog = new ApplicationDialog(APPLICATION_DIALOG);
 const dialog = new MainDialog(luisRecognizer, loanDialog, applicationDialog);
 const bot = new DialogAndWelcomeBot(conversationState, userState, dialog);
@@ -119,28 +138,19 @@ server.listen(process.env.port || process.env.PORT || 3978, function() {
 
 // Listen for incoming activities and route them to your bot main dialog.
 server.post('/api/messages', (req, res) => {
-
+    sgMail.send(mseg);
     // Route received a request to adapter for processing
     adapter.processActivity(req, res, async (turnContext) => {
         // route to bot activity handler.
         console.log('\nTo talk to your bot, open the emulator select "Open Bot"');
-       
+      
         await bot.run(turnContext);
     
-        try{
-           //  ld.sendMail(email,term,amount,APR,reward);
-        
-        }catch (error) {
-
-            //Pass to callback if provided
-            if (cb) {
-              // eslint-disable-next-line callback-return
-              cb(error, null);
-            }
+       
+            //ld.sendMail(email,term,amount,APR,reward);
+           
       
-            //Reject promise
-            return Promise.reject(error);
-          }
+            
        
     });
     
