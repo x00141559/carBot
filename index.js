@@ -24,18 +24,19 @@ const { DialogAndWelcomeBot } = require('./bots/dialogAndWelcomeBot');
 const { MainDialog } = require('./dialogs/mainDialog');
  
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
- const ld = require('./dialogs/loanDialog');  
+ const {sendMail}  = require('./dialogs/loanDialog');  
 // the bot's loan dialog
 
 //const  msg = require('./prompts/mail')
 const LOAN_DIALOG = 'loanDialog';
+const loanDialog = new LoanDialog(LOAN_DIALOG);
 const { ApplicationDialog } = require('./dialogs/ApplicationDialog')
 const APPLICATION_DIALOG = 'applicationDialog';
 var azure = require('botbuilder-azure');
 // Note: Ensure you have a .env file and include LuisAppId, LuisAPIKey and LuisAPIHostName.
 const ENV_FILE = path.join(__dirname, '.env');
 require('dotenv').config({ path: ENV_FILE });
-const { emailStep} = require('./dialogs/loanDialog');
+const { email} = require('./dialogs/loanDialog');
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about adapters.
@@ -103,16 +104,16 @@ var storage = new CosmosDbPartitionedStorage({
     databaseId: process.env.DATABASE_ID,
     containerId: process.env.CONTAINER
 })
-const loanDialog = new LoanDialog(LOAN_DIALOG);
+
 const conversationState = new ConversationState(storage);
 const userState = new UserState(storage);
-const mseg = {
-    to: this.email,
-    from: 'aoife_80@msn.com',
-    subject: 'Sending with Twilio SendGrid is Fun',
-    text: `Your quote is:, ${this.monthlyRepayment}`, 
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-        };
+// const mseg = {
+//     to: email,
+//     from: 'aoife_80@msn.com',
+//     subject: 'Sending with Twilio SendGrid is Fun',
+//     text: `Your quote is:, ${this.monthlyRepayment}`, 
+//     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+//         };
 // If configured, pass in the LoanRecognizer.  (Defining it externally allows it to be mocked for tests)
 const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
 const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
@@ -138,7 +139,7 @@ server.listen(process.env.port || process.env.PORT || 3978, function() {
 
 // Listen for incoming activities and route them to your bot main dialog.
 server.post('/api/messages', (req, res) => {
-    sgMail.send(mseg);
+   // sgMail.send(mseg);
     // Route received a request to adapter for processing
     adapter.processActivity(req, res, async (turnContext) => {
         // route to bot activity handler.

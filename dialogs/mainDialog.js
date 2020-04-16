@@ -62,6 +62,7 @@ class MainDialog extends ComponentDialog {
         //     this.logger.log('replacing null text with Activity Card text input');
         //     turnContext._activity.text = turnContext._activity.value.text;
         // }
+      
         const dialogContext = await dialogSet.createContext(turnContext);
         const results = await dialogContext.continueDialog();
         if (results.status === DialogTurnStatus.empty) {
@@ -84,7 +85,7 @@ class MainDialog extends ComponentDialog {
             return await next();
         }
       
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg :   ' Welcome to auto bot, here you can ask me questions, get a loan calculation, or find out if you are eligible for a loan, press Enter to continue..';
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg :   ' Welcome to auto bot, here you can ask me questions, get a loan calculation, or find out the maximum loan you are eligible for and if you are a rewards member you can have a discount on your loan'
         const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
        
@@ -96,12 +97,14 @@ class MainDialog extends ComponentDialog {
      * Second step in the waterfall.  This will use LUIS to attempt to extract the origin, destination and travel dates.
      * Then, it hands off to the loanDialog child dialog to collect any remaining details.
      */
+    
     async actStep(stepContext) {
         const loanDetails = {};
 
         if (this.luisRecognizer.isConfigured) {
             // LUIS is not configured, we just run the loanDialog path.
-            return await stepContext.beginDialog('loanDialog', loanDetails);
+            
+           
         }
 
         // Call LUIS and gather any potential loan details. (Note the TurnContext has the response to the prompt)
@@ -113,7 +116,7 @@ class MainDialog extends ComponentDialog {
             const forEntities = this.luisRecognizer.getForEntities(luisResult);
 
             // Show a warning for lender and amount if we can't resolve them.
-           await this.showWarningForUnsupportedCities(stepContext.context, fromEntities, forEntities);
+           await this.showWarningForUnsupportedLenders(stepContext.context, fromEntities, forEntities);
 
             // Initialize loanDetails with any entities we may have found in the response.
             loanDetails.amount = forEntities.money;
