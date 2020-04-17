@@ -1,33 +1,18 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 const { calcLoanAmount} = require('./dialogs/loanDialog');
-// index.js is used to setup and configure your bot
-const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey("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");
 // Import required packages
 const path = require('path');
 const restify = require('restify');
-
 const { CosmosDbPartitionedStorage } = require("botbuilder-azure");
 // Import required bot services.
-// See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, ConversationState, InputHints, MemoryStorage, UserState } = require('botbuilder');
-
 const { LoanRecognizer } = require('./dialogs/loanRecognizer');
 const { LoanDialog } = require('./dialogs/loanDialog');
-
 const { DispatchBot } = require('./bots/dispatchBot');
-
 // This bot's main dialog.
 const { DialogAndWelcomeBot } = require('./bots/dialogAndWelcomeBot');
-//const {Mail }= require('./prompts/mail')
 const { MainDialog } = require('./dialogs/mainDialog');
- 
-// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
- const {sendMail}  = require('./dialogs/loanDialog');  
-// the bot's loan dialog
-
-//const  msg = require('./prompts/mail')
 const LOAN_DIALOG = 'loanDialog';
 const loanDialog = new LoanDialog(LOAN_DIALOG);
 const { ApplicationDialog } = require('./dialogs/ApplicationDialog')
@@ -60,16 +45,7 @@ adapter.onTurnError = async (context, error) => {
         'TurnError'
     );
     
-    
-  
-    
-            
-                  
-    
-                
-
-                   
-               
+              
     // Send a message to the user
     let onTurnErrorMessage = 'The bot encounted an error or bug.';
     await context.sendActivity(onTurnErrorMessage, onTurnErrorMessage, InputHints.ExpectingInput);
@@ -107,17 +83,10 @@ var storage = new CosmosDbPartitionedStorage({
 
 const conversationState = new ConversationState(storage);
 const userState = new UserState(storage);
-// const mseg = {
-//     to: email,
-//     from: 'aoife_80@msn.com',
-//     subject: 'Sending with Twilio SendGrid is Fun',
-//     text: `Your quote is:, ${this.monthlyRepayment}`, 
-//     html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-//         };
+
 // If configured, pass in the LoanRecognizer.  (Defining it externally allows it to be mocked for tests)
 const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
 const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
-
 const luisRecognizer = new LoanRecognizer(luisConfig);
 
 // Create the main dialog.
@@ -129,7 +98,7 @@ const bot = new DialogAndWelcomeBot(conversationState, userState, dialog);
 // Create the main dialog.
 const dispatcher = new DispatchBot();
 // Create HTTP server
-//const mail = sendMail(`${LoanDialog.email}`);
+
 const server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function() {
     console.log(`\n${ server.name } listening to ${ server.url }`);
@@ -139,7 +108,7 @@ server.listen(process.env.port || process.env.PORT || 3978, function() {
 
 // Listen for incoming activities and route them to your bot main dialog.
 server.post('/api/messages', (req, res) => {
-   // sgMail.send(mseg);
+   
     // Route received a request to adapter for processing
     adapter.processActivity(req, res, async (turnContext) => {
         // route to bot activity handler.
@@ -147,8 +116,6 @@ server.post('/api/messages', (req, res) => {
       
         await bot.run(turnContext);
     
-       
-            //ld.sendMail(email,term,amount,APR,reward);
            
       
             

@@ -88,6 +88,9 @@ class LoanDialog extends CancelAndHelpDialog {
 
 
     async displayCardStep(stepContext) {
+        const loanDetails = stepContext.options;
+
+        if (!loanDetails.proceed) {
         const displayCardStep = stepContext.options;
         // Display the Adaptive Card
         wait(10);
@@ -96,12 +99,21 @@ class LoanDialog extends CancelAndHelpDialog {
             attachments: [CardFactory.adaptiveCard(Rates)],
         });
         // Display a Text Prompt
-        return await stepContext.prompt('textPrompt', 'Some rates from our most popular lenders');
+        return await stepContext.prompt('textPrompt', 'Some rates from our most popular lenders, happy to proceed? (y/n)');
     }
-   
+    return await stepContext.next(loanDetails.proceed);
+}
     //ask user for name
     async nameStep(stepContext) {
         const loanDetails = stepContext.options;
+        loanDetails.proceed = stepContext.result;
+      
+        if((loanDetails.proceed == 'n') || (loanDetails.proceed == 'N'.toUpperCase()) )
+        {
+            return await stepContext.endDialog(LoanDialog);
+        }else {
+        
+      
 
         if (!loanDetails.name) {
 
@@ -113,7 +125,7 @@ class LoanDialog extends CancelAndHelpDialog {
 
 
     }
-
+    }
 
 
     //collect user email address
@@ -151,10 +163,10 @@ class LoanDialog extends CancelAndHelpDialog {
         loanDetails.amount = stepContext.result;
         if (!loanDetails.reward) {
 
-            //   return await stepContext.prompt(GET_REWARD_PROMPT, 'Choose your reward level');
+            
             // ListStyle passed in as Enum
             return await stepContext.prompt(CHOICE_PROMPT, {
-                prompt: 'Please choose a reward level.',
+                prompt: 'Reward members get a discounted quote! Please choose a reward level.',
                 retryPrompt: 'Sorry, please choose a reward level from the list.',
                 choices: ['silver', 'gold', 'honors', 'not a member'],
             });

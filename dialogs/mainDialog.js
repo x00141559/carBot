@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
-const FORM_PROMPT ='TextPrompt';
-const InputCard = require('./resources/inputCard.json');
+
 const { TimexProperty } = require('@microsoft/recognizers-text-data-types-timex-expression');
 const { MessageFactory, InputHints, CardFactory } = require('botbuilder');
 const { LuisRecognizer, QnAMaker  } = require('botbuilder-ai');
@@ -53,15 +52,7 @@ class MainDialog extends ComponentDialog {
     async run(turnContext, accessor) {
         const dialogSet = new DialogSet(accessor);
         dialogSet.add(this);
-            // The following check looks for a non-existant text input
-        // plus Adaptive Card input in _activity.value.text
-        // If both conditions exist, the Activity Card text
-        // is copied into the text input field.
-        // if(turnContext._activity.text == null
-        //     && turnContext._activity.value.text != null) {
-        //     this.logger.log('replacing null text with Activity Card text input');
-        //     turnContext._activity.text = turnContext._activity.value.text;
-        // }
+        
       
         const dialogContext = await dialogSet.createContext(turnContext);
         const results = await dialogContext.continueDialog();
@@ -85,9 +76,11 @@ class MainDialog extends ComponentDialog {
             return await next();
         }
       
-        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg :   ' Welcome to auto bot, here you can ask me questions, get a loan calculation, or find out the maximum loan you are eligible for and if you are a rewards member you can have a discount on your loan'
+        const messageText = stepContext.options.restartMsg ? stepContext.options.restartMsg :   `Use our new calculator to see how much you could borrow personally based on your circumstances. You might be surprised!
+     `
         const promptMessage = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
         return await stepContext.prompt('TextPrompt', { prompt: promptMessage });
+  
        
     }
    
@@ -146,15 +139,15 @@ class MainDialog extends ComponentDialog {
     }
 
    
-    async processAutoQnA(context) {
+    async processAutoQnA(stepContext) {
         console.log('processAutoQnA');
     
-        const results = await this.qnaMaker.getAnswers(context);
+        const results = await this.qnaMaker.getAnswers(stepContext);
     
         if (results.length > 0) {
-            await context.sendActivity(`${ results[0].answer }`);
+            await stepContext.sendActivity(`${ results[0].answer }`);
         } else {
-            await context.sendActivity('Sorry, could not find an answer in the Q and A system.');
+            await stepContext.sendActivity('Sorry, could not find an answer in the Q and A system.');
         }
     }
     
