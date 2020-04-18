@@ -213,13 +213,7 @@ class LoanDialog extends CancelAndHelpDialog {
 
 
        
-        if (calculateAge(`${loanDetails.birthDate}`) < 18) {
-            const messageText = `Sorry, you must be older than 18 to apply for a loan with us`;
-            const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-            // Offer a YES/NO prompt.
-           
-
-        }
+       
         return await stepContext.next(loanDetails.birthDate);
     }
 
@@ -227,22 +221,23 @@ class LoanDialog extends CancelAndHelpDialog {
 
         const loanDetails = stepContext.options;
         loanDetails.birthDate = stepContext.result;
+        if (calculateAge(`${loanDetails.birthDate}`) < 18) {
+            const messageText = `Sorry, you must be older than 18 to apply for a loan with us`;
+            const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
+            return false;
+            
+        }
           if (!loanDetails.APR) {
              let card;
-            if (calculateAge(`${loanDetails.birthDate}`) < 18) {
-                const messageText = `Sorry, you must be older than 18 to apply for a loan with us`;
-                const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-                // Offer a YES/NO prompt.
-
-            }
-            if (`${ loanDetails.amount}` <= 3000) {
+          
+             if(`${ loanDetails.amount}` <= 3000) {
                 card = CreditCard;
                 loanDetails.APR = .5;
 
-            } else if (`${ loanDetails.amount}` <= 5000) {
+            }  if (`${ loanDetails.amount}` <= 5000) {
                 card = BoiCard;
                 loanDetails.APR = .10;
-            } else {
+            } else  {
                 card = BamlCard;
                 loanDetails.APR = .15;
             }
@@ -256,6 +251,8 @@ class LoanDialog extends CancelAndHelpDialog {
 
         }
     }
+    
+
 
     /**
      * Confirm the information the user has provided.

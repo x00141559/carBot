@@ -31,10 +31,7 @@ describe('LoanDialog', () => {
                 // Check dialog results
                 const result = client.dialogTurnResult.result;
                 
-               // assert.strictEqual(result.amount, testData.expectedResult.amount);
-                //assert.strictEqual(result.lender, testData.expectedResult.lender);
-                //assert.strictEqual(result.birthDate, testData.expectedResult.birthDate);
-                //assert.strictEqual(result.name, testData.expectedResult.name);
+               
             } else {
                 assert.strictEqual(client.dialogTurnResult.result, undefined);
             }
