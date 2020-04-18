@@ -1,5 +1,5 @@
 /**
- * Globalize v1.4.2
+ * Globalize v1.5.0
  *
  * http://github.com/jquery/globalize
  *
@@ -7,10 +7,10 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2019-03-07T13:47Z
+ * Date: 2020-03-25T12:19Z
  */
 /*!
- * Globalize v1.4.2 2019-03-07T13:47Z Released under the MIT license
+ * Globalize v1.5.0 2020-03-25T12:19Z Released under the MIT license
  * http://git.io/TrdQbw
  */
 (function( root, factory ) {
@@ -180,9 +180,11 @@ Globalize.prototype.relativeTimeFormatter = function( unit, options ) {
 	validateDefaultLocale( cldr );
 
 	cldr.on( "get", validateCldr );
-	properties = relativeTimeProperties( unit, cldr, options );
-	cldr.off( "get", validateCldr );
-
+	try {
+		properties = relativeTimeProperties( unit, cldr, options );
+	} finally {
+		cldr.off( "get", validateCldr );
+	}
 	numberFormatter = this.numberFormatter( options );
 	pluralGenerator = this.pluralGenerator();
 

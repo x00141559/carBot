@@ -38,13 +38,13 @@ class LoanRecognizer {
     getForEntities(result) {
         let forValue, forAmountValue;
         if (result.entities.$instance.For) {
-            forValue = result.entities.$instance.For[0].amount;
+            forValue = result.entities.$instance.For[0].money;
         }
-        if (forValue && result.entities.For[0].amount) {
-            forAmountValue = result.entities.For[0].amount[0][0];
+        if (forValue && result.entities.For[0].money) {
+            forAmountValue = result.entities.For[0].money[0][0];
         }
 
-        return { for: forValue, amount: forAmountValue };
+        return { for: forValue, money: forAmountValue };
     }
 
     /**

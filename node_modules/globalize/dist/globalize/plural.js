@@ -1,5 +1,5 @@
 /**
- * Globalize v1.4.2
+ * Globalize v1.5.0
  *
  * http://github.com/jquery/globalize
  *
@@ -7,10 +7,10 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2019-03-07T13:47Z
+ * Date: 2020-03-25T12:19Z
  */
 /*!
- * Globalize v1.4.2 2019-03-07T13:47Z Released under the MIT license
+ * Globalize v1.5.0 2020-03-25T12:19Z Released under the MIT license
  * http://git.io/TrdQbw
  */
 (function( root, factory ) {
@@ -347,8 +347,11 @@ Globalize.prototype.pluralGenerator = function( options ) {
 	isOrdinal = type === "ordinal";
 
 	cldr.on( "get", validateCldr );
-	cldr.supplemental([ "plurals-type-" + type, "{language}" ]);
-	cldr.off( "get", validateCldr );
+	try {
+		cldr.supplemental([ "plurals-type-" + type, "{language}" ]);
+	} finally {
+		cldr.off( "get", validateCldr );
+	}
 
 	MakePlural.rules = {};
 	MakePlural.rules[ type ] = cldr.supplemental( "plurals-type-" + type );
