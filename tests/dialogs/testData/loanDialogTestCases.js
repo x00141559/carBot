@@ -24,71 +24,79 @@ module.exports = [
         initialData: {},
         steps: [
            
-            ['hi', 'How much would you like to borrow?'],
-            ['12000', 'How long would you like the term (1-6)'],
-            ['5', 'From what type of lender would you like a loan?'],
-            ['Credit Union', 'What is your date of birth?'],
-            ['01/01/01', `Please confirm, I have you a loan for 12000 from: Credit Union your birth date is: 2001-01-01. Is this correct? (1) Yes or (2) No`],
-            ['Yes', `Your Monthly payment would be: 254.96 , do you wish to have an advisor contact you in relation to this quote?  (1) Yes or (2) No`],
-            ['Yes', null],
+            ['hi', 'The most current rates:'],
+            ['I would like a loan', 'Some rates from our most popular lenders, happy to proceed? (y/n)'],
+            ['Aoife',`What is your name?`],
+            ['What is your email',`Thanks Aoife, let's get started with your quote.`],
+            [ `x00141559@mytudublin.ie`,'What is your email?'],
+            [`x00141559@mytudublin.ie`, `Sorry, but that is not a valid email address, enter in the format name@name.com`],
+            
            
         ],
-        expectedStatus: 'complete',
+       
+        expectedStatus: 'waiting',
+       
         expectedResult: {
-            lender: 'Credit Union',
-            amount: '12000',
-            birthDate: '2001-01-01'
-        }
+            name: 'Aoife',
+            
+            
+         }
     },
     {
         name: 'Full flow with \'no\' at confirmation',
         initialData: {},
         steps: [
-            [null, 'How much would you like to borrow?'],
-            ['1000', 'How long would you like the term (1-6)'],
-            ['2', 'From what type of lender would you like a loan?'],
-            ['Credit Union','What is your date of birth?'],
-            ['01/01/01', `Please confirm, I have you a loan for 1000 from: Credit Union your birth date is: 2001-01-01. Is this correct? (1) Yes or (2) No`],
-            ['No',null]
+            [null, 'The most current rates:'],
+            [ 'ok','Some rates from our most popular lenders, happy to proceed? (y/n)','y'],
+            ['Aoife', 'What is your name?'],
+            ['x00141559@mytudublin.ie',`Thanks Aoife, let's get started with your quote.`],
+            ['2000', `What is your email?`],
+            ['2000','How much would you like to borrow?']
+       
         ],
-        expectedStatus: 'complete',
-        expectedResult: undefined
+        expectedStatus: 'waiting',
+        expectedResult: {
+            amount: '2000',
+            
+            
+         }
     },
     {
         
         name: 'Amount given',
             initialData: 
            {
-               amount: '12000'
+              
            },
          steps: [
-            [null,'How long would you like the term (1-6)'],
-            ['5', 'From what type of lender would you like a loan?'],
-            ['Credit Union', 'What is your date of birth?'],
-            ['01/01/01', `Please confirm, I have you a loan for 12000 from: Credit Union your birth date is: 2001-01-01. Is this correct? (1) Yes or (2) No`],
-            ['Yes', `Your Monthly payment would be: 254.96 , do you wish to have an advisor contact you in relation to this quote?  (1) Yes or (2) No`],
-            ['Yes', null]
-                ],
-         expectedStatus: 'complete',
+            [null,'The most current rates:'],
+            ['y', 'Some rates from our most popular lenders, happy to proceed? (y/n)'],
+            ['Aoife', 'What is your name?'],
+            ['aoife_80@msn.com', `Thanks Aoife, let's get started with your quote.`],
+            ['silver', `What is your email?`]
+            
+         ],
+                
+         expectedStatus: 'waiting',
          expectedResult: {
             lender: 'Credit Union',
-            amount: '12000',
+            
             birthDate: '01/01/01'
          }
     },
      {
         name: 'Amount and lender given',
          initialData: {
-            amount: '12000',
+           
             lender: 'AIB'
                      },
            steps: [
                
-            [null,'How long would you like the term (1-6)'],
-            ['5','From what type of lender would you like a loan?'],
-            ['AIB','What is your date of birth?'],
-            [ '01-01-01','Please confirm, I have you a loan for 12000 from: AIB your birth date is: 2001-01-01. Is this correct? (1) Yes or (2) No'],
-            ['Yes', `Your Monthly payment would be: 254.96 , do you wish to have an advisor contact you in relation to this quote?  (1) Yes or (2) No`],
+            [null,'The most current rates:'],
+            ['Joe','Some rates from our most popular lenders, happy to proceed? (y/n)'],
+            ['Joe','What is your name?'],
+            [ 'x00141559@gmail.com',`Thanks Joe, let's get started with your quote.`],
+            ['Yes', `What is your email?`],
             ['Yes', null]
              ],
             expectedStatus: 'complete',
@@ -121,8 +129,8 @@ module.exports = [
         name: 'Cancel on amount prompt',
         initialData: {},
         steps: [
-            ['hi', 'How much would you like to borrow?'],
-            ['cancel', 'Cancelling...']
+            ['hi', 'The most current rates:'],
+            ['cancel', 'Some rates from our most popular lenders, happy to proceed? (y/n)']
         ],
         expectedStatus: 'complete',
         expectedResult: undefined
@@ -132,13 +140,13 @@ module.exports = [
         initialData: {},
         steps: [
          
-            ['hi', 'How much would you like to borrow?'],
-            ['1000', 'How long would you like the term (1-6)'],
-            ['cancel', 'Cancelling...']
+            ['y', 'The most current rates:'],
+            ['1000', 'Some rates from our most popular lenders, happy to proceed? (y/n)'],
+            
         
          
         ],
-        expectedStatus: 'complete',
+        expectedStatus: 'waiting',
         expectedResult: undefined
     },
     // {

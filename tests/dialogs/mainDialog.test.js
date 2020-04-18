@@ -6,13 +6,13 @@
 /* eslint-env node, mocha */
 const { TextPrompt } = require('botbuilder-dialogs');
 const { DialogTestClient, DialogTestLogger } = require('botbuilder-testing');
-const { FlightBookingRecognizer } = require('../../dialogs/flightBookingRecognizer');
+const { LoanRecognizer } = require('../../dialogs/loanRecognizer');
 const { MainDialog } = require('../../dialogs/mainDialog');
-const { BookingDialog } = require('../../dialogs/bookingDialog');
+const { LoanDialog } = require('../../dialogs/loanDialog');
 const assert = require('assert');
 
 /**
- * A mock FlightBookingRecognizer for our main dialog tests that takes
+ * A mock LoanRecognizer for our main dialog tests that takes
  * a mock luis result and can set as isConfigured === false.
  */
 class MockLoanRecognizer extends LoanRecognizer {
@@ -32,32 +32,32 @@ class MockLoanRecognizer extends LoanRecognizer {
 }
 
 /**
- * A simple mock for Booking dialog that just returns a preset booking info for tests.
+ * A simple mock for Loan dialog that just returns a preset loan info for tests.
  */
-class MockBookingDialog extends BookingDialog {
+class MockLoanDialog extends LoanDialog {
     constructor() {
-        super('bookingDialog');
+        super('loanDialog');
     }
 
     async beginDialog(dc, options) {
-        const bookingDetails = {
-            lender: 'New York',
-            amount: 'Seattle',
+        const loanDetails = {
+            lender: 'AIB',
+            money: '2000',
             bithDate: '2025-07-08'
         };
         await dc.context.sendActivity(`${ this.id } mock invoked`);
-        return await dc.endDialog(bookingDetails);
+        return await dc.endDialog(loanDetails);
     }
 }
 
 /**
-* A specialized mock for BookingDialog that displays a dummy TextPrompt.
+* A specialized mock for LoanDialog that displays a dummy TextPrompt.
 * The dummy prompt is used to prevent the MainDialog waterfall from moving to the next step
 * and assert that the main dialog was called.
 */
-class MockBookingDialogWithPrompt extends BookingDialog {
+class MockLoanDialogWithPrompt extends LoanDialog {
     constructor() {
-        super('bookingDialog');
+        super('loanDialog');
     }
 
     async beginDialog(dc, options) {
@@ -67,10 +67,10 @@ class MockBookingDialogWithPrompt extends BookingDialog {
 };
 
 describe('MainDialog', () => {
-    it('Shows message if LUIS is not configured and calls BookingDialogDirectly', async () => {
-        const mockRecognizer = new MockFlightBookingRecognizer(false);
-        const mockBookingDialog = new MockBookingDialogWithPrompt();
-        const sut = new MainDialog(mockRecognizer, mockBookingDialog);
+    it('Shows message if LUIS is not configured and calls LoanDialogDirectly', async () => {
+        const mockRecognizer = new MockLoanRecognizer(false);
+        const mockLoanDialog = new MockLoanDialogWithPrompt();
+        const sut = new MainDialog(mockRecognizer, mockLoanDialog);
         const client = new DialogTestClient('test', sut, null, [new DialogTestLogger()]);
 
         const reply = await client.sendActivity('hi');
@@ -78,19 +78,19 @@ describe('MainDialog', () => {
     });
 
     it('Shows prompt if LUIS is configured', async () => {
-        const mockRecognizer = new MockFlightBookingRecognizer(true);
-        const mockBookingDialog = new MockBookingDialog();
-        const sut = new MainDialog(mockRecognizer, mockBookingDialog);
+        const mockRecognizer = new MockLoanRecognizer(true);
+        const mockLoanDialog = new MockLoanDialog();
+        const sut = new MainDialog(mockRecognizer, mockLoanDialog);
         const client = new DialogTestClient('test', sut, null, [new DialogTestLogger()]);
 
         const reply = await client.sendActivity('hi');
-        assert.strictEqual(reply.text, 'What can I help you with today?\nSay something like "Book a flight from Paris to Berlin on March 22, 2020"', 'Did not show prompt');
+        assert.strictEqual(reply.text, 'What can I help you with today?\nSay something like "Book a loan from Paris to Berlin on March 22, 2020"', 'Did not show prompt');
     });
 
     describe('Invokes tasks based on LUIS intent', () => {
         // Create array with test case data.
         const testCases = [
-            { utterance: 'I want to book a flight', intent: 'BookFlight', invokedDialogResponse: 'bookingDialog mock invoked', taskConfirmationMessage: 'I have you booked to Seattle from New York' },
+            { utterance: 'I want to book a flight', intent: 'BookFlight', invokedDialogResponse: 'loanDialog mock invoked', taskConfirmationMessage: 'I have you booked to Seattle from New York' },
             { utterance: 'What\'s the weather like?', intent: 'GetWeather', invokedDialogResponse: 'TODO: get weather flow here', taskConfirmationMessage: undefined },
             { utterance: 'bananas', intent: 'None', invokedDialogResponse: 'Sorry, I didn\'t get that. Please try asking in a different way (intent was None)', taskConfirmationMessage: undefined }
         ];
@@ -99,9 +99,9 @@ describe('MainDialog', () => {
             it(testData.intent, async () => {
                 // Create LuisResult for the mock recognizer.
                 const mockLuisResult = JSON.parse(`{"intents": {"${ testData.intent }": {"score": 1}}, "entities": {"$instance": {}}}`);
-                const mockRecognizer = new MockFlightBookingRecognizer(true, mockLuisResult);
-                const bookingDialog = new MockBookingDialog();
-                const sut = new MainDialog(mockRecognizer, bookingDialog);
+                const mockRecognizer = new MockLoanRecognizer(true, mockLuisResult);
+                const loanDialog = new MockLoanDialog();
+                const sut = new MainDialog(mockRecognizer, loanDialog);
                 const client = new DialogTestClient('test', sut, null, [new DialogTestLogger()]);
 
                 // Execute the test case
@@ -112,7 +112,7 @@ describe('MainDialog', () => {
                 reply = await client.sendActivity(testData.utterance);
                 assert.strictEqual(reply.text, testData.invokedDialogResponse);
 
-                // The Booking dialog displays an additional confirmation message, assert that it is what we expect.
+                // The Loan dialog displays an additional confirmation message, assert that it is what we expect.
                 if (testData.taskConfirmationMessage) {
                     reply = client.getNextReply();
                     assert(reply.text.startsWith(testData.taskConfirmationMessage));
@@ -125,22 +125,22 @@ describe('MainDialog', () => {
         });
     });
 
-    describe('Shows unsupported cities warning', () => {
+    describe('Shows unsupported lenders warning', () => {
         // Create array with test case data.
         const testCases = [
-            { jsonFile: 'FlightToMadrid.json', expectedMessage: 'Sorry but the following airports are not supported: madrid' },
-            { jsonFile: 'FlightFromMadridToChicago.json', expectedMessage: 'Sorry but the following airports are not supported: madrid, chicago' },
-            { jsonFile: 'FlightFromCdgToJfk.json', expectedMessage: 'Sorry but the following airports are not supported: cdg' },
-            { jsonFile: 'FlightFromParisToNewYork.json', expectedMessage: 'bookingDialog mock invoked' }
+             { jsonFile: 'FlightToMadrid.json', expectedMessage: 'Sorry but the following airports are not supported: madrid' },
+             { jsonFile: 'FlightFromMadridToChicago.json', expectedMessage: 'Sorry but the following airports are not supported: madrid, chicago' },
+            { jsonFile: 'FlightFromCdgToJfk.json', expectedMessage: 'Sorry but the following lenders are not supported: KBC' },
+          //  { jsonFile: 'FlightFromParisToNewYork.json', expectedMessage: 'loanDialog mock invoked' }
         ];
 
         testCases.map(testData => {
             it(testData.jsonFile, async () => {
                 // Create LuisResult for the mock recognizer.
                 const mockLuisResult = require(`./testData/${ testData.jsonFile }`);
-                const mockRecognizer = new MockFlightBookingRecognizer(true, mockLuisResult);
-                const bookingDialog = new MockBookingDialog();
-                const sut = new MainDialog(mockRecognizer, bookingDialog);
+                const mockRecognizer = new MockLoanRecognizer(true, mockLuisResult);
+                const loanDialog = new MockLoanDialog();
+                const sut = new MainDialog(mockRecognizer, loanDialog);
                 const client = new DialogTestClient('test', sut, null, [new DialogTestLogger()]);
 
                 // Execute the test case

@@ -1,103 +1,78 @@
 {
-  "text": "flight from cdg to jfk",
+  "text": "I want a loan for 2000 from the bank",
   "intents": {
-    "BookFlight": {
+    "l_getloan": {
       "score": 0.712058365
     }
   },
   "entities": {
     "$instance": {
-      "From": [
-        {
-          "startIndex": 12,
-          "endIndex": 15,
-          "score": 0.9553623,
-          "text": "cdg",
-          "type": "From"
-        }
-      ],
-      "To": [
+      "For": [
         {
           "startIndex": 19,
           "endIndex": 22,
+          "score": 0.9553623,
+          "text": "2000",
+          "type": "money"
+        }
+      ],
+      "From": [
+        {
+          "startIndex": 29,
+          "endIndex": 36,
           "score": 0.8905674,
-          "text": "jfk",
-          "type": "To"
+          "text": "the bank",
+          "type": "lender"
         }
       ]
     },
-    "From": [ { "$instance": {} } ],
+    "For": [ { "$instance": {} } ],
 
-    "To": [
+    "From": [
       {
         "$instance": {
-          "Airport": [
+          "lender": [
             {
-              "startIndex": 19,
-              "endIndex": 22,
-              "text": "jfk",
-              "type": "Airport"
+              "startIndex": 29,
+              "endIndex": 36,
+              "text": "",
+              "type": "lender"
             }
           ]
         },
-        "Airport": [
+        "lender": [
           [
-            "New York"
+            "AIB"
           ]
         ]
       }
     ]
   },
   "luisResult": {
-    "query": "flight from cdg to jfk",
+    "query": "I want a loan for 2000 from AIB",
     "topScoringIntent": {
-      "intent": "BookFlight",
+      "intent": "l_getloan",
       "score": 0.712058365
     },
     "entities": [
       {
-        "entity": "cdg",
-        "type": "From",
-        "startIndex": 12,
-        "endIndex": 14,
+        "entity": "money",
+        "type": "For",
+        "startIndex": 19,
+        "endIndex": 22,
         "score": 0.9553623
       },
       {
-        "entity": "jfk",
-        "type": "To",
-        "startIndex": 19,
-        "endIndex": 21,
+        "entity": "lender",
+        "type": "From",
+        "startIndex": 24,
+        "endIndex": 31,
         "score": 0.8905674
-      },
-      {
-        "entity": "jfk",
-        "type": "Airport",
-        "startIndex": 19,
-        "endIndex": 21,
-        "resolution": {
-          "values": [
-            "New York"
-          ]
-        }
       }
-    ],
-    "compositeEntities": [
-      {
-        "parentType": "From",
-        "value": "cdg",
-        "children": []
-
-      },
-      {
-        "parentType": "To",
-        "value": "jfk",
-        "children": [
-          {
-            "type": "Airport",
-            "value": "jfk"
-          }
-        ]
-      }
+      
+      
     ]
+   
+     
   }
 }

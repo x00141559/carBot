@@ -5,12 +5,12 @@
 
 /* eslint-env node, mocha */
 const { DialogTestClient, DialogTestLogger } = require('botbuilder-testing');
-const { BookingDialog } = require('../../dialogs/bookingDialog');
+const { LoanDialog } = require('../../dialogs/loanDialog');
 const assert = require('assert');
 
-describe('BookingDialog', () => {
-    const testCases = require('./testData/bookingDialogTestCases.js');
-    const sut = new BookingDialog('bookingDialog');
+describe('LoanDialog', () => {
+    const testCases = require('./testData/loanDialogTestCases.js');
+    const sut = new LoanDialog('loanDialog');
 
     testCases.map(testData => {
         it(testData.name, async () => {
@@ -30,9 +30,11 @@ describe('BookingDialog', () => {
             if (testData.expectedResult !== undefined) {
                 // Check dialog results
                 const result = client.dialogTurnResult.result;
-                assert.strictEqual(result.destination, testData.expectedResult.destination);
-                assert.strictEqual(result.origin, testData.expectedResult.origin);
-                assert.strictEqual(result.travelDate, testData.expectedResult.travelDate);
+                
+                assert.strictEqual(result.amount, testData.expectedResult.amount);
+                assert.strictEqual(result.lender, testData.expectedResult.lender);
+                assert.strictEqual(result.birthDate, testData.expectedResult.birthDate);
+                assert.strictEqual(result.name, testData.expectedResult.name);
             } else {
                 assert.strictEqual(client.dialogTurnResult.result, undefined);
             }

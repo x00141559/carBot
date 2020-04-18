@@ -20,31 +20,31 @@ function formatDate(date) {
 
 module.exports = [
     {
-        name: 'tomorrow',
+        name: 'none',
         initialData: null,
         steps: [
-            ['hi', 'On what date would you like to travel?'],
-            ['tomorrow', null]
+            ['hi','What is your date of birth?'],
+            ['none', `I'm sorry, for best results, please enter your date of birth including the month, day and year.`]
         ],
-        expectedResult: tomorrow
+        expectedResult: undefined
     },
     {
-        name: 'the day after tomorrow',
+        name: '2009-09-09',
         initialData: null,
         steps: [
-            ['hi', 'On what date would you like to travel?'],
-            ['the day after tomorrow', null]
+            ['hi', 'What is your date of birth?'],
+            ['2009-09-09', null]
         ],
-        expectedResult: dayAfterTomorrow
+        expectedResult: '2009-09-09'
     },
     {
-        name: 'two days from now',
+        name: '2001-01-20',
         initialData: null,
         steps: [
-            ['hi', 'On what date would you like to travel?'],
-            ['two days from now', null]
+            ['hi', 'What is your date of birth?'],
+            ['2001-01-20', null]
         ],
-        expectedResult: dayAfterTomorrow
+        expectedResult: '2001-01-20'
     },
     {
         name: 'valid input given (tomorrow)',
@@ -58,8 +58,8 @@ module.exports = [
         name: 'retry prompt',
         initialData: {},
         steps: [
-            ['hi', 'On what date would you like to travel?'],
-            ['bananas', 'I\'m sorry, for best results, please enter your travel date including the month, day and year.'],
+            ['hi', 'What is your date of birth?'],
+            ['bananas', `I'm sorry, for best results, please enter your date of birth including the month, day and year.`],
             ['tomorrow', null]
         ],
         expectedResult: tomorrow
@@ -68,8 +68,8 @@ module.exports = [
         name: 'fuzzy time',
         initialData: {},
         steps: [
-            ['hi', 'On what date would you like to travel?'],
-            ['may 5th', 'I\'m sorry, for best results, please enter your travel date including the month, day and year.'],
+            ['hi', 'What is your date of birth?'],
+            ['may 5th', `I'm sorry, for best results, please enter your date of birth including the month, day and year.`],
             ['may 5th 2055', null]
         ],
         expectedResult: '2055-05-05'
