@@ -1,3 +1,53 @@
+# Auto Loans
+
+This repository contains overview documentation and project management materials
+for the *autoloans* product.
+
+#### In this README
+
+- [Product Overview](#product-overview)
+- [Architecture Description](#architecture-description)
+- [Deveoper Guide](#developer-guide)
+
+## Product Overview
+
+*autoloans* is a bot to help users get a quotation for an autoloan.
+Users can ask ask questions related to the auto loan industry and
+get a quotation. If the user wishes they can see what the maximum
+amount they can borrow would be based on their individual cicumstances.
+
+
+## Architecture Description
+
+### Luis Ai
+
+The bot will have a the ability to recognise the difference between a 
+user question or a user intent. There is one parent dispatch app, with 
+two child apps, one being the qna and the other being the loan dialog
+recognizer. Luis also has the capability to add in predefined entities.
+we have added in age, birthday and money. Luis will give a score when it
+attemps to recognize an entity and the score represents how close it thinks
+it got the the correct answer. Luis will learn over time and its scores will
+eventually increase. Luis score can be found in the Luis trace which tells
+us the Luis prediction and score. Luis can recognize entities (things) in our
+case a lender is an entity, and utterances and intents. An utterance is a 
+sentence e.g "I need a loan", and "get a loan would be the intent".
+
+Find out more at www.LUIS.ai
+
+### Qna Maker
+
+Qna Maker offers the possibility of loading a pre-exisiting bank of questions and
+anwsers into a portal where the bot can recogize the questions and respond with the
+corresponding answer. In this project we have taken an faq solution and modified
+it by adding our own unique questions and answers, allowing the possibility of
+follow up questions and we have it sitting inside a luis app.
+
+Find out more at https://www.qnamaker.ai/
+
+### Nodejs
+
+This project used nodejs which is an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications. Many connections can be handled concurrently making it ideal for a chat bot. Upon each connection, the callback is fired, but if there is no work to be done, Node.js will sleep.
 # car-bot
 
 Using Bot Framework v4 core bot.
