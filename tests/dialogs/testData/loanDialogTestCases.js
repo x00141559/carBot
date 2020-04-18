@@ -20,7 +20,7 @@ function formatDate(date) {
 
 module.exports = [
     {
-        name: 'Full flow',
+        name: 'Check Name input',
         initialData: {},
         steps: [
            
@@ -63,7 +63,7 @@ module.exports = [
     },
     {
         
-        name: 'Amount given',
+        name: 'input email',
             initialData: 
            {
               
@@ -75,58 +75,36 @@ module.exports = [
             ['aoife_80@msn.com', `Thanks Aoife, let's get started with your quote.`],
             ['silver', `What is your email?`]
             
+            
          ],
                 
          expectedStatus: 'waiting',
          expectedResult: {
-            lender: 'Credit Union',
             
-            birthDate: '01/01/01'
          }
     },
      {
-        name: 'Amount and lender given',
+        name: 'User accepts rate and enters dialog',
          initialData: {
            
             lender: 'AIB'
                      },
            steps: [
                
-            [null,'The most current rates:'],
+            ['y','The most current rates:'],
             ['Joe','Some rates from our most popular lenders, happy to proceed? (y/n)'],
-            ['Joe','What is your name?'],
-            [ 'x00141559@gmail.com',`Thanks Joe, let's get started with your quote.`],
-            ['Yes', `What is your email?`],
-            ['Yes', null]
+            
              ],
-            expectedStatus: 'complete',
+            expectedStatus: 'waiting',
             expectedResult: {
                 amount: '12000',
                 lender: 'AIB',
                 birthDate: '01/01/01'
                             }
       },
-    //   {
-    //       name: 'Birthdate is valid',
-    //      initialData: {},
-    //      steps: [
-    //         ['hi', 'How much would you like to borrow?'],
-    //         ['1200', 'How long would you like the term (1-6)'],
-    //         ['2', 'From what type of lender would you like a loan?'],
-    //         ['Credit Union','What is your date of birth?'],
-
-    //         ['01/01/2060', 'Please confirm, I have you a loan for 1200 from: Credit Union your birth date is: 2060-01-01. Is this correct? (1) Yes or (2) No'], 
-    //         ['No',null]
-    // ],
-    //        expectedStatus: 'complete',
-    //        expectedResult: {
-    //            amount: '12000',
-    //            lender: 'Credit Union',
-    //            birthDate: '01/01/2060'
-    //       }
-    //   },
+      
     {
-        name: 'Cancel on amount prompt',
+        name: 'Proceed with rates',
         initialData: {},
         steps: [
             ['hi', 'The most current rates:'],
@@ -136,7 +114,7 @@ module.exports = [
         expectedResult: undefined
     },
     {
-        name: 'Cancel on loan term prompt',
+        name: 'See current rates',
         initialData: {},
         steps: [
          
@@ -148,30 +126,6 @@ module.exports = [
         ],
         expectedStatus: 'waiting',
         expectedResult: undefined
-    },
-    // {
-    //     name: 'Cancel on date prompt',
-    //     initialData: {},
-    //     steps: [
-    //         ['hi', 'To what city would you like to travel?'],
-    //         ['Seattle', 'From what city will you be travelling?'],
-    //         ['New York', 'On what date would you like to travel?'],
-    //         ['cancel', 'Cancelling...']
-    //     ],
-    //     expectedStatus: 'complete',
-    //     expectedResult: undefined
-    // },
-    // {
-    //     name: 'Cancel on confirm prompt',
-    //     initialData: {},
-    //     steps: [
-    //         ['hi', 'To what city would you like to travel?'],
-    //         ['Seattle', 'From what city will you be travelling?'],
-    //         ['New York', 'On what date would you like to travel?'],
-    //         ['tomorrow', `Please confirm, I have you traveling to: Seattle from: New York on: ${ tomorrow }. Is this correct? (1) Yes or (2) No`],
-    //         ['cancel', 'Cancelling...']
-    //     ],
-    //     expectedStatus: 'complete',
-    //     expectedResult: undefined
-    // }
+    }
+ 
 ];
