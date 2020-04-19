@@ -48,6 +48,17 @@ Find out more at https://www.qnamaker.ai/
 ### Nodejs
 
 This project used nodejs which is an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications. Many connections can be handled concurrently making it ideal for a chat bot. Upon each connection, the callback is fired, but if there is no work to be done, Node.js will sleep.
+
+### BotFramework
+
+BotFramework allows you to create a bot with the ability to speak, listen, understand, and learn from your users with Azure Cognitive Services. It is open & extensible. You can benefit from open source SDK and tools to build, test, and connect bots that interact naturally with users, wherever they are.
+
+Find out more at https://dev.botframework.com/
+
+### Microsoft Azure 
+
+
+
 # car-bot
 
 Using Bot Framework v4 core bot.
