@@ -7,7 +7,7 @@ for the *autoloans* product.
 
 - [Product Overview](#product-overview)
 - [Architecture Description](#architecture-description)
-- [Deveoper Guide](#developer-guide)
+- [Developer Guide](#developer-guide)
 
 ## Product Overview
 
@@ -72,7 +72,7 @@ Azure Cosmos DB is Microsoft's globally distributed, multi-model database servic
 Cloud computing platforms, like Azure, tend to be less expensive and more secure, reliable, and flexible than on-premises servers. With the cloud, equipment downtime due to maintenance, theft, or damage is almost non-existent. You can scale your compute and storage resources—up or down—almost instantly when your needs change on Azure. Also, you typically pay only for the services you use, which provides a level of convenience and cost-control that’s almost impossible to achieve with on-site infrastructure.
 In this project we utilize azure's resource groups, deployment centre, app plans and app services to store and run all of our resources including qnamaker and Luis Ai. We deploy our code from git and it runs through an azure pipeline and into the azure app service where the user can chat in the web console.
 
-![Architectue](docs/Untitled Diagram.png)
+![Architectue](docs/diagram.png)
 ### Environments
 
 We have used truck based development so we just have a *production* system.
@@ -89,7 +89,9 @@ of new features to production, as they are developed. We have a pipeline that ru
 Azure devops was used for project management as and a boards section was very helpful for management of tasks. This was also used for a ci/cd pipeline where sonarcloud was integrated.
 
 - [Find out more about Azure Devops](https://dev.azure.com/)
-# car-bot
+
+## Developer Guide
+
 
 Using Bot Framework v4 core bot.
 
@@ -139,10 +141,10 @@ LuisAPIHostName = "Your LUIS App region here (i.e: westus.api.cognitive.microsof
     git clone https://github.com/x00141559/carBot.git
     ```
 
-- In a terminal, navigate to `samples/javascript_nodejs/13.core-bot`
+- In a terminal, navigate to `carBot`
 
     ```bash
-    cd samples/javascript_nodejs/13.core-bot
+    cd carBot
     ```
 
 - Install modules
