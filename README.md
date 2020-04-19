@@ -33,8 +33,8 @@ us the Luis prediction and score. Luis can recognize entities (things) in our
 case a lender is an entity, and utterances and intents. An utterance is a 
 sentence e.g "I need a loan", and "get a loan would be the intent".
 
-Find out more at www.LUIS.ai
 
+- [Find out more about LUIS](www.LUIS.ai)
 ### Qna Maker
 
 Qna Maker offers the possibility of loading a pre-exisiting bank of questions and
@@ -43,22 +43,52 @@ corresponding answer. In this project we have taken an faq solution and modified
 it by adding our own unique questions and answers, allowing the possibility of
 follow up questions and we have it sitting inside a luis app.
 
-Find out more at https://www.qnamaker.ai/
+- [Find out more about qnamaker](https://www.qnamaker.ai/)
+
 
 ### Nodejs
 
 This project used nodejs which is an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications. Many connections can be handled concurrently making it ideal for a chat bot. Upon each connection, the callback is fired, but if there is no work to be done, Node.js will sleep.
 
+- [Find out more about Nodejs](https://nodejs.org/en/)
 ### BotFramework
 
-BotFramework allows you to create a bot with the ability to speak, listen, understand, and learn from your users with Azure Cognitive Services. It is open & extensible. You can benefit from open source SDK and tools to build, test, and connect bots that interact naturally with users, wherever they are.
+BotFramework allows you to create a bot with the ability to speak, listen, understand, and learn from your users with Azure Cognitive Services. It is open & extensible. You can benefit from open source SDK and tools to build, test, and connect bots that interact naturally with users, wherever they are. Botframework offers direct line api and multiple channels where we can wire the bot into Facebook as we have done and also a React app.
 
-Find out more at https://dev.botframework.com/
+### Sendgrid API
+
+We have used Sendgrid API to send quotes to our users.
+
+- [Find out more about Sendgrid](https://sendgrid.com/solutions/email-api/)
+
+### Azure Cosmos DB
+
+Azure Cosmos DB is Microsoft's globally distributed, multi-model database service. With a click of a button, Cosmos DB enables you to elastically and independently scale throughput and storage across any number of Azure regions worldwide. You can elastically scale throughput and storage, we have used this to store bot conversations, it is ideal as it is non relational.
+
+- [Find out more about CosmosDB](https://docs.microsoft.com/en-us/azure/cosmos-db/introduction)
+
 
 ### Microsoft Azure 
+Cloud computing platforms, like Azure, tend to be less expensive and more secure, reliable, and flexible than on-premises servers. With the cloud, equipment downtime due to maintenance, theft, or damage is almost non-existent. You can scale your compute and storage resources—up or down—almost instantly when your needs change on Azure. Also, you typically pay only for the services you use, which provides a level of convenience and cost-control that’s almost impossible to achieve with on-site infrastructure.
+In this project we utilize azure's resource groups, deployment centre, app plans and app services to store and run all of our resources including qnamaker and Luis Ai. We deploy our code from git and it runs through an azure pipeline and into the azure app service where the user can chat in the web console.
 
+![Architectue](docs/Untitled Diagram.png)
+### Environments
 
+We have used truck based development so we just have a *production* system.
 
+### Tests
+
+We have used SonarCloud to check for code smells and bugs, it is ran every time the azure pipeline runs and intergrated into the .yaml file. We have a suite of mocha tests in the bot and we have also executed user acceptance tests.
+
+- [Find out more about SonarCloud](https://sonarcloud.io/)
+### CI / CD
+
+Continuous Integration / Continuous Deployment will be used to support fast deployment
+of new features to production, as they are developed. We have a pipeline that runs from git into azure straight to production.
+Azure devops was used for project management as and a boards section was very helpful for management of tasks. This was also used for a ci/cd pipeline where sonarcloud was integrated.
+
+- [Find out more about Azure Devops](https://dev.azure.com/)
 # car-bot
 
 Using Bot Framework v4 core bot.
