@@ -9,7 +9,7 @@ module.exports.AmountPrompt = class AmountPrompt extends TextPrompt {
             } else {
                 const value = prompt.recognized.value;
                 if ((value < 2000 ) || (value > 50000)) {
-                    await prompt.context.sendActivity(`Sorry, but we only offer loans between €5000 and €50,000`);
+                    await prompt.context.sendActivity(`Sorry, but we only offer loans between €2000 and €50,000`);
                     return false;
                 }else if (isNaN(value)){
                     await prompt.context.sendActivity(`Please enter a valid number`);
