@@ -90,6 +90,9 @@ Azure devops was used for project management as and a boards section was very he
 
 - [Find out more about Azure Devops](https://dev.azure.com/)
 
+### Channels
+
+You can interact with the bot here [Facebook Messenger](https://www.facebook.com/AutoBot-101380678118098/) and here [React app](https://bot-ui-cexj45i8u.now.sh/). **Note**, you need to be assigned a tester in Facebook to interact with the bot as it is currently in *dev* mode, reach out to get added as a tester.
 ## Developer Guide
 
 
