@@ -211,8 +211,10 @@ class LoanDialog extends CancelAndHelpDialog {
         }
 
 
-
-       
+        if (calculateAge(`${loanDetails.birthDate}`) < 18) {
+            const messageText = `Sorry, you must be older than 18 to apply for a loan with us`;
+            const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
+        }
        
         return await stepContext.next(loanDetails.birthDate);
     }
@@ -221,12 +223,7 @@ class LoanDialog extends CancelAndHelpDialog {
 
         const loanDetails = stepContext.options;
         loanDetails.birthDate = stepContext.result;
-        if (calculateAge(`${loanDetails.birthDate}`) < 18) {
-            const messageText = `Sorry, you must be older than 18 to apply for a loan with us`;
-            const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-            return false;
-            
-        }
+      
           if (!loanDetails.APR) {
              let card;
           
