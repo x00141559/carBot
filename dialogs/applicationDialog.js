@@ -216,7 +216,7 @@ return await stepContext.next(ApplicationDetails.numMain);
       var c = stepContext.result;
       if (!ApplicationDetails.displayCardStep) {
     
-  if(stepContext.result === false)
+  if((stepContext.result === false) || (stepContext.result == 'No'))
 {
        return await stepContext.endDialog(ApplicationDialog);
 }else{
@@ -226,8 +226,9 @@ return await stepContext.next(ApplicationDetails.numMain);
           attachments: [CardFactory.adaptiveCard(cards)],
   });
       // Display a Text Prompt
-      return await stepContext.endDialog(ApplicationDialog);
+
   }
+  return await stepContext.endDialog(ApplicationDialog);
 }
     
 }
@@ -250,13 +251,7 @@ return await stepContext.next(ApplicationDetails.numMain);
            const loanTerm = 1;
            const divisor = 12.00;
            const APR = .10;
-           console.log('hi',`${income}`);
-           console.log('repay',`${repay}`);
-           console.log('numChildren',`${numChildren}`);
-           console.log('numMain',`${numMain}`);
-           console.log('extra',`${extra}`);
            const totMoney = ((parseInt(income) + parseInt(extra)) - parseInt(repay) - parseInt(numMain) - parseInt(numChildren));
-           console.log('totMoney',`${totMoney}`);
            let mon = totMoney * APR;
            let mon2 = mon * divisor;
            let mon3 = mon2 * 2;
