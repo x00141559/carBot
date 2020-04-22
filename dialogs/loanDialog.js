@@ -211,10 +211,6 @@ class LoanDialog extends CancelAndHelpDialog {
         }
 
 
-        if (calculateAge(`${loanDetails.birthDate}`) < 18) {
-            const messageText = `Sorry, you must be older than 18 to apply for a loan with us`;
-            const msg = MessageFactory.text(messageText, messageText, InputHints.ExpectingInput);
-        }
        
         return await stepContext.next(loanDetails.birthDate);
     }
@@ -231,7 +227,7 @@ class LoanDialog extends CancelAndHelpDialog {
                 card = CreditCard;
                 loanDetails.APR = .5;
 
-            }  if (`${ loanDetails.amount}` <= 5000) {
+            } else if (`${ loanDetails.amount}` <= 5000) {
                 card = BoiCard;
                 loanDetails.APR = .10;
             } else  {
@@ -242,11 +238,11 @@ class LoanDialog extends CancelAndHelpDialog {
                 text: 'Based on the information provided the lender that would best suit is:',
                 attachments: [CardFactory.adaptiveCard(card)]
             });
-
+        }
             // By calling next() you ensure that the next BotHandler is run.
             return await stepContext.next(loanDetails.APR);
 
-        }
+        
     }
     
 
