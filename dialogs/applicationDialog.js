@@ -213,7 +213,7 @@ return await stepContext.next(ApplicationDetails.numMain);
    //display card to end dialog
      async displayCardStep(stepContext) {
       const ApplicationDetails = stepContext.options;
-      var c = stepContext.result;
+      
       if (!ApplicationDetails.displayCardStep) {
     
   if((stepContext.result === false) || (stepContext.result == 'No'))
