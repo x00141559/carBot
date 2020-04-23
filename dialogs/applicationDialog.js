@@ -220,7 +220,7 @@ return await stepContext.next(ApplicationDetails.numMain);
 {
   await stepContext.context.sendActivity({
     text: '',
-    attachments: [CardFactory.adaptiveCard(cards)],
+    attachments: [CardFactory.adaptiveCard(cards)]
 });
        
 }else{
