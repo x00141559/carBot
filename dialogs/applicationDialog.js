@@ -214,23 +214,25 @@ return await stepContext.next(ApplicationDetails.numMain);
      async displayCardStep(stepContext) {
       const ApplicationDetails = stepContext.options;
       
-      if (!ApplicationDetails.displayCardStep) {
+      if (!ApplicationDetails.displayCard) {
     
-  if((stepContext.result === false) || (stepContext.result == 'No'))
+  if((stepContext.result == true) || (stepContext.result == 'Yes'))
 {
-       return await stepContext.endDialog(ApplicationDialog);
+  await stepContext.context.sendActivity({
+    text: '',
+    attachments: [CardFactory.adaptiveCard(cards)],
+});
+       
 }else{
       // Display the Adaptive Card
-      await stepContext.context.sendActivity({
-          text: '',
-          attachments: [CardFactory.adaptiveCard(cards)],
-  });
+      return await stepContext.endDialog(ApplicationDialog);
       // Display a Text Prompt
 
   }
-  return await stepContext.endDialog(ApplicationDialog);
+  return await stepContext.next(ApplicationDetails.displayCard);
 }
-    
+
+
 }
   
 
