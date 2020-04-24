@@ -214,31 +214,27 @@ return await stepContext.next(ApplicationDetails.numMain);
      async displayCardStep(stepContext) {
       const ApplicationDetails = stepContext.options;
       
-    //  if (!ApplicationDetails.displayCard) {
-    try{
+      if (!ApplicationDetails.displayCard) {
+    
   if((stepContext.result == true) || (stepContext.result == 'Yes') || (stepContext.result == 1))
 {
   await stepContext.context.sendActivity({
-    text: '',
+    text: 'Hang Tight',
     attachments: [CardFactory.adaptiveCard(cards)]
 });
-return await stepContext.endDialog(ApplicationDialog); 
+       
 }else{
       // Display the Adaptive Card
       return await stepContext.endDialog(ApplicationDialog);
       // Display a Text Prompt
 
   }
-  //return await stepContext.endDialog(ApplicationDialog);
+  return await stepContext.endDialog(ApplicationDialog);
   //return await stepContext.context(ApplicationDetails.displayCard);
-//}
-return await stepContext.endDialog(ApplicationDialog);
-
-}catch(e)
-{
-  console.log(e);
 }
-     
+
+
+}
   
 
   
@@ -250,7 +246,7 @@ return await stepContext.endDialog(ApplicationDialog);
     
 
       
-       
+       }
     
        function calcEligibility(income=0,extra=0,repay=0,numChildren=0, numMain=0)
        {
