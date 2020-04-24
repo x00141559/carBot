@@ -130,7 +130,7 @@ class MainDialog extends ComponentDialog {
 
         default: {
             // Catch all for unhandled intents
-            const didntUnderstandMessageText = `Sorry, I didn't get that.`;
+            const didntUnderstandMessageText = `Sorry, I didn't get that, you can ask me for a loan quote.`;
             await stepContext.context.sendActivity(didntUnderstandMessageText, didntUnderstandMessageText, InputHints.IgnoringInput);
         }
         }

@@ -216,10 +216,10 @@ return await stepContext.next(ApplicationDetails.numMain);
       
       if (!ApplicationDetails.displayCard) {
     
-  if((stepContext.result == true) || (stepContext.result == 'Yes'))
+  if((stepContext.result == true) || (stepContext.result == 'Yes') || (stepContext.result == 1))
 {
   await stepContext.context.sendActivity({
-    text: '',
+    text: 'Hang Tight',
     attachments: [CardFactory.adaptiveCard(cards)]
 });
        
@@ -229,7 +229,8 @@ return await stepContext.next(ApplicationDetails.numMain);
       // Display a Text Prompt
 
   }
-  return await stepContext.next(ApplicationDetails.displayCard);
+  return await stepContext.endDialog(ApplicationDialog);
+  //return await stepContext.context(ApplicationDetails.displayCard);
 }
 
 
