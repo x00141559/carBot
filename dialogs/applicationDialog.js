@@ -212,17 +212,18 @@ return await stepContext.next(ApplicationDetails.numMain);
      }
    //display card to end dialog
      async displayCardStep(stepContext) {
-      const ApplicationDetails = stepContext.options;
-      
-      if (!ApplicationDetails.displayCard) {
     
-  if((stepContext.result == true) || (stepContext.result == 'Yes') || (stepContext.result == 1))
+      
+      if (stepContext.result) {
+        const result = stepContext.result;
+  if((result == true) || (result == 'Yes') || (result == 1))
 {
+  
   await stepContext.context.sendActivity({
-    text: 'Hang Tight',
-    attachments: [CardFactory.adaptiveCard(cards)]
+    text: '',
+    attachments: [CardFactory.adaptiveCard(cards)],
 });
-       
+return await stepContext.prompt('textPrompt', 'Some rates from our most popular lenders, happy to proceed? (y/n)');   
 }else{
       // Display the Adaptive Card
       return await stepContext.endDialog(ApplicationDialog);
