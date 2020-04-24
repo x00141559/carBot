@@ -214,7 +214,7 @@ return await stepContext.next(ApplicationDetails.numMain);
      async displayCardStep(stepContext) {
       const ApplicationDetails = stepContext.options;
       
-      if (!ApplicationDetails.displayCard) {
+    //  if (!ApplicationDetails.displayCard) {
     
   if((stepContext.result == true) || (stepContext.result == 'Yes') || (stepContext.result == 1))
 {
@@ -222,17 +222,17 @@ return await stepContext.next(ApplicationDetails.numMain);
     text: 'Hang Tight',
     attachments: [CardFactory.adaptiveCard(cards)]
 });
-       
+return await stepContext.endDialog(ApplicationDialog); 
 }else{
       // Display the Adaptive Card
       return await stepContext.endDialog(ApplicationDialog);
       // Display a Text Prompt
 
   }
-  return await stepContext.endDialog(ApplicationDialog);
+  //return await stepContext.endDialog(ApplicationDialog);
   //return await stepContext.context(ApplicationDetails.displayCard);
-}
-
+//}
+return await stepContext.endDialog(ApplicationDialog);
 
 }
   
