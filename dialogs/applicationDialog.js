@@ -200,8 +200,9 @@ return await stepContext.next(ApplicationDetails.numMain);
 }
    //let the user know the loan they are eligible for
       async confirmStep(stepContext) {
-       const ApplicationDetails = stepContext.options;
 
+       const ApplicationDetails = stepContext.options;
+      if (!ApplicationDetails.conf) {
           // Capture the results of the previous step
         ApplicationDetails.numMain = stepContext.result;
         const messageText = `The maxium monthly repayment you could afford is: ${ calcEligibility(`${ApplicationDetails.income}`,`${ApplicationDetails.extra}`,`${ApplicationDetails.repay}`,`${ApplicationDetails.numChildren}`,`${ApplicationDetails.numMain}`)}, would you like an advisor to get in touch?`;
@@ -210,20 +211,27 @@ return await stepContext.next(ApplicationDetails.numMain);
        return await stepContext.prompt(CONFIRM_PROMPT, { prompt: msg });
         
      }
+     return await stepContext.next(ApplicationDetails.conf);
+    }
    //display card to end dialog
      async displayCardStep(stepContext) {
-    
+       
+      const ApplicationDetails = stepContext.options;
+      ApplicationDetails.conf = stepContext.result;
       
-      if (stepContext.result) {
-        const result = stepContext.result;
-  if((result == true) || (result == 'Yes') || (result == 1))
+      if (!ApplicationDetails.displayCard) {
+   
+  if((ApplicationDetails.conf === true) || (ApplicationDetails.conf  == 'Yes') || (ApplicationDetails.conf  == 1))
+ 
 {
-  
+  try{
   await stepContext.context.sendActivity({
     text: '',
-    attachments: [CardFactory.adaptiveCard(cards)],
+    attachments: [CardFactory.adaptiveCard(cards)]
 });
-return await stepContext.prompt('textPrompt', 'Some rates from our most popular lenders, happy to proceed? (y/n)');   
+}catch(e)  {
+console.log(e);
+}
 }else{
       // Display the Adaptive Card
       return await stepContext.endDialog(ApplicationDialog);
