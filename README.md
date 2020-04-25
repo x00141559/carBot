@@ -91,6 +91,10 @@ Alma was used for insights into how the bot performs overall. You can find the t
 
 Zaptest was used for automation tests. You can find the screnn shots of zaptest in action in the docs folder.
 - [Find out more about Zaptest](https://www.zaptest.com/)
+
+Sucuri was used to perform a security scan on the react app which hosts the bot.
+- [See the results from Sucuri](https://sitecheck.sucuri.net/results/https/bot-ui-cexj45i8u.now.sh)
+
 ### CI / CD
 
 Continuous Integration / Continuous Deployment will be used to support fast deployment
@@ -102,6 +106,11 @@ Azure devops was used for project management as and a boards section was very he
 ### Channels
 
 You can interact with the bot here [Facebook Messenger](https://www.facebook.com/AutoBot-101380678118098/) and here [React app](https://bot-ui-cexj45i8u.now.sh/). **Note**, you need to be assigned a tester in Facebook to interact with the bot as it is currently in *dev* mode, reach out to get added as a tester.
+
+### Now Deployment
+
+The react app was deployed using now, via
+- [Vercel](https://vercel.com/)
 ## Developer Guide
 
 
