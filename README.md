@@ -87,9 +87,10 @@ Mocha was the testing Framework for running unit tests.
 - [Find out more about Mocha](https://mochajs.org/)
 
 Alma was used for insights into how the bot performs overall. You can find the test results for Alma in the docs folder.
-- [Find out more about Mocha](https://chatbottest.com/)
+- [Find out more about Alma](https://chatbottest.com/)
 
-
+Zaptest was used for automation tests. You can find the screnn shots of zaptest in action in the docs folder.
+- [Find out more about Zaptest](https://www.zaptest.com/)
 ### CI / CD
 
 Continuous Integration / Continuous Deployment will be used to support fast deployment
