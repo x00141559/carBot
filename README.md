@@ -89,7 +89,7 @@ Mocha was the testing Framework for running unit tests.
 Alma was used for insights into how the bot performs overall. You can find the test results for Alma in the docs folder.
 - [Find out more about Alma](https://chatbottest.com/)
 
-Zaptest was used for automation tests. You can find the screnn shots of zaptest in action in the docs folder.
+Zaptest was used for automation tests. You can find the screen shots of zaptest in action in the docs folder.
 - [Find out more about Zaptest](https://www.zaptest.com/)
 
 Sucuri was used to perform a security scan on the react app which hosts the bot.
