@@ -86,6 +86,10 @@ We have used SonarCloud to check for code smells and bugs, it is ran every time 
 Mocha was the testing Framework for running unit tests.
 - [Find out more about Mocha](https://mochajs.org/)
 
+Alma was used for insights into how the bot performs overall. You can find the test results for Alma in the docs folder.
+- [Find out more about Mocha](https://chatbottest.com/)
+
+
 ### CI / CD
 
 Continuous Integration / Continuous Deployment will be used to support fast deployment
