@@ -82,6 +82,10 @@ We have used truck based development so we just have a *production* system.
 We have used SonarCloud to check for code smells and bugs, it is ran every time the azure pipeline runs and intergrated into the .yaml file. We have a suite of mocha tests in the bot and we have also executed user acceptance tests.
 
 - [Find out more about SonarCloud](https://sonarcloud.io/)
+
+Mocha was the testing Framework for running unit tests.
+- [Find out more about Mocha](https://mochajs.org/)
+
 ### CI / CD
 
 Continuous Integration / Continuous Deployment will be used to support fast deployment
