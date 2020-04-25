@@ -24,7 +24,7 @@ class DateResolverDialog extends CancelAndHelpDialog {
     async initialStep(stepContext) {
         const timex = stepContext.options.date;
 
-        const promptMessageText = 'What is your date of birth? format (YYYY-MM-DD)';
+        const promptMessageText = 'What is your date of birth? format (yyyy-mm-dd)';
         const promptMessage = MessageFactory.text(promptMessageText, promptMessageText, InputHints.ExpectingInput);
 
         const repromptMessageText = "I'm sorry, for best results, please enter your date of birth including the month, day and year.";
