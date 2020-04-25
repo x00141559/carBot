@@ -107,6 +107,7 @@ Azure devops was used for project management as and a boards section was very he
 
 You can interact with the bot here [Facebook Messenger](https://www.facebook.com/AutoBot-101380678118098/) and here [React app](https://bot-ui-cexj45i8u.now.sh/). **Note**, you need to be assigned a tester in Facebook to interact with the bot as it is currently in *dev* mode, reach out to get added as a tester.
 
+- [Link to github repo for react app](https://github.com/x00141559/bot-ui)
 ### Now Deployment
 
 The react app was deployed using now, via
