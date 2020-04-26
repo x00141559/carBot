@@ -2,6 +2,7 @@
 
 This repository contains overview documentation and project management materials
 for the *autoloans* product.
+(docs/Capture.png)
 
 #### In this README
 
