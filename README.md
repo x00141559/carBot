@@ -1,6 +1,6 @@
 # Auto Loans
 
-This repository contains overview documentation and project management materials
+This repository contains an overview, documentation and project management materials
 for the *autoloans* product.
 ![Product Overview](docs/Capture.PNG)
 
